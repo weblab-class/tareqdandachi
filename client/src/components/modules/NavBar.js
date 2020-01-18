@@ -19,16 +19,25 @@ class NavBar extends Component {
     return (
       <nav className="NavBar-container">
         <div className="NavBar-title u-inlineBlock">QuPong</div>
-          {!(this.props.userId) && (
-            <Link to="/trending" className="NavBar-link">
-              Trending
+          {this.props.userId && (
+            <Link to={`/`} className="NavBar-link">
+              Dashboard
             </Link>
           )}
           {this.props.userId && (
-            <Link to={`/profile/${this.props.userId}`} className="NavBar-link">
+            <Link to={`/profile`} className="NavBar-link">
               Profile
             </Link>
           )}
+          <Link to="/trending" className="NavBar-link">
+            Trending
+          </Link>
+          <Link to="/leaderboard" className="NavBar-link">
+            Leaderboard
+          </Link>
+          <Link to="/game" className="NavBar-link special">
+            Play Game
+          </Link>
           {this.props.userId ? (
             <GoogleLogout
               clientId={GOOGLE_CLIENT_ID}

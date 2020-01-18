@@ -54,10 +54,16 @@ class Circuit extends Component {
   }
 
   render() {
+    var creatorString = "";
+    if (this.props.showCreator) {
+      creatorString = this.props.creator_name;
+    }
+
     return (
       <div className="Circuit-container">
-        <h1>{ this.props.title }</h1>
+        <h1>{ (this.props.index || "") + " " + this.props.title }</h1>
         <h2>{ this.props.desc }</h2>
+        <h4>{ creatorString }</h4>
         <h5>{ this.getScoreString(this.props.score) }</h5>
         <button onClick={ this.edit_circuit }>View Logic</button>
         <button onClick={ this.send_challenge }>Challenge Algorithm</button>

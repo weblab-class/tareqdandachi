@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { Router } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
-import Dashboard from "./pages/Dashboard.js";
+import Profile from "./pages/Profile.js";
 import CircuitEditor from "./pages/CircuitEditor.js";
 import EditProfile from "./pages/EditProfile.js";
+import Leaderboard from "./pages/Leaderboard.js";
+import Game from "./pages/Game.js";
 
 import "../utilities.css";
 
@@ -60,8 +62,13 @@ class App extends Component {
         />
         <div className="App-container">
           <Router>
-            <Dashboard
-              path="/"
+            <Profile
+              path="/profile/:profile_username"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+            />
+            <Profile
+              path="/profile"
               handleLogin={this.handleLogin}
               handleLogout={this.handleLogout}
               userId={this.state.userId}
@@ -74,6 +81,18 @@ class App extends Component {
             />
             <EditProfile
               path="/profile/edit"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+              userId={this.state.userId}
+            />
+            <Leaderboard
+              path="/leaderboard"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+              userId={this.state.userId}
+            />
+            <Game
+              path="/game"
               handleLogin={this.handleLogin}
               handleLogout={this.handleLogout}
               userId={this.state.userId}

@@ -43,6 +43,13 @@ router.get("/users", (req, res) => {
   });
 });
 
+router.get("/id_from_username", (req, res) => {
+  User.findOne({username: req.query.username}).then((user) => {
+    console.log(user)
+    res.send(user._id);
+  });
+});
+
 router.post("/save_user_changes", auth.ensureLoggedIn, (req, res) => {
   console.log("HIYA")
   User.findById(req.user._id).then((user) => {
@@ -87,6 +94,12 @@ router.post("/create_circuit", auth.ensureLoggedIn, (req, res) => {
 
   newCircuit.save().then((circuit) => res.send(circuit));
 });
+
+router.get("/high_performers", (req, res) => {
+  Circuit.find({ score: { $ne: -1 } }).sort({ score: -1 }).limit(10).then((high_performers) => {
+    res.send(high_performers);
+  });
+})
 
 router.post("/initsocket", (req, res) => {
   // do nothing if user not logged in

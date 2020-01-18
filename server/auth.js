@@ -17,15 +17,29 @@ function verify(token) {
     .then((ticket) => ticket.getPayload());
 }
 
+function createUsername(name, gSubject) {
+
+  initName = user.name.replace(/\s+/g, " ").trim()
+
+  User.findOne({ username: initName }).then((existingUser) => {
+    if (!existingUser) return initName;
+    return initName+gSubject.substr(id.length - 5);
+  })
+
+}
+
 // gets user from DB, or makes a new account if it doesn't exist yet
 function getOrCreateUser(user) {
   // the "sub" field means "subject", which is a unique identifier for each user
   return User.findOne({ googleid: user.sub }).then((existingUser) => {
     if (existingUser) return existingUser;
 
+    username = createUsername(user.name, user.sub)
+
     const newUser = new User({
       name: user.name,
       googleid: user.sub,
+      username: username,
       skill: "beginner"
     });
 
