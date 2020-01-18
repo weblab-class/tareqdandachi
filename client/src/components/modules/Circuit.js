@@ -45,12 +45,22 @@ class Circuit extends Component {
 
   }
 
+  edit_circuit = () => {
+    location.href = 'circuit-editor/' + this.props._id
+  }
+
+  send_challenge = () => {
+    // TODO: DO THIS
+  }
+
   render() {
     return (
       <div className="Circuit-container">
         <h1>{ this.props.title }</h1>
         <h2>{ this.props.desc }</h2>
         <h5>{ this.getScoreString(this.props.score) }</h5>
+        <button onClick={ this.edit_circuit }>View Logic</button>
+        <button onClick={ this.send_challenge }>Challenge Algorithm</button>
       </div>
     );
   }

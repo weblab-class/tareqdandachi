@@ -23,7 +23,6 @@ class Dashboard extends Component {
   }
 
   getUserData = () => {
-    console.log("WOOPS", this.props.userId)
     if (this.props.userId) {
       get(`/api/user`, { userId: this.props.userId }).then((user) => this.setState({ user: user }))
 
@@ -72,10 +71,11 @@ class Dashboard extends Component {
     }
     return (
       <>
+        <img src={ this.state.user.profile_pic }/>
         <h1>{ this.state.user.name }</h1>
         <h3>{ this.state.user.description }</h3>
         { circuitList }
-        {this.props.userId && <NewCircuit createNewCircuit ={this.createNewCircuit} />}
+        {this.props.userId && <NewCircuit createNewCircuit={this.createNewCircuit} />}
       </>
     );
   }

@@ -43,6 +43,17 @@ router.get("/users", (req, res) => {
   });
 });
 
+router.post("/save_user_changes", auth.ensureLoggedIn, (req, res) => {
+  console.log("HIYA")
+  User.findById(req.user._id).then((user) => {
+    console.log(req.body, "BADONKA");
+    user.name = req.body.name;
+    user.description = req.body.desc;
+    user.profile_pic = req.body.profile_pic;
+            user.save() ;
+      });
+});
+
 router.get("/circuit", (req, res) => {
   Circuit.findById(req.query.circuit_id).then((circuit) => {
     res.send(circuit);

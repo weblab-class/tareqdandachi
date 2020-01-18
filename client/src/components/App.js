@@ -3,6 +3,7 @@ import { Router } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
 import Dashboard from "./pages/Dashboard.js";
 import CircuitEditor from "./pages/CircuitEditor.js";
+import EditProfile from "./pages/EditProfile.js";
 
 import "../utilities.css";
 
@@ -67,6 +68,15 @@ class App extends Component {
             />
             <CircuitEditor
               path="/circuit-editor/:circuitId"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+              userId={this.state.userId}
+            />
+            <EditProfile
+              path="/profile/edit"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+              userId={this.state.userId}
             />
             <NotFound default />
           </Router>
