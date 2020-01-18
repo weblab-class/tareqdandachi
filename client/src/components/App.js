@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Router } from "@reach/router";
 import NotFound from "./pages/NotFound.js";
 import Dashboard from "./pages/Dashboard.js";
+import CircuitEditor from "./pages/CircuitEditor.js";
 
 import "../utilities.css";
 
@@ -63,6 +64,9 @@ class App extends Component {
               handleLogin={this.handleLogin}
               handleLogout={this.handleLogout}
               userId={this.state.userId}
+            />
+            <CircuitEditor
+              path="/circuit-editor/:circuitId"
             />
             <NotFound default />
           </Router>

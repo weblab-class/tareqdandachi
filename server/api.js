@@ -11,6 +11,7 @@ const express = require("express");
 
 // import models so we can interact with the database
 const User = require("./models/user");
+const Circuit = require("./models/circuit");
 
 // import authentication library
 const auth = require("./auth");
@@ -32,12 +33,48 @@ router.get("/whoami", (req, res) => {
   res.send(req.user);
 });
 router.get("/user", (req, res) => {
-  console.log("YO", req.query.userId);
   User.findById(req.query.userId).then((user) => {
-    console.log(res)
-    console.log("HAMBURGER")
     res.send(user);
   });
+});
+router.get("/users", (req, res) => {
+  User.find({}).then((user) => {
+    res.send(user);
+  });
+});
+
+router.get("/circuit", (req, res) => {
+  Circuit.findById(req.query.circuit_id).then((circuit) => {
+    res.send(circuit);
+  });
+});
+
+router.get("/circuits", (req, res) => {
+  Circuit.find({creator_id: req.query.creator_id}).then((circ) => {
+    res.send(circ);
+  });
+});
+
+router.get("/all_circuits", (req, res) => {
+  Circuit.find({}).then((circ) => {
+    res.send(circ);
+  });
+});
+
+router.post("/create_circuit", auth.ensureLoggedIn, (req, res) => {
+  console.log(req.circuit, "REQ")
+  const newCircuit = new Circuit({
+    title: req.body.circuit.title,
+    score: -1,
+    qasm: req.body.circuit.qasm,
+    description: req.body.circuit.description,
+    weights: [],
+    creator_id: req.user._id,
+    creator_name: req.user.name,
+    public: false,
+  });
+
+  newCircuit.save().then((circuit) => res.send(circuit));
 });
 
 router.post("/initsocket", (req, res) => {

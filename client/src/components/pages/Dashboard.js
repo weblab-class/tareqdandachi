@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import GoogleLogin, { GoogleLogout } from "react-google-login";
+import Circuit from "../modules/Circuit.js";
+import NewCircuit from "../modules/NewCircuit.js";
 
 import "../../utilities.css";
 import "./Dashboard.css";
@@ -16,12 +18,23 @@ class Dashboard extends Component {
     this.state = {
       user: undefined,
       algos: 0,
+      circuits: []
     };
   }
 
   getUserData = () => {
     console.log("WOOPS", this.props.userId)
-    get(`/api/user`, { userId: this.props.userId }).then((user) => this.setState({ user: user }));
+    if (this.props.userId) {
+      get(`/api/user`, { userId: this.props.userId }).then((user) => this.setState({ user: user }))
+
+      get(`/api/circuits`, { creator_id: this.props.userId }).then((circuits) => this.setState({ circuits: circuits }))
+    }
+  };
+
+  createNewCircuit = (circuit) => {
+    this.setState({
+      circuits: [circuit].concat(this.state.circuits),
+    });
   };
 
   componentDidMount() {
@@ -39,9 +52,30 @@ class Dashboard extends Component {
     if (!this.state.user) {
       return <div>This person is in a superposition of existing and not existing as of now</div>;
     }
+    let circuitList = null;
+    const hasCircuits = this.state.circuits.length !== 0;
+    if (hasCircuits) {
+      circuitList = this.state.circuits.map((circuitObj) => (
+        <Circuit
+          key={`Circuit_${circuitObj._id}`}
+          _id={circuitObj._id}
+          creator_name={circuitObj.creator_name}
+          creator_id={circuitObj.creator_id}
+          title={circuitObj.title}
+          desc={circuitObj.description}
+          score={circuitObj.score}
+          userId={this.props.userId}
+        />
+      ));
+    } else {
+      circuitList = <div><h1>No Circuits</h1><h3>Create your first quantum circuit by clicking the green plus button!</h3></div>;
+    }
     return (
       <>
         <h1>{ this.state.user.name }</h1>
+        <h3>{ this.state.user.description }</h3>
+        { circuitList }
+        {this.props.userId && <NewCircuit createNewCircuit ={this.createNewCircuit} />}
       </>
     );
   }

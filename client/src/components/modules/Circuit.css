@@ -1,0 +1,37 @@
+.Circuit-container {
+  border: var(--darkgrey) 1px solid;
+  border-radius: var(--xs);
+  margin-top: var(--m);
+}
+
+.Circuit-container:first-of-type {
+  margin-top: var(--l);
+}
+
+.Circuit-story,
+.Circuit-commentSection {
+  padding: var(--m) var(--l);
+}
+
+.Circuit-storyUser {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.Circuit-storyContent {
+  font-size: 40px;
+  margin: var(--s) 0 0;
+}
+
+.Circuit-commentSection {
+  background-color: var(--grey);
+  border-top: 1px solid var(--darkgrey);
+}
+
+.Circuit-commentBody {
+  margin: 0 0 var(--s);
+}
+
+.Circuit-score {
+  color: #C078FF;
+}
