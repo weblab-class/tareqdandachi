@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import GoogleLogin, { GoogleLogout } from "react-google-login";
 import Circuit from "../modules/Circuit.js";
 import NewCircuit from "../modules/NewCircuit.js";
+import CircuitLogic from "../modules/CircuitLogic.js"
 
 import "../../utilities.css";
 import "./Game.css";
@@ -171,8 +172,8 @@ class Game extends Component {
     function Ball(x, y) {
         this.x = x;
         this.y = y;
-        this.x_speed = 0;
-        this.y_speed = 3*display_multiplier;
+        this.x_speed = Math.random();
+        this.y_speed = -3*display_multiplier;
     }
 
     Ball.prototype.render = function () {
@@ -226,14 +227,13 @@ class Game extends Component {
         qPos1Strength = Math.sqrt(qPos - qPos1);
         qPos2Strength = Math.sqrt(qPos2 - qPos);
 
-        if (qPos1 == qPos2) { document.getElementById('ballpos').innerText = qPos1 + ":1" }
+        if (qPos1 == qPos2 || qPos1<0 || qPos2>7) { document.getElementById('ballpos').innerText = Math.max(qPos1, 0) + ":1" }
         else {
           document.getElementById('ballpos').innerText = qPos1 + ":" + qPos1Strength + " | " + qPos2 + ":" + qPos2Strength;
         }
 
     };
 
-    document.body.appendChild(canvas);
     animate(step);
 
     window.addEventListener("keydown", function (event) {
@@ -250,7 +250,14 @@ class Game extends Component {
   }
 
   render() {
-    return <div>Ball Position: <span id="ballpos"></span><canvas id="game"></canvas></div>
+    return <div>
+      <div className="first-half">
+        Ball Position: <span id="ballpos"></span>
+        <br />
+        <canvas id="game"></canvas>
+      </div>
+      <CircuitLogic />
+    </div>
   }
 }
 
