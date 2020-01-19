@@ -112,8 +112,11 @@ class Profile extends Component {
           editable={this.state.editable}
           handleLogout={this.props.handleLogout}
         />
+        <div class="qcFlex">
+          <h1 class="qcTitle">Quantum Circuits</h1>
+          {this.props.userId && <NewCircuit createNewCircuit={this.createNewCircuit} />}
+        </div>
         { circuitList }
-        {this.props.userId && <NewCircuit createNewCircuit={this.createNewCircuit} />}
       </>
     );
   }

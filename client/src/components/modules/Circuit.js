@@ -3,6 +3,9 @@ import { get } from "../../utilities";
 
 import "./Circuit.css";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar, faChessRook, faUserCircle, faTrophy } from '@fortawesome/free-solid-svg-icons'
+
 /**
  * Circuit is a component for displaying content like stories
  *
@@ -58,15 +61,17 @@ class Circuit extends Component {
     if (this.props.showCreator) {
       creatorString = this.props.creator_name;
     }
-
+    //<button onClick={ this.edit_circuit }>View Logic</button>
+    // <button onClick={ this.send_challenge }>Challenge Algorithm</button>
     return (
       <div className="Circuit-container">
-        <h1>{ (this.props.index || "") + " " + this.props.title }</h1>
+        <h1 onClick={ this.edit_circuit }>{ (this.props.index || "") + " " + this.props.title }</h1>
         <h2>{ this.props.desc }</h2>
-        <h4>{ creatorString }</h4>
-        <h5>{ this.getScoreString(this.props.score) }</h5>
-        <button onClick={ this.edit_circuit }>View Logic</button>
-        <button onClick={ this.send_challenge }>Challenge Algorithm</button>
+        <h5><FontAwesomeIcon icon={faUserCircle} className="icon"/> { creatorString }</h5>
+        <h5><FontAwesomeIcon icon={faChessRook} className="icon"/> 138 Games</h5>
+        <h5><FontAwesomeIcon icon={faTrophy} className="icon"/> { this.getScoreString(this.props.score) }</h5>
+        <h5><FontAwesomeIcon icon={faStar} className="icon"/> 3 Stars</h5>
+        <h5>Updated 20 days ago</h5>
       </div>
     );
   }

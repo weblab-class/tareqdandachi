@@ -1,37 +1,52 @@
 .Circuit-container {
-  border: var(--darkgrey) 1px solid;
-  border-radius: var(--xs);
-  margin-top: var(--m);
+  border-bottom: #333 1px solid;
+  margin: var(--m) 2em;
+  padding: 10px 20px;
 }
 
 .Circuit-container:first-of-type {
   margin-top: var(--l);
 }
 
-.Circuit-story,
-.Circuit-commentSection {
-  padding: var(--m) var(--l);
-}
-
-.Circuit-storyUser {
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.Circuit-storyContent {
-  font-size: 40px;
-  margin: var(--s) 0 0;
-}
-
-.Circuit-commentSection {
-  background-color: var(--grey);
-  border-top: 1px solid var(--darkgrey);
-}
-
-.Circuit-commentBody {
-  margin: 0 0 var(--s);
-}
-
 .Circuit-score {
   color: #C078FF;
+}
+
+.Circuit-container h1 {
+
+  font-size: 22px;
+  color: var(--alt-primary);
+
+}
+
+.Circuit-container h1:hover {
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.Circuit-container h2 {
+
+  font-size: 18px;
+  color: var(--grey);
+  margin-bottom: 2em;
+
+}
+
+.Circuit-container h5 {
+
+  font-size: 16px;
+  margin-top: 0px;
+  display: inline-block;
+  margin-right: 2em;
+
+}
+
+.Circuit-container h5 div {
+  font-size: 16px;
+  margin-top: 0px;
+  display: inline-block;
+}
+
+.Circuit-container h5 .icon{
+  margin-right: 0.5em;
 }

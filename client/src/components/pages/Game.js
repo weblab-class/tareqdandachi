@@ -18,9 +18,10 @@ class Game extends Component {
     // Initialize Default State
 
     this.state = {
-      paddle: undefined,
+      paddle: 0,
       PADDLE_WIDTH: 0,
       ball_states: 0,
+      paddles: 0,
     };;
 
   }
@@ -48,7 +49,9 @@ class Game extends Component {
     const PADDLE_WIDTH = 400/8*display_multiplier
     this.setState({PADDLE_WIDTH: PADDLE_WIDTH})
     var context = canvas.getContext('2d');
-    var player = new Player();
+    var players = [new Player(), new Player(), new Player(), new Player(), new Player(), new Player(), new Player(), new Player()]
+    // var player = new Player();
+
     var computer = new Computer();
     var ball = new Ball(200*display_multiplier, 300*display_multiplier);
 
@@ -58,16 +61,21 @@ class Game extends Component {
     context.font =regular_font;
     context.textAlign = 'center';
 
-    this.setState({paddle: player});
+    this.setState({paddles: players});
+    var chosen_paddle = Math.floor(Math.random() * 7);
+    this.setState({paddle: chosen_paddle});
 
     var keysDown = {};
 
     var render = function () {
-        context.fillStyle = "#FFFFFF";
+        context.fillStyle = "#262626";
         context.fillRect(0, 0, width, height);
         context.fillStyle = "#FFDDFF";
         context.fillRect(0, 40, width, height-90);
-        player.render();
+        for (var i = 0; i < players.length; i++) {
+          players[i].render()
+        }
+        // player.render();
         computer.render();
         ball.render();
 
@@ -75,21 +83,24 @@ class Game extends Component {
 
           const state = "￨" + bell_states[i] + " ⟩"
 
-          if (i == qPos1 || i == qPos2) { context.fillStyle = 'red'; context.font = bold_font; }
-          else { context.fillStyle = 'black'; context.font = regular_font; }
+          if (i == qPos1 || i == qPos2) { context.fillStyle = '#7ED321'; context.font = bold_font; }
+          else { context.fillStyle = 'white'; context.font = regular_font; }
           context.fillText(state, (i+0.5)*PADDLE_WIDTH, 15*display_multiplier, PADDLE_WIDTH);
 
-          if (i == mPos1 || i == mPos2) { context.fillStyle = 'green'; context.font = bold_font; }
-          else { context.fillStyle = 'black'; context.font = regular_font; }
+          if (i == mPos1 || i == mPos2) { context.fillStyle = '#658DFF'; context.font = bold_font; }
+          else { context.fillStyle = 'white'; context.font = regular_font; }
           context.fillText(state, (i+0.5)*PADDLE_WIDTH, 590*display_multiplier, PADDLE_WIDTH);
 
         }
     };
 
     var update = function () {
-        player.update();
+        for (var i = 0; i < players.length; i++) {
+          players[i].update()
+        }
+        // player.update();
         computer.update(ball);
-        ball.update(player.paddle, computer.paddle);
+        ball.update(players, computer.paddle);
     };
 
     var step = function () {
@@ -115,8 +126,8 @@ class Game extends Component {
     Paddle.prototype.move = function (x, y) {
         this.x += x;
         this.y += y;
-        this.x_speed = x;
-        this.y_speed = y;
+        this.x_speed = Math.random();//x;
+        this.y_speed = Math.random();//y;
         if (this.x < 0) {
             this.x = 0;
             this.x_speed = 0;
@@ -128,7 +139,7 @@ class Game extends Component {
 
     Paddle.prototype.set_position = function (x) {
         this.x = x;
-        this.x_speed = x;
+        this.x_speed = (Math.random()+0.5)*10;
         if (this.x < 0) {
             this.x = 0;
             this.x_speed = 0;
@@ -150,9 +161,9 @@ class Game extends Component {
         var x_pos = ball.x;
         var diff = -((this.paddle.x + (this.paddle.width / 2)) - x_pos);
         if (diff < 0 && diff < -4) {
-            diff = -5;
+            diff = -6;
         } else if (diff > 0 && diff > 4) {
-            diff = 5;
+            diff = 6;
         }
         this.paddle.move(diff, 0);
         if (this.paddle.x < 0) {
@@ -218,7 +229,7 @@ class Game extends Component {
       this.setState({ball_states: [[qPos1, qPos1Strength], [qPos2, qPos2Strength]]})
     }
 
-    Ball.prototype.update = function (paddle1, paddle2) {
+    Ball.prototype.update = function (paddles, paddle2) {
         this.x += this.x_speed;
         this.y += this.y_speed;
         var top_x = this.x - 5;
@@ -242,17 +253,21 @@ class Game extends Component {
             this.y = 300*display_multiplier;
         }
 
+        const paddle1 = paddles[chosen_paddle].paddle
+
         if (top_y > 300*display_multiplier) {
             if (top_y < (paddle1.y + paddle1.height) && bottom_y > paddle1.y && top_x < (paddle1.x + paddle1.width) && bottom_x > paddle1.x) {
                 this.y_speed = -3*display_multiplier;
                 this.x_speed += (paddle1.x_speed / 2);
                 this.y += this.y_speed;
+                chosen_paddle = Math.floor(Math.random() * 7)
             }
         } else {
             if (top_y < (paddle2.y + paddle2.height) && bottom_y > paddle2.y && top_x < (paddle2.x + paddle2.width) && bottom_x > paddle2.x) {
                 this.y_speed = 3*display_multiplier;
                 this.x_speed += (paddle2.x_speed / 2);
                 this.y += this.y_speed;
+                chosen_paddle = Math.floor(Math.random() * 7)
             }
         }
 
@@ -265,10 +280,10 @@ class Game extends Component {
 
         updateQPos(qPos1, qPos1Strength, qPos2, qPos2Strength);
 
-        if (qPos1 == qPos2 || qPos1<0 || qPos2>7) { document.getElementById('ballpos').innerText = Math.max(qPos1, 0) + ":1" }
-        else {
-          document.getElementById('ballpos').innerText = qPos1 + ":" + qPos1Strength + " | " + qPos2 + ":" + qPos2Strength;
-        }
+        // if (qPos1 == qPos2 || qPos1<0 || qPos2>7) { document.getElementById('ballpos').innerText = Math.max(qPos1, 0) + ":1" }
+        // else {
+        //   document.getElementById('ballpos').innerText = qPos1 + ":" + qPos1Strength + " | " + qPos2 + ":" + qPos2Strength;
+        // }
 
     };
 
@@ -289,9 +304,43 @@ class Game extends Component {
 
   setPaddlePosition = (x) => {
 
-    console.log("CHANGE>", x)
+    // [0.5115430222709983, 0.4884569777290016, 0.4884569777290016]
 
-    this.state.paddle.paddle.set_position(x)
+    const largest_state = parseInt( (x.map(a => (a>0.5) ? 1 : 0).join('') ) , 2)
+
+    this.state.paddles[0].paddle.set_position(largest_state*this.state.PADDLE_WIDTH)
+    console.log(x, largest_state, largest_state*this.state.PADDLE_WIDTH)
+
+    for (var i = 1; i < this.state.paddles.length; i++) {
+
+      const j = Math.random();
+      const k = Math.random();
+      const l = Math.random();
+      const paddle = this.state.paddles[0]
+
+      var ans = ""
+
+      if (j < x[0]) {
+        ans += "1"
+      } else {
+        ans += "0"
+      }
+
+      if (k < x[1]) {
+        ans += "1"
+      } else {
+        ans += "0"
+      }
+
+      if (l < x[2]) {
+        ans += "1"
+      } else {
+        ans += "0"
+      }
+
+      this.state.paddles[i].paddle.set_position(parseInt(ans, 2)*this.state.PADDLE_WIDTH)
+
+    }
 
     return true
 
@@ -300,8 +349,6 @@ class Game extends Component {
   render() {
     return <div>
       <div className="first-half">
-        Ball Position: <span id="ballpos"></span>
-        <br />
         <canvas id="game"></canvas>
       </div>
       <CircuitLogic

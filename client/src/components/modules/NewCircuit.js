@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 
-// TODO: add css later
+import "./NewCircuit.css";
 import { post } from "../../utilities";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 class NewCircuit extends Component {
   constructor(props) {
@@ -40,22 +43,14 @@ class NewCircuit extends Component {
 
   render() {
     return (
-      <div className="u-flex" onSubmit={this.addCircuit}>
-        <input
-          type="text"
-          placeholder={this.props.defaultText}
-          value={this.state.value}
-          onChange={this.handleChange}
-          className="NewPostInput-input"
-        />
-        <button
-          type="submit"
-          className="NewPostInput-button u-pointer"
-          value="Submit"
+      <div
+        className="NewCircuit-button u-pointer"
+        onSubmit={this.addCircuit}>
+        <a
           onClick={this.handleSubmit}
         >
-          Submit
-        </button>
+          <FontAwesomeIcon icon={faPlus} className="icon"/> New Circuit
+        </a>
       </div>
     );
   }

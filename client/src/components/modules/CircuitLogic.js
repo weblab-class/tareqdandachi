@@ -53,7 +53,11 @@ class CircuitLogic extends Component {
       return num + qly[idx];
     });
 
-    return qlo
+    var qlo_r = qlo.map(function (num) {
+      return Math.round(num);
+    });
+
+    return qlo_r
 
   }
 
@@ -87,8 +91,7 @@ class CircuitLogic extends Component {
 
     }
 
-    const largest_state = parseInt( (states.map(x => (x>0.5) ? 1 : 0).join('') ) , 2)
-    this.props.setPaddlePosition(largest_state*this.props.PADDLE_WIDTH)
+    this.props.setPaddlePosition(states)
 
   }
 

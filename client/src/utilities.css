@@ -2,7 +2,7 @@
 
 :root {
   --primary: #658DFF;
-  --primary--dim: #254CBB;
+  --alt-primary: #3F6EF6;
   --darkgrey: #161616;
   --medgrey: #262626;
   --grey: #bbb;
@@ -75,10 +75,10 @@ form {
 }
 
 .App-container {
-
-  width: 75vw;
-  padding-left: 24vw;
   margin-top: 0;
   padding-top: 3em;
-
+  position: absolute;
+  right: 0px;
+  left: 332px;
+  overflow-x: hidden;
 }

@@ -13,8 +13,8 @@
 
 .gate {
 
-  background-color: black;
-  color: white;
+  background-color: white;
+  color: black;
   font: monospace;
   font-size: 2em;
   text-align: center;
@@ -52,7 +52,7 @@
   content: '';
   position: absolute;
   top: 50%;
-  border-top: 1px solid black;
+  border-top: 1px solid white;
   background: black;
   width: 100%;
   z-index: -1;
