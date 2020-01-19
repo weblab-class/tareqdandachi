@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import GoogleLogin, { GoogleLogout } from "react-google-login";
+
 import Circuit from "../modules/Circuit.js";
 import NewCircuit from "../modules/NewCircuit.js";
 import ProfilePane from "../modules/ProfilePane.js";
@@ -77,8 +78,6 @@ class Profile extends Component {
     }
   }
 
-  editProfile = () => { location.href='/profile/edit' }
-
   render() {
     if (this.state.notLoggedIn) {
       return <div>Log In</div>;
@@ -111,6 +110,7 @@ class Profile extends Component {
         <ProfilePane
           user={this.state.user}
           editable={this.state.editable}
+          handleLogout={this.props.handleLogout}
         />
         { circuitList }
         {this.props.userId && <NewCircuit createNewCircuit={this.createNewCircuit} />}

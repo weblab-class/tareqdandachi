@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Link } from "@reach/router";
 import GoogleLogin, { GoogleLogout } from "react-google-login";
 
+import MinimalButton from "../modules/MinimalButton.js"
+
 import "./ProfilePane.css";
 
 // This identifies your web application to Google's authentication service
@@ -15,19 +17,28 @@ class NavBar extends Component {
     super(props);
   }
 
+  editProfile = () => { location.href='/profile/edit' }
+
   render() {
 
     var editButton = ""
     if (this.props.editable) {
-      editButton = <button onClick={ this.editProfile }>Edit Profile</button>
+      editButton = (
+        <>
+          <MinimalButton onClick={ this.editProfile } color="blue">Edit Profile</MinimalButton>
+          <MinimalButton onClick={ this.props.handleLogout } color="red">Log Out</MinimalButton>
+        </>
+      )
     }
 
     return (
       <div className="ProfilePane-container">
-        { editButton }
         <img src={ this.props.user.profile_pic }/>
-        <h1>{ this.props.user.name }</h1>
-        <h3>{ this.props.user.description }</h3>
+        <div className="ProfilePane-text">
+          <h1>{ this.props.user.name }</h1>
+          <h3>{ this.props.user.description }</h3>
+          { editButton }
+        </div>
       </div>
     );
   }

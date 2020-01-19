@@ -29,6 +29,12 @@
   margin-top: 4em;
 }
 
+.NavBar-link {
+  color: var(--white);
+  text-decoration: none;
+  display: block;
+}
+
 .NavBar-link:not(.NavBar-login),
 .NavBar-link:visited:not(.NavBar-login) {
   color: var(--white);
@@ -42,7 +48,7 @@
   color: var(--grey);
 }
 
-.NavBar-link:hover {
+.NavBar-link:not(.NavBar-login):hover {
   background-color: var(--medgrey)
 }
 
@@ -54,7 +60,7 @@
   margin-left: 1em;
 }
 
-.NavBar-link .icon {
+.NavBar-link:not(.NavBar-login) .icon {
 
   font-size: 1.5em;
   transform: translateY(0.05em);
@@ -65,11 +71,23 @@
 
 }
 
-.NavBar-link:hover .icon {
+.NavBar-link.NavBar-login .icon {
+
+  font-size: 1.5em;
+  transform: translateY(0.05em);
+  margin-left: 0em;
+  margin-right: 0.4em;
+  margin-bottom: -1px;
+  color: white;
+  width: 1.2em;
+
+}
+
+.NavBar-link:hover, .NavBar-link:hover .icon {
   color: var(--primary);
 }
 
-.NavBar-link.selected {
+.NavBar-link.selected:not(.NavBar-login) {
     border-left: 5px var(--primary) solid;
     width: 327px;
     padding-left: -5px;

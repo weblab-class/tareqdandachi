@@ -1,0 +1,22 @@
+.MinimalButton {
+
+  font-size: 20px;
+  opacity: 1;
+  cursor: pointer;
+
+  width: 50%;
+  display: inline-block;
+  text-align: center;
+
+}
+
+.MinimalButton:hover {
+  opacity: 0.8;
+}
+
+.MinimalButton.blue {
+    color: #3F6EF6;
+}
+.MinimalButton.red {
+    color: #CC394B;
+}

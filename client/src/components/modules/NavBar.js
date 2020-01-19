@@ -5,10 +5,12 @@ import GoogleLogin, { GoogleLogout } from "react-google-login";
 import NavigationLink from "./NavigationLink.js";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar, faChessKnight, faTachometerAlt, faUser, faUserGraduate, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faChessKnight, faTachometerAlt, faUserCircle, faUserGraduate, faSearch } from '@fortawesome/free-solid-svg-icons'
 
 import "./NavBar.css";
 import Logo from "../logo.svg"
+
+import { get, post } from "../../utilities";
 
 // This identifies your web application to Google's authentication service
 const GOOGLE_CLIENT_ID = "121479668229-t5j82jrbi9oejh7c8avada226s75bopn.apps.googleusercontent.com";
@@ -19,12 +21,20 @@ const GOOGLE_CLIENT_ID = "121479668229-t5j82jrbi9oejh7c8avada226s75bopn.apps.goo
 class NavBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {pathname: window.location.pathname}
+    this.state = {pathname: window.location.pathname, name: "Loading..." }
+  }
+
+  componentDidMount() {
+    console.log(this.props.userId)
+    get(`/api/user`, { userId: this.props.userId }).then((user) => this.setState({ name: user.name }))
   }
 
   componentDidUpdate(oldProps) {
     if (oldProps.pathname !== this.props.pathname) {
       console.log(this.props.pathname)
+    }
+    if (oldProps.userId != this.props.userId) {
+      get(`/api/user`, { userId: this.props.userId }).then((user) => this.setState({ name: user.name }))
     }
   }
 
@@ -51,19 +61,10 @@ class NavBar extends Component {
           <NavigationLink to="/search" className="NavBar-link" pathname={this.state.pathname}>
             <FontAwesomeIcon icon={faSearch} className="icon"/> Search
           </NavigationLink>
-          {this.props.userId && (
-            <NavigationLink to={`/profile`} className="NavBar-link" pathname={this.state.pathname}>
-              <FontAwesomeIcon icon={faUser} className="icon"/> Profile
-            </NavigationLink>
-          )}
           {this.props.userId ? (
-            <GoogleLogout
-              clientId={GOOGLE_CLIENT_ID}
-              buttonText="Logout"
-              onLogoutSuccess={this.props.handleLogout}
-              onFailure={(err) => console.log(err)}
-              className="NavBar-link NavBar-login"
-            />
+            <NavigationLink to={`/profile`} className="NavBar-link NavBar-login" pathname={this.state.pathname}>
+              <FontAwesomeIcon icon={faUserCircle} className="icon"/> {this.state.name}
+            </NavigationLink>
           ) : (
             <GoogleLogin
               clientId={GOOGLE_CLIENT_ID}

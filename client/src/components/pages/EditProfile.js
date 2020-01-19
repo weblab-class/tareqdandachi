@@ -44,7 +44,7 @@ class EditProfile extends Component {
   handleSubmit = () => {
     const body = { name: this.state.name, desc: this.state.desc, profile_pic: this.state.profile_pic };
     post("/api/save_user_changes", body).then((circuit) => {
-      // HANDLE REFRESH
+      alert("SAVED CHANGES")
     });
   }
 
@@ -82,7 +82,8 @@ class EditProfile extends Component {
 
             var reader = new FileReader();
             // Set the image once loaded into file reader
-            reader.onload = function(e) {
+
+            reader.onload = (e) => {
 
                 var img = document.getElementById("img");
                 img.src = e.target.result;
@@ -91,8 +92,8 @@ class EditProfile extends Component {
                 var ctx = canvas.getContext("2d");
                 ctx.drawImage(img, 0, 0);
 
-                var MAX_WIDTH = 200;
-                var MAX_HEIGHT = 200;
+                var MAX_WIDTH = 150;
+                var MAX_HEIGHT = 150;
                 var width = img.width;
                 var height = img.height;
 

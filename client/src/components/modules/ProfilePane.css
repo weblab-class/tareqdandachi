@@ -1,5 +1,34 @@
 .ProfilePane-container {
+  font-size: 27px;
+  margin-bottom: 100px;
+  vertical-align: middle;
+  margin-left: 2em;
+  width: 100%;
+}
 
-  
+.ProfilePane-container img {
+  height: 200px;
+  display: inline-block;
+  vertical-align: middle;
+  width: 20%;
+  object-fit: contain;
+}
 
+.ProfilePane-container h1 {
+  font-size: 1em;
+  margin-bottom: -10px;
+}
+
+.ProfilePane-container h3 {
+  font-size: 0.7em;
+  color: var(--grey);
+  margin-bottom: 30px;
+}
+
+.ProfilePane-container .ProfilePane-text {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 5%;
+  width: 60%;
+  box-sizing: border-box;
 }

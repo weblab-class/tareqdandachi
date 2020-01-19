@@ -55,14 +55,26 @@ class Bloch extends Component {
     }
 
     var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+    var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/(2*700), 0.1, 1000 );
     var renderer = new THREE.WebGLRenderer({antialias: true});
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setSize( window.innerWidth/2, 700 );
+    renderer.setClearColor( 0x262626, 0 );
+    renderer.setPixelRatio( window.devicePixelRatio );
+
+    scene.background = new THREE.Color( 0x262626 );
 
     var canvas = this.mount.appendChild( renderer.domElement );
-    var geometry = new THREE.SphereGeometry( 2, 50, 50, 0, Math.PI * 2, 0, Math.PI*22 );
-    var material = new THREE.MeshNormalMaterial();
+    canvas.style.outline = 0;
+    // var geometry = new THREE.SphereGeometry( 2, 50, 50, 0, Math.PI * 2, 0, Math.PI*22 );
+    // var material = new THREE.MeshNormalMaterial();
+    var geometry = new THREE.SphereGeometry( 2, 25, 25);
+    var material = new THREE.MeshNormalMaterial({ wireframe: true, transparent: true, opacity: 0.25 });
     var cube = new THREE.Mesh( geometry, material );
+
+    var state_geometry = new THREE.SphereGeometry( 0.2, 50, 50 );
+    var state_material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+
+    var state = new THREE.Mesh( state_geometry, state_material );
 
     var controls = new OrbitControls(camera, renderer.domElement);
     // controls.addEventListener('change', render);
@@ -72,7 +84,13 @@ class Bloch extends Component {
 
 		controls.keys = [ 65, 83, 68 ];
 
-    scene.add( cube );
+    var axesHelper = new THREE.AxesHelper( 2.5 );
+    scene.add( axesHelper );
+
+    scene.add(cube);
+    scene.add(state);
+
+    state.position.y = 2
     camera.position.z = 5;
 
     var animate = function () {
@@ -89,7 +107,7 @@ class Bloch extends Component {
 
   render() {
     return (
-      <div ref={ref => (this.mount = ref)} />
+      <div ref={ref => (this.mount = ref)}/>
     );
   }
 }
