@@ -17,9 +17,78 @@ class CircuitLogic extends Component {
 
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.ball_states !== this.props.ball_states) {
+      this.evaluate_circuit()
+    }
+  }
+
   can_drop = (id) => {
 
     return document.getElementById(id).children.length < 5 && id.substring(0, 4) == "wire"
+
+  }
+
+  get_inputs = () => {
+
+    const get_bits = (num) => {
+
+      var bits = (num).toString(2)
+
+      while (bits.length < 3) { bits = "0" + bits}
+
+      return bits
+
+    }
+
+    const get_state = (ql) => get_bits(ql[0]).split('').map(x => ql[1]**2*x)
+
+    var qlx = this.props.ball_states[0];
+    var qly = this.props.ball_states[1];
+
+    qlx = get_state(qlx);
+    qly = get_state(qly);
+
+    var qlo = qlx.map(function (num, idx) {
+      return num + qly[idx];
+    });
+
+    return qlo
+
+  }
+
+  evaluate_circuit = () => {
+
+    var states = this.get_inputs()
+    const circuit = this.parse_circuit()
+
+    const linearizeBloch = (val) => {
+      if (val > 1) {return linearizeBloch(val-1)}
+      if (val < 0) {return linearizeBloch(val+1)}
+    }
+
+    const applyH = (val) => { return val + 0.5 }
+    const applyX = (val) => { return 1 - val }
+    const apply0 = (val) => { return 0 }
+    const apply1 = (val) => { return 1 }
+
+    const gateMap = {'h': applyH, 'x': applyX, 'z': apply0, 'o': apply1}
+
+    for (var i=0; i < circuit.length; i++) {
+
+      const gate = circuit[i].charAt(0);
+      const bit = circuit[i].charAt(circuit[i].length-2)-1;
+
+      const gateFunction = gateMap[gate];
+
+      console.log(gate, gateMap, gateFunction)
+
+      states[bit] = gateFunction(states[bit])
+
+    }
+
+    const largest_state = parseInt( (states.map(x => (x>0.5) ? 1 : 0).join('') ) , 2)
+    this.props.setPaddlePosition(largest_state*this.props.PADDLE_WIDTH)
 
   }
 
@@ -71,8 +140,6 @@ class CircuitLogic extends Component {
       const item = this.save ? document.getElementById(data).cloneNode(true) : document.getElementById(data)
       item.id = item.getAttribute("gate") + (ev.target.id) + (ev.target.children.length)
       ev.target.appendChild(item);
-
-      console.log(this.parse_circuit())
 
     }
 

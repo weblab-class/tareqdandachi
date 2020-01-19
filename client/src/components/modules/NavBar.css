@@ -1,34 +1,76 @@
 .NavBar-container {
   padding: var(--s) var(--m);
-  background-color: var(--primary);
+  background-color: var(--darkgrey);
+  width: 300px;
+  height: 100vh;
+  position: fixed;
+  padding-top: 5vh;
 }
 
 .NavBar-title {
   color: var(--white);
-  font-size: 20px;
+  font-size: 40px;
+  position: relative;
+  left: 20px;
+  padding-top: 0.5em;
+  margin-bottom: 2em;
+}
+
+.NavBar-title .NavBar-Logo {
+  height: 50px;
+  margin-bottom: -10px;
+  margin-right: 0.3em;
+  margin-left: 0.1em;
 }
 
 .NavBar-linkContainer {
   margin-left: var(--l);
   width: auto;
+  margin-top: 4em;
 }
 
-.NavBar-link,
-.NavBar-link:visited {
+.NavBar-link:not(.NavBar-login),
+.NavBar-link:visited:not(.NavBar-login) {
   color: var(--white);
-  opacity: 0.6;
+  opacity: 1;
   text-decoration: none;
+  display: block;
+  width: 332px;
+  height: 4em;
+  line-height: 4em;
+  margin-left: calc(-1*var(--m));
+  color: var(--grey);
 }
 
 .NavBar-link:hover {
-  opacity: 0.8;
+  background-color: var(--medgrey)
 }
 
 .NavBar-link.NavBar-login {
   opacity: 1;
-  float: right;
+  line-height: 1em;
+  position: absolute;
+  bottom: 5em;
+  margin-left: 1em;
 }
 
-.NavBar-link + .NavBar-link {
-  margin-left: var(--m);
+.NavBar-link .icon {
+
+  font-size: 1.5em;
+  transform: translateY(0.05em);
+  margin-left: 1.2em;
+  margin-right: 1em;
+  color: white;
+  width: 1.2em;
+
+}
+
+.NavBar-link:hover .icon {
+  color: var(--primary);
+}
+
+.NavBar-link.selected {
+    border-left: 5px var(--primary) solid;
+    width: 327px;
+    padding-left: -5px;
 }

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import GoogleLogin, { GoogleLogout } from "react-google-login";
 import Circuit from "../modules/Circuit.js";
 import NewCircuit from "../modules/NewCircuit.js";
+import ProfilePane from "../modules/ProfilePane.js";
 
 import "../../utilities.css";
 import "./Profile.css";
@@ -105,17 +106,12 @@ class Profile extends Component {
       circuitList = <div><h1>No Circuits</h1><h3>Create your first quantum circuit by clicking the green plus button!</h3></div>;
     }
 
-    var editButton = ""
-    if (this.state.editable) {
-      editButton = <button onClick={ this.editProfile }>Edit Profile</button>
-    }
-
     return (
       <>
-        { editButton }
-        <img src={ this.state.user.profile_pic }/>
-        <h1>{ this.state.user.name }</h1>
-        <h3>{ this.state.user.description }</h3>
+        <ProfilePane
+          user={this.state.user}
+          editable={this.state.editable}
+        />
         { circuitList }
         {this.props.userId && <NewCircuit createNewCircuit={this.createNewCircuit} />}
       </>

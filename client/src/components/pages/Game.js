@@ -17,6 +17,12 @@ class Game extends Component {
     super(props);
     // Initialize Default State
 
+    this.state = {
+      paddle: undefined,
+      PADDLE_WIDTH: 0,
+      ball_states: 0,
+    };;
+
   }
 
   componentDidMount() {
@@ -40,6 +46,7 @@ class Game extends Component {
     canvas.height = height;
 
     const PADDLE_WIDTH = 400/8*display_multiplier
+    this.setState({PADDLE_WIDTH: PADDLE_WIDTH})
     var context = canvas.getContext('2d');
     var player = new Player();
     var computer = new Computer();
@@ -50,6 +57,8 @@ class Game extends Component {
 
     context.font =regular_font;
     context.textAlign = 'center';
+
+    this.setState({paddle: player});
 
     var keysDown = {};
 
@@ -117,6 +126,18 @@ class Game extends Component {
         }
     };
 
+    Paddle.prototype.set_position = function (x) {
+        this.x = x;
+        this.x_speed = x;
+        if (this.x < 0) {
+            this.x = 0;
+            this.x_speed = 0;
+        } else if (this.x + this.width > 400*display_multiplier) {
+            this.x = 400*display_multiplier - this.width;
+            this.x_speed = 0;
+        }
+    };
+
     function Computer() {
         this.paddle = new Paddle(175*display_multiplier, 25*display_multiplier, PADDLE_WIDTH, 10*display_multiplier);
     }
@@ -170,9 +191,19 @@ class Game extends Component {
     };
 
     function Ball(x, y) {
+
+        this.random_ball_position = function () {
+
+          const yInput = 3*display_multiplier;
+          const plusminus = (Math.random()>0.5)? 1 : -1
+
+          return [(Math.random()-0.5)*2, plusminus*yInput]
+
+        }
+
         this.x = x;
         this.y = y;
-        this.x_speed = Math.random();
+        this.x_speed = this.random_ball_position()[0];
         this.y_speed = -3*display_multiplier;
     }
 
@@ -182,6 +213,10 @@ class Game extends Component {
         context.fillStyle = "#000000";
         context.fill();
     };
+
+    const updateQPos = (qPos1, qPos1Strength, qPos2, qPos2Strength) => {
+      this.setState({ball_states: [[qPos1, qPos1Strength], [qPos2, qPos2Strength]]})
+    }
 
     Ball.prototype.update = function (paddle1, paddle2) {
         this.x += this.x_speed;
@@ -200,8 +235,9 @@ class Game extends Component {
         }
 
         if (this.y < 0 || this.y > 600*display_multiplier) {
-            this.x_speed = 0;
-            this.y_speed = 3*display_multiplier;
+            const reset_vals = this.random_ball_position();
+            this.x_speed = reset_vals[0];
+            this.y_speed = reset_vals[1];
             this.x = 200*display_multiplier;
             this.y = 300*display_multiplier;
         }
@@ -227,6 +263,8 @@ class Game extends Component {
         qPos1Strength = Math.sqrt(qPos - qPos1);
         qPos2Strength = Math.sqrt(qPos2 - qPos);
 
+        updateQPos(qPos1, qPos1Strength, qPos2, qPos2Strength);
+
         if (qPos1 == qPos2 || qPos1<0 || qPos2>7) { document.getElementById('ballpos').innerText = Math.max(qPos1, 0) + ":1" }
         else {
           document.getElementById('ballpos').innerText = qPos1 + ":" + qPos1Strength + " | " + qPos2 + ":" + qPos2Strength;
@@ -249,6 +287,16 @@ class Game extends Component {
   componentDidUpdate(oldProps, prevState) {
   }
 
+  setPaddlePosition = (x) => {
+
+    console.log("CHANGE>", x)
+
+    this.state.paddle.paddle.set_position(x)
+
+    return true
+
+  }
+
   render() {
     return <div>
       <div className="first-half">
@@ -256,7 +304,12 @@ class Game extends Component {
         <br />
         <canvas id="game"></canvas>
       </div>
-      <CircuitLogic />
+      <CircuitLogic
+        paddle={this.state.paddle}
+        setPaddlePosition={this.setPaddlePosition}
+        PADDLE_WIDTH={this.state.PADDLE_WIDTH}
+        ball_states={this.state.ball_states}
+        />
     </div>
   }
 }

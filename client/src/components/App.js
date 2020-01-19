@@ -6,6 +6,7 @@ import CircuitEditor from "./pages/CircuitEditor.js";
 import EditProfile from "./pages/EditProfile.js";
 import Leaderboard from "./pages/Leaderboard.js";
 import Game from "./pages/Game.js";
+import Bloch from "./pages/Bloch.js"
 
 import "../utilities.css";
 
@@ -96,6 +97,9 @@ class App extends Component {
               handleLogin={this.handleLogin}
               handleLogout={this.handleLogout}
               userId={this.state.userId}
+            />
+            <Bloch
+              path="/bloch"
             />
             <NotFound default />
           </Router>
