@@ -8,11 +8,13 @@ import Leaderboard from "./pages/Leaderboard.js";
 import Dashboard from "./pages/Dashboard.js";
 import Intro from "./pages/Intro.js";
 import Game from "./pages/Game.js";
-import Bloch from "./pages/Bloch.js";
 
 // Learn Pages
 import Learn from "./pages/Learn.js";
 import Gates from "./pages/learn/Gates.js"
+import Bloch from "./pages/learn/Bloch.js";
+import Funk from "./pages/learn/Funk.js"
+import Qasm from "./pages/learn/Qasm.js";
 
 import "../utilities.css";
 
@@ -128,7 +130,17 @@ class App extends Component {
               userId={this.state.userId}
             />
             <Bloch
-              path="/bloch"
+              path="/learn/bloch"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+            />
+            <Qasm
+              path="/learn/qasm"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+            />
+            <Funk
+              path="/learn/funk"
               handleLogin={this.handleLogin}
               handleLogout={this.handleLogout}
             />

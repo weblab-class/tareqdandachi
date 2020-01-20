@@ -43,7 +43,7 @@ class NavBar extends Component {
   render() {
     return (
       <nav className="NavBar-container" onClick={() => this.updatePath()}>
-        <div onClick={() => location.href='/'} className="NavBar-title u-inlineBlock"><img src={Logo} className="NavBar-Logo"/> QuPong</div>
+        <div onClick={() => location.href='/qupong'} className="NavBar-title u-inlineBlock"><img src={Logo} className="NavBar-Logo"/> QuPong</div>
           {this.props.userId && (
             <NavigationLink to={`/`} className="NavBar-link" pathname={this.state.pathname}>
               <FontAwesomeIcon icon={faTachometerAlt} className="icon"/> Dashboard

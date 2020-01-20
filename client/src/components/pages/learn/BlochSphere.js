@@ -3,18 +3,14 @@ import GoogleLogin, { GoogleLogout } from "react-google-login";
 
 import ReactDOM from "react-dom";
 import * as THREE from "three";
-var TrackballControls = require('three-trackballcontrols');
 var OrbitControls = require('three-orbitcontrols');
 
-import "../../utilities.css";
-import "./Profile.css";
-
-import { get, post } from "../../utilities";
+import { get, post } from "../../../utilities";
 
 //TODO: REPLACE WITH YOUR OWN CLIENT_ID
 const GOOGLE_CLIENT_ID = "117624971444-gmdmhm8712dc3hriss8spnt1vgvmeqkn.apps.googleusercontent.com";
 
-class Bloch extends Component {
+class BlochSphere extends Component {
   constructor(props) {
     super(props);
     // Initialize Default State
@@ -112,4 +108,4 @@ class Bloch extends Component {
   }
 }
 
-export default Bloch;
+export default BlochSphere;

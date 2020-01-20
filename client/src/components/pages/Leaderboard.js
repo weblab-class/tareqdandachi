@@ -60,12 +60,15 @@ class Leaderboard extends Component {
         />
       ));
     } else {
-      circuitList = <Loading msg="Measuring the leaderboard entanglements"/>;
+      const message = ["Measuring the leaderboard entanglements", "Until measured, all of the algorithms are on the leaderboard", "Do algorithm quantum tunnel to the leaderboards?", "There's a 50% possibility your algorithm is on these leaderboards, not probability..."];
+      circuitList = <Loading msg={ message[Math.floor(Math.random()*message.length)] } />;
     }
+
     return (
-      <>
+      <div className="Leaderboards">
+        <h1 style={{marginLeft: "0.6em"}}>Leaderboards</h1>
         { circuitList }
-      </>
+      </div>
     );
   }
 }

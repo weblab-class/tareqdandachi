@@ -46,8 +46,13 @@ class CircuitLogic extends Component {
     var qlx = this.props.ball_states[0];
     var qly = this.props.ball_states[1];
 
+    if (qlx[0] == -1) { qlx[0] = 0 }
+    if (qly[1] == 8) { qlx[0] = 7 }
+
     qlx = get_state(qlx);
     qly = get_state(qly);
+
+    console.log(qlx, this.props.ball_states[0])
 
     var qlo = qlx.map(function (num, idx) {
       return num + qly[idx];
@@ -69,6 +74,7 @@ class CircuitLogic extends Component {
     const linearizeBloch = (val) => {
       if (val > 1) {return linearizeBloch(val-1)}
       if (val < 0) {return linearizeBloch(val+1)}
+      return val
     }
 
     const applyH = (val) => { return val + 0.5 }
@@ -85,11 +91,11 @@ class CircuitLogic extends Component {
 
       const gateFunction = gateMap[gate];
 
-      console.log(gate, gateMap, gateFunction)
-
-      states[bit] = gateFunction(states[bit])
+      states[bit] = linearizeBloch(gateFunction(states[bit]))
 
     }
+
+    console.log(states)
 
     this.props.setPaddlePosition(states)
 
@@ -127,8 +133,6 @@ class CircuitLogic extends Component {
   drag = (ev) => {
 
     ev.dataTransfer.setData("text", ev.target.id);
-
-    console.log(ev.target.parentNode.id, ev.target.parentNode.id == "gateContainer")
 
     this.save = ev.target.parentNode.id == "gateContainer"
 

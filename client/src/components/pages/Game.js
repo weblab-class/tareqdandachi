@@ -87,7 +87,8 @@ class Game extends Component {
           else { context.fillStyle = 'white'; context.font = regular_font; }
           context.fillText(state, (i+0.5)*PADDLE_WIDTH, 15*display_multiplier, PADDLE_WIDTH);
 
-          if (i == mPos1 || i == mPos2) { context.fillStyle = '#658DFF'; context.font = bold_font; }
+          //change this later
+          if (false) { context.fillStyle = '#658DFF'; context.font = bold_font; }
           else { context.fillStyle = 'white'; context.font = regular_font; }
           context.fillText(state, (i+0.5)*PADDLE_WIDTH, 590*display_multiplier, PADDLE_WIDTH);
 
@@ -116,10 +117,11 @@ class Game extends Component {
         this.height = height;
         this.x_speed = 0;
         this.y_speed = 0;
+        this.probability = 1;
     }
 
     Paddle.prototype.render = function () {
-        context.fillStyle = "#0000FF";
+        context.fillStyle = "rgba(0,0,255,"+ this.probability**0.7 +")";
         context.fillRect(this.x, this.y, this.width, this.height);
     };
 
@@ -182,16 +184,16 @@ class Game extends Component {
     };
 
     Player.prototype.update = function () {
-        for (var key in keysDown) {
-            var value = Number(key);
-            if (value == 37) {
-                this.paddle.move(-4*display_multiplier, 0);
-            } else if (value == 39) {
-                this.paddle.move(4*display_multiplier, 0);
-            } else {
-                this.paddle.move(0, 0);
-            }
-        }
+        // for (var key in keysDown) {
+        //     var value = Number(key);
+        //     if (value == 37) {
+        //         this.paddle.move(-4*display_multiplier, 0);
+        //     } else if (value == 39) {
+        //         this.paddle.move(4*display_multiplier, 0);
+        //     } else {
+        //         this.paddle.move(0, 0);
+        //     }
+        // }
 
         var mPos = this.paddle.x / PADDLE_WIDTH;
 
@@ -253,21 +255,54 @@ class Game extends Component {
             this.y = 300*display_multiplier;
         }
 
+        const pick_paddle = (prob) => {
+
+          if (prob == 0) { return 0 }
+
+          var track = 0
+
+          for (var i = 0; i < 8; i++) {
+
+            track += players[i].paddle.probability
+
+            if (track > prob) {
+
+              return i
+
+            }
+
+          }
+
+          return 7
+
+        }
+
         const paddle1 = paddles[chosen_paddle].paddle
+
+        if (top_y > 300*display_multiplier) {
+
+          if (!(top_y < (paddle1.y + paddle1.height) && bottom_y > paddle1.y)) {
+            chosen_paddle = pick_paddle(Math.random())
+          }
+        } else {
+          if (!(top_y < (paddle2.y + paddle2.height) && bottom_y > paddle2.y)) {
+            chosen_paddle = pick_paddle(Math.random())
+          }
+        }
 
         if (top_y > 300*display_multiplier) {
             if (top_y < (paddle1.y + paddle1.height) && bottom_y > paddle1.y && top_x < (paddle1.x + paddle1.width) && bottom_x > paddle1.x) {
                 this.y_speed = -3*display_multiplier;
                 this.x_speed += (paddle1.x_speed / 2);
                 this.y += this.y_speed;
-                chosen_paddle = Math.floor(Math.random() * 7)
+                // chosen_paddle = Math.floor(Math.random() * 7)
             }
         } else {
             if (top_y < (paddle2.y + paddle2.height) && bottom_y > paddle2.y && top_x < (paddle2.x + paddle2.width) && bottom_x > paddle2.x) {
                 this.y_speed = 3*display_multiplier;
                 this.x_speed += (paddle2.x_speed / 2);
                 this.y += this.y_speed;
-                chosen_paddle = Math.floor(Math.random() * 7)
+                // chosen_paddle = Math.floor(Math.random() * 7)
             }
         }
 
@@ -306,39 +341,56 @@ class Game extends Component {
 
     // [0.5115430222709983, 0.4884569777290016, 0.4884569777290016]
 
-    const largest_state = parseInt( (x.map(a => (a>0.5) ? 1 : 0).join('') ) , 2)
+    // const largest_state = parseInt( (x.map(a => (a>0.5) ? 1 : 0).join('') ) , 2)
 
-    this.state.paddles[0].paddle.set_position(largest_state*this.state.PADDLE_WIDTH)
-    console.log(x, largest_state, largest_state*this.state.PADDLE_WIDTH)
+    // this.state.paddles[0].paddle.set_position(largest_state*this.state.PADDLE_WIDTH)
 
-    for (var i = 1; i < this.state.paddles.length; i++) {
+    var state_dictionary = {}
 
-      const j = Math.random();
-      const k = Math.random();
-      const l = Math.random();
-      const paddle = this.state.paddles[0]
+    for (var i = 0; i < 2; i++) {
+      for (var j = 0; j < 2; j++) {
+        for (var k = 0; k < 2; k++) {
 
-      var ans = ""
+          const getVal = (index, isOne) => ((isOne) ? x[index] : 1-x[index])
 
-      if (j < x[0]) {
-        ans += "1"
-      } else {
-        ans += "0"
+          state_dictionary[k+j*2+i*4] = getVal(2, k)*getVal(1, j)*getVal(0, i)
+
+        }
       }
+    }
 
-      if (k < x[1]) {
-        ans += "1"
-      } else {
-        ans += "0"
-      }
+    for (var i = 0; i < this.state.paddles.length; i++) {
 
-      if (l < x[2]) {
-        ans += "1"
-      } else {
-        ans += "0"
-      }
+      // const j = Math.random();
+      // const k = Math.random();
+      // const l = Math.random();
+      // const paddle = this.state.paddles[0]
+      //
+      // var ans = ""
+      //
+      // if (j < x[0]) {
+      //   ans += "1"
+      // } else {
+      //   ans += "0"
+      // }
+      //
+      // if (k < x[1]) {
+      //   ans += "1"
+      // } else {
+      //   ans += "0"
+      // }
+      //
+      // if (l < x[2]) {
+      //   ans += "1"
+      // } else {
+      //   ans += "0"
+      // }
 
-      this.state.paddles[i].paddle.set_position(parseInt(ans, 2)*this.state.PADDLE_WIDTH)
+      // int_sol = parseInt(ans, 2);
+
+      this.state.paddles[i].paddle.set_position(i*this.state.PADDLE_WIDTH)
+
+      this.state.paddles[i].paddle.probability = state_dictionary[i]
 
     }
 
