@@ -1,1 +1,88 @@
-/* Fill me in :) */
+.qasmCode {
+  background-color: var(--darkgrey) !important;
+}
+
+.CircuitEditor-container {
+  border-bottom: #333 1px solid;
+  margin: var(--m) 2em;
+  padding: 10px 20px;
+}
+
+.CircuitEditor-container:first-of-type {
+  margin-top: var(--l);
+}
+
+.CircuitEditor-score {
+  color: #C078FF;
+}
+
+.CircuitEditor-container h1 {
+
+  font-size: 22px;
+  color: var(--alt-primary);
+
+}
+
+.CircuitEditor-container h1:hover {
+  color: var(--primary);
+  cursor: pointer;
+}
+
+.CircuitEditor-container h2 {
+
+  font-size: 18px;
+  color: var(--grey);
+  margin-bottom: 2em;
+
+}
+
+.CircuitEditor-container h5 {
+
+  font-size: 16px;
+  margin-top: 0px;
+  display: inline-block;
+  margin-right: 2em;
+
+}
+
+.CircuitEditor-container h5 div {
+  font-size: 16px;
+  margin-top: 0px;
+  display: inline-block;
+}
+
+.CircuitEditor-container h5 .icon{
+  margin-right: 0.5em;
+}
+
+.CircuitEditor-container textarea {
+  resize: none;
+  border: none;
+  outline: none;
+  color: rgb(171, 178, 191);
+  font-family: monospace;
+  font-size: 1em;
+  width: 100%;
+  height: inherit;
+  padding: 0.5em;
+}
+
+.CircuitEditor-container .qcFlex {
+  justify-content: space-between;
+  display: flex;
+  margin: 2em 5px;
+}
+
+.CircuitEditor-container .qcFlex h2 {
+  display: inline-block;
+  vertical-align: middle;
+  margin-bottom: 0px;
+}
+
+.spaceButtonsOut .NewCircuit-button {
+  margin-left: 10px;
+}
+
+.CircuitEditor-container .actions {
+  margin: 2em;
+}

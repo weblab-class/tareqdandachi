@@ -102,7 +102,12 @@ class Profile extends Component {
         />
       ));
     } else {
-      circuitList = <div><h1>No Circuits</h1><h3>Create your first quantum circuit by clicking the green plus button!</h3></div>;
+      circuitList = (
+        <center style={{ margin: "5em"}}>
+          <h1>No Circuits</h1>
+          { this.state.editable ? (<h3 style={{ maxWidth: "500px"}}>Click the green button to create your first circuit</h3>) : (<h3>This user has no circuits</h3>)}
+        </center>
+      )
     }
 
     return (

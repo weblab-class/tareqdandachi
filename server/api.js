@@ -53,7 +53,6 @@ router.get("/id_from_username", (req, res) => {
 router.post("/save_user_changes", auth.ensureLoggedIn, (req, res) => {
   console.log("HIYA")
   User.findById(req.user._id).then((user) => {
-    console.log(req.body, "BADONKA");
     user.name = req.body.name;
     user.description = req.body.desc;
     user.profile_pic = req.body.profile_pic;
@@ -93,6 +92,16 @@ router.post("/create_circuit", auth.ensureLoggedIn, (req, res) => {
   });
 
   newCircuit.save().then((circuit) => res.send(circuit));
+});
+
+router.post("/save_circuit_qasm", auth.ensureLoggedIn, (req, res) => {
+  Circuit.findById(req.body.circuit_id).then((circuit) => {
+    if (req.body.circuit.creator_id==req.user._id) {
+      circuit.qasm = req.body.circuit.qasm;
+      console.log(circuit)
+      circuit.save() ;
+    }
+      });
 });
 
 router.get("/high_performers", (req, res) => {

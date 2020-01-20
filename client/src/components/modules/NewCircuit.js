@@ -45,10 +45,8 @@ class NewCircuit extends Component {
     return (
       <div
         className="NewCircuit-button u-pointer"
-        onSubmit={this.addCircuit}>
-        <a
-          onClick={this.handleSubmit}
-        >
+        onSubmit={this.addCircuit} onClick={this.handleSubmit}>
+        <a>
           <FontAwesomeIcon icon={faPlus} className="icon"/> New Circuit
         </a>
       </div>

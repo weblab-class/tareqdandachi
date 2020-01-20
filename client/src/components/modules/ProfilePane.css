@@ -8,10 +8,10 @@
 
 .ProfilePane-container img {
   height: 200px;
+  width: 200px;
   display: inline-block;
   vertical-align: middle;
-  width: 20%;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 .ProfilePane-container h1 {
