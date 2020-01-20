@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { get } from "../../utilities";
 
-import "./Circuit.css";
+import "./CircuitSmall.css";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faChessRook, faUserCircle, faTrophy } from '@fortawesome/free-solid-svg-icons'
@@ -15,7 +15,7 @@ import { faStar, faChessRook, faUserCircle, faTrophy } from '@fortawesome/free-s
  * @param {string} creator_id
  * @param {string} content of the story
  */
-class Circuit extends Component {
+class CircuitSmall extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,12 +29,12 @@ class Circuit extends Component {
   getScoreString = (score) => {
 
     if (score == -1) {
-      return "Score Not Calculated Yet"
+      return "Score N/A"
     }
 
     return (
       <div>
-        Score: <span className="Circuit-score"> { score/100 } </span>/ 5.0
+        <span className="CircuitSmall-score"> { score/100 } </span>/ 5.0
       </div>
     );
 
@@ -59,20 +59,18 @@ class Circuit extends Component {
         </h5>
       )
     }
-    //<button onClick={ this.edit_circuit }>View Logic</button>
-    // <button onClick={ this.send_challenge }>Challenge Algorithm</button>
+
     return (
-      <div className="Circuit-container">
-        <h1 onClick={ this.edit_circuit }>{ (this.props.index || "") + " " + this.props.title }</h1>
+      <div className="CircuitSmall-container" onClick={ this.edit_circuit }>
+        <h1>{ (this.props.index || "") + " " + this.props.title }</h1>
         <h2>{ this.props.desc }</h2>
         { creatorLink }
-        <h5><FontAwesomeIcon icon={faChessRook} className="icon"/> 138 Games</h5>
-        <h5><FontAwesomeIcon icon={faTrophy} className="icon"/> { this.getScoreString(this.props.score) }</h5>
-        <h5><FontAwesomeIcon icon={faStar} className="icon"/> 3 Stars</h5>
-        <h5>Updated 20 days ago</h5>
+        <h5><FontAwesomeIcon icon={faChessRook} className="icon" style={{color: "#2ecc71"}}/> 138</h5>
+        <h5><FontAwesomeIcon icon={faTrophy} className="icon" style={{color: "#DFAF00"}}/> { this.getScoreString(this.props.score) }</h5>
+        <h5><FontAwesomeIcon icon={faStar} className="icon" style={{color: "#f1c40f"}}/> 3</h5>
       </div>
     );
   }
 }
 
-export default Circuit;
+export default CircuitSmall;

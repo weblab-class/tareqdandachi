@@ -5,8 +5,13 @@ import Profile from "./pages/Profile.js";
 import CircuitEditor from "./pages/CircuitEditor.js";
 import EditProfile from "./pages/EditProfile.js";
 import Leaderboard from "./pages/Leaderboard.js";
+import Dashboard from "./pages/Dashboard.js";
 import Game from "./pages/Game.js";
-import Bloch from "./pages/Bloch.js"
+import Bloch from "./pages/Bloch.js";
+
+// Learn Pages
+import Learn from "./pages/Learn.js";
+import Gates from "./pages/learn/Gates.js"
 
 import "../utilities.css";
 
@@ -56,13 +61,18 @@ class App extends Component {
     return (
       <>
         <NavBar
-          path="/"
           handleLogin={this.handleLogin}
           handleLogout={this.handleLogout}
           userId={this.state.userId}
         />
         <div className="App-container">
           <Router>
+            <Dashboard
+              path="/"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+              userId={this.state.userId}
+            />
             <Profile
               path="/profile/:profile_username"
               handleLogin={this.handleLogin}
@@ -94,6 +104,18 @@ class App extends Component {
             />
             <Game
               path="/game"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+              userId={this.state.userId}
+            />
+            <Learn
+              path="/learn"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+              userId={this.state.userId}
+            />
+            <Gates
+              path="/learn/gates"
               handleLogin={this.handleLogin}
               handleLogout={this.handleLogout}
               userId={this.state.userId}

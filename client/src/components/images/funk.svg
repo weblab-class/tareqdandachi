@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="190px" height="192px" viewBox="0 0 190 192" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 4</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD-Copy-15" transform="translate(-1068.000000, -584.000000)">
+            <g id="Page"></g>
+            <g id="Group-4" transform="translate(1070.000000, 584.000000)">
+                <path d="M5.5,163 L-3.55271368e-13,187.5 C75,160.166667 115.666667,144.666667 122,141 C128.333333,137.333333 129.166667,130.666667 124.5,121" id="Path-7" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M45,47.5 C30.3333333,46.8333333 30,59.3333333 44,85 C58,110.666667 81.6666667,130.333333 115,144" id="Path-8" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M23,83 C28,101.666667 34.8333333,116.833333 43.5,128.5 C52.1666667,140.166667 65,149.5 82,156.5" id="Path-9" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M15,122 C15.5090341,135.778929 17.0090341,145.612262 19.5,151.5 C21.9909659,157.387738 27.8242992,164.887738 37,174" id="Path-10" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M71,22.5 C71.7185369,34.393711 71.3852035,44.7270443 70,53.5 C68.6147965,62.2729557 65.4481298,74.106289 60.5,89" id="Path-11" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M76,92.5 L108.5,62.5" id="Path-12" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M98.5,94 L165,63" id="Path-13" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M93,111.5 C108.25828,109.184568 119.924947,108.184568 128,108.5 C136.075053,108.815432 145.74172,110.648765 157,114" id="Path-14" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M143,139 C148.998384,142.564894 169.5,145.5 175,162.5 C177.933896,171.568407 170.168854,186.417026 158.713877,178.631609 C144.772741,169.156465 165.361569,154.130157 173.5,160 C186.982365,169.724156 186.993818,180.868066 182.5,189.5" id="Path-16" stroke="#FFFFFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M96,43 C91.0294373,43 87,38.9705627 87,34 C87,29.0294373 91.0294373,25 96,25 C100.970563,25 105,29.0294373 105,34 C105,38.9705627 100.970563,43 96,43 Z M96,38 C98.209139,38 100,36.209139 100,34 C100,31.790861 98.209139,30 96,30 C93.790861,30 92,31.790861 92,34 C92,36.209139 93.790861,38 96,38 Z" id="Combined-Shape" fill="#FFFFFF"></path>
+                <path d="M173,130 C169.134007,130 166,126.865993 166,123 C166,119.134007 169.134007,116 173,116 C176.865993,116 180,119.134007 180,123 C180,126.865993 176.865993,130 173,130 Z M173,126 C174.656854,126 176,124.656854 176,123 C176,121.343146 174.656854,120 173,120 C171.343146,120 170,121.343146 170,123 C170,124.656854 171.343146,126 173,126 Z" id="Combined-Shape-Copy" fill="#FFFFFF"></path>
+                <rect id="Rectangle" stroke="#FFFFFF" stroke-width="6" x="118" y="37" width="16" height="16" rx="2"></rect>
+                <circle id="Oval-Copy-2" fill="#FFFFFF" cx="67" cy="5" r="5"></circle>
+                <g id="Group-3" transform="translate(156.000000, 12.000000) rotate(-90.000000) translate(-156.000000, -12.000000) translate(155.000000, 2.000000)" stroke="#FFFFFF" stroke-linecap="round" stroke-width="5">
+                    <path d="M1,0.5 L1,4.5" id="Path-15"></path>
+                    <path d="M1,15.5 L1,19.5" id="Path-15-Copy"></path>
+                </g>
+                <g id="Group-3" transform="translate(156.000000, 11.500000) rotate(-180.000000) translate(-156.000000, -11.500000) translate(155.000000, 2.000000)" stroke="#FFFFFF" stroke-linecap="round" stroke-width="5">
+                    <path d="M1,0.5 L1,4" id="Path-15"></path>
+                    <path d="M1,14.5 L1,18.5" id="Path-15-Copy"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

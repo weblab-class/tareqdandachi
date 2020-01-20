@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="267px" height="113px" viewBox="0 0 267 113" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>u_active</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD-Copy-16" transform="translate(-1029.000000, -184.000000)">
+            <g id="Page"></g>
+            <g id="u_active" transform="translate(1029.000000, 184.000000)">
+                <path d="M267,54.5 L0,54.5" id="Path-5" stroke="#FFFFFF" stroke-width="4"></path>
+                <rect id="Rectangle" fill="#658DFF" x="77" y="0" width="113" height="113"></rect>
+                <path d="M116.186174,41.5112321 C116.186174,38.9053778 115.55373,38.3063308 112,37.7671886 L112,36 L129.648186,36 L129.648186,37.7671886 C125.823409,38.3362832 125.251198,38.9952349 125.251198,41.6609939 L125.251198,62.4778761 C125.251198,71.7331518 130.220397,76.1061947 137.117043,76.1061947 C144.284736,76.1061947 148.892539,71.1940095 148.80219,62.4778761 L148.621492,43.6078965 C148.561259,39.2947583 147.989049,38.3662355 143.832991,37.7671886 L143.832991,36 L156,36 L156,37.7971409 C152.265572,38.3362832 151.663244,39.2947583 151.633128,43.5479918 L151.45243,62.8073519 C151.331964,73.2607216 144.91718,80 134.045175,80 C124.498289,80 116.186174,74.7283867 116.186174,62.7474472 L116.186174,41.5112321 Z" id="U" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

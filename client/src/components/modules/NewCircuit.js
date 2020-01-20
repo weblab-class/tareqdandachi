@@ -36,8 +36,8 @@ class NewCircuit extends Component {
     console.log(value)
     post("/api/create_circuit", body).then((circuit) => {
       // display this comment on the screen
-      console.log("PROPS", this.props)
       this.props.createNewCircuit(circuit);
+      location.href="/circuit-editor/"+circuit._id
     });
   };
 

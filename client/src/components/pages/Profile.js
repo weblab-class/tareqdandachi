@@ -64,7 +64,7 @@ class Profile extends Component {
 
   componentDidMount() {
     this.getUserScope()
-    document.title = "Your Dashboard";
+    if (this.state.scope_user) { document.title = this.state.scope_user.name; }
     this.getUserData();
   }
 
@@ -120,8 +120,8 @@ class Profile extends Component {
           editable={this.state.editable}
           handleLogout={this.props.handleLogout}
         />
-        <div class="qcFlex">
-          <h1 class="qcTitle">Quantum Circuits</h1>
+        <div className="qcFlex">
+          <h1 className="qcTitle">Quantum Circuits</h1>
           {this.props.userId && <NewCircuit createNewCircuit={this.createNewCircuit} />}
         </div>
         { circuitList }

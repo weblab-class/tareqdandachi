@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 
+import Loading from "../modules/Loading.js";
+
 class NotFound extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
+    const message = ["Quantum Noise Mitigation is a field for a reason.", "Our quantum states got detangled.", "We should've hosted this on a quantum server.", "The states have decoherenced.", "Our noise margin is small, just not small enough.", "If only we could cool our systems lower than 15 mK."]
+
     return (
-      <div>
-        <h1>404 Not Found</h1>
-        <p>The page you requested couldn't be found.</p>
-      </div>
+      <Loading title="ERROR 404" msg={ message[Math.floor(Math.random()*message.length)] } />
     );
   }
 }

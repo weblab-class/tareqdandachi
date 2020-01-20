@@ -120,10 +120,14 @@ class CircuitEditor extends Component {
       )
     }
 
+    const is_owner = this.props.userId && (this.props.userId == this.state.circuit.creator_id)
+
     var actions = <h3>Log in to edit, star or challenge this algorithm.</h3>
 
     if (this.props.userId && (this.props.userId !== this.state.circuit.creator_id)) {
       actions = <SpecialButton action={this.challenge} title="Challenge Algo" icon={ faMedal } />
+    } else if (is_owner) {
+      actions = <></>
     }
 
     return (
@@ -135,12 +139,14 @@ class CircuitEditor extends Component {
         <h5><FontAwesomeIcon icon={faTrophy} className="icon"/> { this.getScoreString(this.state.circuit.score) }</h5>
         <h5><FontAwesomeIcon icon={faStar} className="icon"/> 3 Stars</h5>
         <h5>Updated 20 days ago</h5>
+        { is_owner ? (<></>) : (
         <div>
           <h2>Actions</h2>
           <div className="actions">
             { actions }
           </div>
-        </div>
+        </div>)
+        }
 
         <div className="qcFlex">
           <h2>Algorithm Code</h2>

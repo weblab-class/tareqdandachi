@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="178px" height="156px" viewBox="0 0 178 156" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>bloch_active</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD-Copy-16" transform="translate(-552.000000, -591.000000)">
+            <g id="Page"></g>
+            <g id="bloch_active" transform="translate(553.000000, 591.000000)">
+                <g id="Group-2" opacity="0.4164109" transform="translate(77.000000, 0.000000)">
+                    <path d="M12,100 L12,11.5" id="Path-5" stroke="#FFFFFF" stroke-width="4"></path>
+                    <circle id="Oval" fill="#658DFF" cx="12" cy="12" r="12"></circle>
+                </g>
+                <g id="Group-2" opacity="0.863351004" transform="translate(120.475953, 79.642305) rotate(-300.000000) translate(-120.475953, -79.642305) translate(108.475953, 42.142305)">
+                    <path d="M12,75 L13.2201998,9.88655198" id="Path-5" stroke="#FFFFFF" stroke-width="4"></path>
+                    <circle id="Oval" fill="#658DFF" cx="12" cy="12" r="12"></circle>
+                </g>
+                <circle id="Oval" fill="#000000" cx="89" cy="97" r="5"></circle>
+                <g id="Group-2" transform="translate(89.392305, 96.392305) rotate(-300.000000) translate(-89.392305, -96.392305) translate(77.392305, 84.392305)" fill="#658DFF">
+                    <circle id="Oval" cx="12" cy="12" r="12"></circle>
+                </g>
+                <ellipse id="Oval" stroke="#658DFF" stroke-width="2" opacity="0.657459077" cx="88" cy="92.5" rx="88" ry="25.5"></ellipse>
+                <ellipse id="Oval" stroke="#658DFF" stroke-width="2" opacity="0.657459077" cx="88" cy="50.5" rx="75" ry="20.5"></ellipse>
+                <ellipse id="Oval-Copy" stroke="#658DFF" stroke-width="2" opacity="0.657459077" cx="88" cy="134.5" rx="75" ry="20.5"></ellipse>
+            </g>
+        </g>
+    </g>
+</svg>
