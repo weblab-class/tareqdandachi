@@ -1,0 +1,45 @@
+.intro .banner {
+  height: 40vh;
+  background: url(https://d2r55xnwy6nx47.cloudfront.net/uploads/2019/07/QuantumSupremacy-1200x630_Social.jpg) black;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 60%;
+  position: relative;
+  min-height: 150px;
+  margin-top: -3em;
+}
+
+.intro .banner h1 {
+  color: white;
+  max-width: 10em;
+  margin: 0px 2em;
+  position: absolute;
+  bottom: 1em;
+  left: 0;
+}
+
+.intro h2 {
+  margin: 2em;
+  font-size: 1.5em;
+  margin-bottom: 1.5em;
+  margin-top: 2.5em;
+}
+
+.intro p {
+  margin: 5em;
+  margin-top: 0px;
+  margin-bottom: 1.1em;
+  font-size: 1.2em;
+  line-height: 2em;
+  text-align: justify;
+}
+
+.logInBanner {
+  background-color: #ee5253;
+  margin: 0px;
+  margin-top: -3em;
+  margin-bottom: 3em;
+  height: 2em;
+  padding-top: 0.5em;
+  text-align: center;
+}

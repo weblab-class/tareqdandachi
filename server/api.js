@@ -12,6 +12,7 @@ const express = require("express");
 // import models so we can interact with the database
 const User = require("./models/user");
 const Circuit = require("./models/circuit");
+const Challenge = require("./models/challenge");
 
 // import authentication library
 const auth = require("./auth");
@@ -45,13 +46,11 @@ router.get("/users", (req, res) => {
 
 router.get("/id_from_username", (req, res) => {
   User.findOne({username: req.query.username}).then((user) => {
-    console.log(user)
     res.send(user._id);
   });
 });
 
 router.post("/save_user_changes", auth.ensureLoggedIn, (req, res) => {
-  console.log("HIYA")
   User.findById(req.user._id).then((user) => {
     user.name = req.body.name;
     user.description = req.body.desc;
@@ -79,7 +78,6 @@ router.get("/all_circuits", (req, res) => {
 });
 
 router.post("/create_circuit", auth.ensureLoggedIn, (req, res) => {
-  console.log(req.circuit, "REQ")
   const newCircuit = new Circuit({
     title: req.body.circuit.title,
     score: -1,
@@ -98,7 +96,6 @@ router.post("/save_circuit_qasm", auth.ensureLoggedIn, (req, res) => {
   Circuit.findById(req.body.circuit_id).then((circuit) => {
     if (req.body.circuit.creator_id==req.user._id) {
       circuit.qasm = req.body.circuit.qasm;
-      console.log(circuit)
       circuit.save() ;
     }
       });
@@ -108,7 +105,27 @@ router.get("/high_performers", (req, res) => {
   Circuit.find({ score: { $ne: -1 } }).sort({ score: -1 }).limit(10).then((high_performers) => {
     res.send(high_performers);
   });
-})
+});
+
+router.post("/create_challenge", auth.ensureLoggedIn, (req, res) => {
+  const newChallenge = new Challenge({
+    message: req.body.challenge.message,
+    creator_id: req.user._id,
+    creator_name: req.user.name,
+    creator_circuit: req.body.challenge.creator_circuit,
+    recipient_id: req.body.challenge.recipient.id,
+    recipient_name: req.body.challenge.recipient.name,
+    recipient_circuit: req.body.challenge.recipient_circuit,
+  });
+
+  newChallenge.save().then((challenge) => res.send(challenge));
+});
+
+router.get("/active_challenges", (req, res) => {
+  Challenge.find({ state: { $ne: "pending" } }).then((challenges) => {
+    res.send(challenges);
+  });
+});
 
 router.post("/initsocket", (req, res) => {
   // do nothing if user not logged in

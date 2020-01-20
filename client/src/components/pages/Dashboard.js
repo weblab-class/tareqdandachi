@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import Intro from "./Intro.js";
+
 import CircuitSmall from "../modules/CircuitSmall.js";
 import NewCircuit from "../modules/NewCircuit.js";
 
@@ -32,7 +34,9 @@ class Dashboard extends Component {
   };
 
   componentDidMount() {
-    document.title = "Your Dashboard";
+    if (this.props.userId) {
+      document.title = "Your Dashboard";
+    }
     this.getUserData();
   }
 
@@ -48,9 +52,7 @@ class Dashboard extends Component {
 
     if (!this.props.userId) {
       return (
-        <>
-        Log In
-        </>
+        <Intro loggedIn={ false } />
       );
     }
 

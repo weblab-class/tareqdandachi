@@ -6,6 +6,7 @@ import CircuitEditor from "./pages/CircuitEditor.js";
 import EditProfile from "./pages/EditProfile.js";
 import Leaderboard from "./pages/Leaderboard.js";
 import Dashboard from "./pages/Dashboard.js";
+import Intro from "./pages/Intro.js";
 import Game from "./pages/Game.js";
 import Bloch from "./pages/Bloch.js";
 
@@ -67,6 +68,12 @@ class App extends Component {
         />
         <div className="App-container">
           <Router>
+            <Intro
+              path="/qupong"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+              loggedIn={this.state.userId !== undefined}
+            />
             <Dashboard
               path="/"
               handleLogin={this.handleLogin}
@@ -122,6 +129,8 @@ class App extends Component {
             />
             <Bloch
               path="/bloch"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
             />
             <NotFound default />
           </Router>

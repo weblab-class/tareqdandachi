@@ -10,6 +10,10 @@ class Learn extends Component {
   render() {
     return (
       <div className="learnBlockContainer">
+        <div onClick={()=>{location.href="/learn/funk"}}>
+          <img id="funk" src="http://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif" />
+          <h1>Quantum Funk</h1>
+        </div>
         <div onClick={()=>{location.href="/learn/gates"}}>
           <img id="gates" src="http://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif" />
           <h1>Quantum Gates</h1>
@@ -21,10 +25,6 @@ class Learn extends Component {
         <div onClick={()=>{location.href="/learn/qasm"}}>
           <img id="qasm" src="http://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif" />
           <h1>Qiskit & QASM</h1>
-        </div>
-        <div onClick={()=>{location.href="/learn/funk"}}>
-          <img id="funk" src="http://upload.wikimedia.org/wikipedia/commons/c/ce/Transparent.gif" />
-          <h1>Quantum Funk</h1>
         </div>
       </div>
     );
