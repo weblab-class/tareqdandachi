@@ -5,7 +5,7 @@ import GoogleLogin, { GoogleLogout } from "react-google-login";
 import NavigationLink from "./NavigationLink.js";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar, faChessKnight, faTachometerAlt, faUserCircle, faUserGraduate, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faChessKnight, faTachometerAlt, faUserCircle, faUserGraduate } from '@fortawesome/free-solid-svg-icons'
 
 import "./NavBar.css";
 import Logo from "../logo.svg"
@@ -38,11 +38,11 @@ class NavBar extends Component {
     }
   }
 
-  updatePath = () => console.log(window.location.pathname)//this.setState({ pathname: window.location.pathname });
+  updatePath = () => this.setState({ pathname: window.location.pathname });
 
   render() {
     return (
-      <nav className="NavBar-container">
+      <nav className="NavBar-container" onClick={() => this.updatePath()}>
         <div onClick={() => location.href='/'} className="NavBar-title u-inlineBlock"><img src={Logo} className="NavBar-Logo"/> QuPong</div>
           {this.props.userId && (
             <NavigationLink to={`/`} className="NavBar-link" pathname={this.state.pathname}>
@@ -57,9 +57,6 @@ class NavBar extends Component {
           </NavigationLink>
           <NavigationLink to="/learn" className="NavBar-link" pathname={this.state.pathname}>
             <FontAwesomeIcon icon={faUserGraduate} className="icon"/> Learn Quantum
-          </NavigationLink>
-          <NavigationLink to="/search" className="NavBar-link" pathname={this.state.pathname}>
-            <FontAwesomeIcon icon={faSearch} className="icon"/> Search
           </NavigationLink>
           {this.props.userId ? (
             <NavigationLink to={`/profile`} className="NavBar-link NavBar-login" pathname={this.state.pathname}>
