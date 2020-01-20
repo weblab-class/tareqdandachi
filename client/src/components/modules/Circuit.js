@@ -57,9 +57,15 @@ class Circuit extends Component {
   }
 
   render() {
-    var creatorString = "";
+    var creatorLink = "";
     if (this.props.showCreator) {
-      creatorString = this.props.creator_name;
+      creatorLink = (
+        <h5>
+          <a className="creatorLink" href={ "/profile/"+this.props.creator_id }>
+            <FontAwesomeIcon icon={faUserCircle} className="icon"/> { this.props.creator_name }
+          </a>
+        </h5>
+      )
     }
     //<button onClick={ this.edit_circuit }>View Logic</button>
     // <button onClick={ this.send_challenge }>Challenge Algorithm</button>
@@ -67,7 +73,7 @@ class Circuit extends Component {
       <div className="Circuit-container">
         <h1 onClick={ this.edit_circuit }>{ (this.props.index || "") + " " + this.props.title }</h1>
         <h2>{ this.props.desc }</h2>
-        <h5><FontAwesomeIcon icon={faUserCircle} className="icon"/> { creatorString }</h5>
+        { creatorLink }
         <h5><FontAwesomeIcon icon={faChessRook} className="icon"/> 138 Games</h5>
         <h5><FontAwesomeIcon icon={faTrophy} className="icon"/> { this.getScoreString(this.props.score) }</h5>
         <h5><FontAwesomeIcon icon={faStar} className="icon"/> 3 Stars</h5>

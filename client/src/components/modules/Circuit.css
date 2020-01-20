@@ -50,3 +50,13 @@
 .Circuit-container h5 .icon{
   margin-right: 0.5em;
 }
+
+.Circuit-container a.creatorLink, .Circuit-container a.creatorLink.visited {
+  text-decoration: none;
+  color: white;
+}
+
+.Circuit-container a.creatorLink:hover {
+  text-decoration: none;
+  color: var(--primary);
+}

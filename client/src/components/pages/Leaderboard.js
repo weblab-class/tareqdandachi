@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import GoogleLogin, { GoogleLogout } from "react-google-login";
 import Circuit from "../modules/Circuit.js";
+import Loading from "../modules/Loading.js";
 
 import "../../utilities.css";
 import "./Leaderboard.css";
@@ -59,7 +60,7 @@ class Leaderboard extends Component {
         />
       ));
     } else {
-      circuitList = <div><h1>Loading...</h1></div>;
+      circuitList = <Loading msg="Measuring the leaderboard entanglements"/>;
     }
     return (
       <>

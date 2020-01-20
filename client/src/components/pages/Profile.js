@@ -4,6 +4,7 @@ import GoogleLogin, { GoogleLogout } from "react-google-login";
 import Circuit from "../modules/Circuit.js";
 import NewCircuit from "../modules/NewCircuit.js";
 import ProfilePane from "../modules/ProfilePane.js";
+import Loading from "../modules/Loading.js";
 
 import "../../utilities.css";
 import "./Profile.css";
@@ -33,8 +34,10 @@ class Profile extends Component {
   getUserScope = () => {
 
     if (this.props.profile_username) {
-      this.setState({ editable: false })
+      this.setState({ editable: false, scope_user: this.props.profile_username })
+
       get(`/api/id_from_username`, { username: this.props.profile_username }).then((id) => this.setState({ scope_user: id }))
+
       this.setState({ notLoggedIn: false })
     } else if (this.props.userId) {
       this.setState({ editable: true })
@@ -83,7 +86,7 @@ class Profile extends Component {
       return <div>Log In</div>;
     }
     if (!this.state.user) {
-      return <div>This person is in a superposition of existing and not existing</div>;
+      return <Loading msg="This person is in a superposition of existing and not existing..."/>;
     }
     let circuitList = null;
     const hasCircuits = this.state.circuits.length !== 0;
