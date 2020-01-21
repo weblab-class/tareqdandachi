@@ -25,6 +25,7 @@ class Dashboard extends Component {
     if (this.props.userId) {
       get(`/api/user`, { userId: this.props.userId }).then((user) => this.setState({ user: user }))
       get(`/api/circuits`, { creator_id: this.props.userId }).then((circuits) => this.setState({ circuits: circuits }))
+      get(`/api/all_user_challenges`).then((challenges) => this.setState({ challenges: challenges }))
     }
   };
 
@@ -94,6 +95,7 @@ class Dashboard extends Component {
     let challengeList = null;
     const hasChallenge = this.state.challenges.length !== 0;
     if (hasChallenge) {
+      console.log(this.state.challenges)
       challengeList = this.state.challenges.map((challenge) => (
         <Challenge
           key={`Circuit_${challenge._id}`}
@@ -102,8 +104,9 @@ class Dashboard extends Component {
           creator_id={challenge.creator_id}
           recipient_name={challenge.recipient_name}
           recipient_id={challenge.recipient_id}
+          recipient_circuit_name={challenge.recipient_circuit.title}
           userId={this.props.userId}
-          status="pending"
+          status={challenge.state}
         />
       ));
     } else {

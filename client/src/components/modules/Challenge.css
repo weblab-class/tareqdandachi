@@ -1,0 +1,14 @@
+.Challenge-container {
+  margin-left: 6em;
+  margin-right: 2em;
+}
+
+.Challenge-container .icon {
+  margin-right: 2em;
+}
+
+.Challenge-container .action_buttons {
+  display: block;
+  text-align: right;
+  margin-bottom: 3em;
+}

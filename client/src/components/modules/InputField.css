@@ -1,0 +1,64 @@
+.InputField {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  position: relative;
+  display: block;
+  color: #fff;
+  padding: 0px 0 0px 0;
+}
+.InputField::after {
+  content: "\00A0";
+  display: block;
+  color: #d50000;
+  font-size: 12px;
+  padding-top: 5px;
+}
+.InputField .InputField-label {
+  position: absolute;
+  display: block;
+  top: 35px;
+  left: 0px;
+  transition: 0.2s ease all;
+  -moz-transition: 0.2s ease all;
+  -webkit-transition: 0.2s ease all;
+  pointer-events: none;
+  cursor: text;
+}
+.InputField input {
+  padding: 10px 0 10px 0;
+  display: block;
+  width: 100%;
+  border: none;
+  font-size: 14px;
+  color: #fff;
+  background-color: var(--medgrey);
+  border-bottom: 1px solid var(--primary);
+  outline: none;
+}
+.InputField input:invalid {
+  outline: none;
+  box-shadow: none;
+}
+.InputField input:valid ~ .InputField-label, .InputField input:focus ~ .InputField-label {
+  top: 10px;
+  font-size: 12px;
+}
+.InputField input:focus {
+  outline: none;
+  color: var(--primary);
+  padding-bottom: 8px;
+  border-bottom-width: 3px;
+  border-bottom-color: var(--primary);
+}
+.InputField input:focus ~ .InputField-label {
+  color: var(--primary);
+}
+.InputField.InputField-invalid {
+  color: #d50000;
+}
+.InputField.InputField-invalid::after {
+  content: attr(data-validationError);
+}
+.InputField.InputField-invalid input:focus ~ .InputField-label {
+  color: #d50000;
+}

@@ -4,6 +4,7 @@ import Circuit from "../modules/Circuit.js";
 import SpecialButton from "../modules/SpecialButton.js";
 import Loading from "../modules/Loading.js";
 import ChallengePicker from "../modules/ChallengePicker.js"
+import InputField from "../modules/InputField.js"
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -34,6 +35,9 @@ class CircuitEditor extends Component {
       creator: undefined,
       show_picker: false,
       viewer_circuits: undefined,
+      editingTitle: false,
+      newTitle: undefined,
+      newDescription: undefined,
     };
   }
 
@@ -117,6 +121,59 @@ class CircuitEditor extends Component {
     this.render()
   }
 
+  getButtons = () => {
+
+    if (this.state.editingTitle) {
+
+      return <div style={{textAlign: "right"}}>
+        <SpecialButton action={this.saveTitle} title="Save Changes" icon={ faSave } />
+        <SpecialButton action={this.editTitle} title="Discard Changes" icon={ faTrash } destructive={ true } />
+      </div>
+
+    }
+
+    return <>
+      <SpecialButton action={this.editTitle} title="Edit Circuit Details" icon={ faEdit } />
+      <SpecialButton action={this.delete} title="Delete Algo" icon={ faTrash } destructive={ true } />
+    </>
+
+  }
+
+  editTitle = () => {
+
+    this.setState({editingTitle: !(this.state.editingTitle)});
+
+  }
+
+  saveTitle = () => {
+
+    const toastId = toast("Updating Circuit Details", {autoClose: false});
+
+    let title = this.state.newTitle;
+    let description = this.state.newDescription;
+
+    title = ((title!==undefined && title!=="")? title : this.state.circuit.title);
+    description = ((description!==undefined && description!=="")? description : this.state.circuit.description);
+
+    this.state.circuit.title = title;
+    this.state.circuit.description = description;
+
+    const body = {
+      circuit_id: this.state.circuit._id,
+      title: title,
+      description: description,
+    }
+
+    post("/api/edit_circuit_title", body).then((circuit) => {
+
+      this.editTitle()
+
+      toast.update(toastId, { type: toast.TYPE.SUCCESS, autoClose: 1000, render: "Updated Successfully", hideProgressBar: true});
+
+    });
+
+  }
+
   challenge = () => {
 
     if (this.state.recipient && this.state.creator) {
@@ -139,8 +196,6 @@ class CircuitEditor extends Component {
       recipient_circuit: this.state.circuit,
       creator_circuit: this.state.challenger_circuit,
     }
-
-    console.log("CAD", body, this.state.recipient)
 
     post("/api/create_challenge", body).then((circuit) => {
 
@@ -205,22 +260,37 @@ class CircuitEditor extends Component {
       )
     }
 
+    let titleBlocks =  <>
+      <h1 className={canEditClass}>{ this.state.circuit.title }</h1>
+      <h2 className={canEditClass}>{ this.state.circuit.description }</h2>
+    </>
+
     const is_owner = this.props.userId && (this.props.userId == this.state.circuit.creator_id)
 
     var actions = <h3>Log in to edit, star or challenge this algorithm.</h3>
 
+    const canEditClass = this.state.editMode ? "canEdit" : "";
+
     if (this.props.userId && (this.props.userId !== this.state.circuit.creator_id)) {
       actions = <SpecialButton action={this.challenge} title="Challenge Algo" icon={ faMedal } />
     } else if (is_owner) {
-      actions = <SpecialButton action={this.delete} title="Delete Algo" icon={ faTrash } destructive={ true } />
-    }
+      actions = <div className="spaceButtonsOut">
 
-    const canEditClass = this.state.editMode ? "canEdit" : "";
+        {this.getButtons()}
+
+      </div>
+
+      if (this.state.editingTitle) {
+        titleBlocks = <>
+          <InputField className={"titleField "+canEditClass} onChange={ (e) => {this.setState({newTitle: event.target.value})} } defaultValue={ this.state.circuit.title } title="Circuit Title" />
+          <InputField className={"descField "+canEditClass} onChange={(e) => {this.setState({newDescription: event.target.value})}} defaultValue={ this.state.circuit.description } title="Circuit Description" />
+        </>
+      }
+    }
 
     return (
       <div className="CircuitEditor-container">
-        <h1 className={canEditClass}>{ this.state.circuit.title }</h1>
-        <h2 className={canEditClass}>{ this.state.circuit.description }</h2>
+        {titleBlocks}
         <h5><FontAwesomeIcon icon={faUserCircle} className="icon"/> { this.state.circuit.creator_name }</h5>
         <h5><FontAwesomeIcon icon={faChessRook} className="icon"/> 138 Games</h5>
         <h5><FontAwesomeIcon icon={faTrophy} className="icon"/> { this.getScoreString(this.state.circuit.score) }</h5>

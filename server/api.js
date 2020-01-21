@@ -66,7 +66,7 @@ router.get("/circuit", (req, res) => {
 });
 
 router.get("/circuits", (req, res) => {
-  Circuit.find({creator_id: req.query.creator_id}).then((circ) => {
+  Circuit.find({creator_id: req.query.creator_id}).sort( { timestamp: -1 } ).then((circ) => {
     res.send(circ);
   });
 });
@@ -90,6 +90,16 @@ router.post("/create_circuit", auth.ensureLoggedIn, (req, res) => {
   });
 
   newCircuit.save().then((circuit) => res.send(circuit));
+});
+
+router.post("/edit_circuit_title", (req, res) => {
+  console.log(req.body)
+  Circuit.findById(req.body.circuit_id).then((circuit) => {
+    circuit.title = req.body.title
+    circuit.description = req.body.description
+    console.log(circuit)
+    circuit.save().then((circuit) => res.send(circuit));
+  });
 });
 
 router.post("/save_circuit_qasm", auth.ensureLoggedIn, (req, res) => {
@@ -128,13 +138,19 @@ router.post("/create_challenge", auth.ensureLoggedIn, (req, res) => {
 });
 
 router.get("/active_challenges", (req, res) => {
-  Challenge.find({ state: "pending" }).then((challenges) => {
+  Challenge.find({ state: "pending" }).sort( { timestamp: -1 } ).then((challenges) => {
     res.send(challenges);
   });
 });
 
 router.get("/completed_challenges", (req, res) => {
-  Challenge.find({ state: { $ne: "pending" } }).then((challenges) => {
+  Challenge.find({ state: { $ne: "pending" } }).sort( { timestamp: -1 } ).then((challenges) => {
+    res.send(challenges);
+  });
+});
+
+router.get("/all_user_challenges", (req, res) => {
+  Challenge.find({ $or: [ {creator_id: req.user._id}, {recipient_id: req.user._id} ] }).sort( { timestamp: -1 } ).then((challenges) => {
     res.send(challenges);
   });
 });

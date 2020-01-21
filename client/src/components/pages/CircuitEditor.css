@@ -91,3 +91,11 @@
 .CircuitEditor-container .actions {
   margin: 2em;
 }
+
+.titleField {
+  font-size: 22px;
+}
+
+.descField {
+  font-size: 18px;
+}
