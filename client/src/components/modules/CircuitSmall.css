@@ -77,3 +77,16 @@
   text-decoration: none;
   color: var(--primary);
 }
+
+.CircuitSmall-container.selected {
+  background-color: var(--primary);
+  color: white;
+}
+
+.CircuitSmall-container.selected h2 {
+  color: white;
+}
+
+.CircuitSmall-container.selected:hover h1 {
+  color: white;
+}

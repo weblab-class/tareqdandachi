@@ -49,11 +49,14 @@ class CircuitSmall extends Component {
   }
 
   render() {
+
+    const classToUse = this.props.selected ? "CircuitSmall-container selected" : "CircuitSmall-container"
+
     var creatorLink = "";
     if (this.props.showCreator) {
       creatorLink = (
         <h5>
-          <a className="creatorLink" href={ "/profile/"+this.props.creator_id }>
+          <a className="creatorLink" onClick={ this.props.onclick_function !== undefined ? this.props.onclick_function : location.href = "/profile/"+this.props.creator_id }>
             <FontAwesomeIcon icon={faUserCircle} className="icon"/> { this.props.creator_name }
           </a>
         </h5>
@@ -61,7 +64,7 @@ class CircuitSmall extends Component {
     }
 
     return (
-      <div className="CircuitSmall-container" onClick={ this.edit_circuit }>
+      <div className={ classToUse } onClick={ this.props.onclick_function !== undefined ? this.props.onclick_function : this.edit_circuit }>
         <h1>{ (this.props.index || "") + " " + this.props.title }</h1>
         <h2>{ this.props.desc }</h2>
         { creatorLink }

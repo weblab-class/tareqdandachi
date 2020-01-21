@@ -9,6 +9,9 @@ import Dashboard from "./pages/Dashboard.js";
 import Intro from "./pages/Intro.js";
 import Game from "./pages/Game.js";
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // Learn Pages
 import Learn from "./pages/Learn.js";
 import Gates from "./pages/learn/Gates.js"
@@ -23,6 +26,8 @@ import { socket } from "../client-socket.js";
 import { get, post } from "../utilities";
 
 import NavBar from "./modules/NavBar.js";
+
+toast.configure()
 
 /**
  * Define the "App" component as a class.

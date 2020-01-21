@@ -96,8 +96,14 @@ router.post("/save_circuit_qasm", auth.ensureLoggedIn, (req, res) => {
   Circuit.findById(req.body.circuit_id).then((circuit) => {
     if (req.body.circuit.creator_id==req.user._id) {
       circuit.qasm = req.body.circuit.qasm;
-      circuit.save() ;
+      circuit.save() .then((circuit) => res.send(circuit));
     }
+      });
+});
+
+router.post("/delete_circuit", auth.ensureLoggedIn, (req, res) => {
+  Circuit.deleteOne({id: req.body.circuit_id, creator_id: req.user._id}).then((circuit) => {
+    res.send(circuit)
       });
 });
 
@@ -109,19 +115,25 @@ router.get("/high_performers", (req, res) => {
 
 router.post("/create_challenge", auth.ensureLoggedIn, (req, res) => {
   const newChallenge = new Challenge({
-    message: req.body.challenge.message,
+    message: req.body.message,
     creator_id: req.user._id,
     creator_name: req.user.name,
-    creator_circuit: req.body.challenge.creator_circuit,
-    recipient_id: req.body.challenge.recipient.id,
-    recipient_name: req.body.challenge.recipient.name,
-    recipient_circuit: req.body.challenge.recipient_circuit,
+    creator_circuit: req.body.creator_circuit,
+    recipient_id: req.body.recipient._id,
+    recipient_name: req.body.recipient.name,
+    recipient_circuit: req.body.recipient_circuit,
   });
 
   newChallenge.save().then((challenge) => res.send(challenge));
 });
 
 router.get("/active_challenges", (req, res) => {
+  Challenge.find({ state: "pending" }).then((challenges) => {
+    res.send(challenges);
+  });
+});
+
+router.get("/completed_challenges", (req, res) => {
   Challenge.find({ state: { $ne: "pending" } }).then((challenges) => {
     res.send(challenges);
   });

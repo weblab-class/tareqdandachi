@@ -1,9 +1,9 @@
-.qcTitle {
+.qcTitleP {
   display: inline-block;
   vertical-align: middle;
 }
 
-.qcFlex {
+.qcFlexP {
   justify-content: space-between;
   display: flex;
   margin: 0px 2em;

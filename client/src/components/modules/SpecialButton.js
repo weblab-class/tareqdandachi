@@ -20,7 +20,7 @@ class SpecialButton extends Component {
       classes += " destroy";
     }
     return (
-      <div className={classes} onClick={this.props.action}>
+      <div className={classes} onClick={this.props.action} style={this.props.style}>
         <a>
           <FontAwesomeIcon icon={this.props.icon} className="icon"/> { this.props.title }
         </a>

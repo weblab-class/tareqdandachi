@@ -17,6 +17,7 @@ class Dashboard extends Component {
     this.state = {
       circuits: [],
       challenges: [],
+      user: undefined,
     }
   }
 
@@ -48,7 +49,16 @@ class Dashboard extends Component {
 
   render() {
 
-    console.log(this.props)
+    // if (this.state.circuits[0]) {
+    //
+    //   const xhr = new XMLHttpRequest();
+    //   xhr.open('GET', 'https://tareq.scripts.mit.edu/process.php?qasm='+this.state.circuits[1].qasm.replace(/\n/g, "\\n"));
+    //   xhr.setRequestHeader('Content-type', 'application/json');
+    //   xhr.onreadystatechange = () => console.log(xhr.response);
+    //   console.log(xhr)
+    //   xhr.send();
+    //
+    // }
 
     if (!this.props.userId) {
       return (
@@ -109,7 +119,7 @@ class Dashboard extends Component {
       <>
         <div className="qcFlex">
           <h3 className="qcTitle">Your Circuits</h3>
-          <NewCircuit createNewCircuit={this.createNewCircuit} />
+          <NewCircuit createNewCircuit={this.createNewCircuit} user={this.state.user} />
         </div>
         { circuitList }
         <div className="qcFlex">

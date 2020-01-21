@@ -19,12 +19,12 @@
 .CircuitEditor-container h1 {
 
   font-size: 22px;
-  color: var(--alt-primary);
+  color: var(--white);
 
 }
 
-.CircuitEditor-container h1:hover {
-  color: var(--primary);
+.CircuitEditor-container h1.canEdit:hover {
+  color: var(--alt-primary);
   cursor: pointer;
 }
 
@@ -34,6 +34,11 @@
   color: var(--grey);
   margin-bottom: 2em;
 
+}
+
+.CircuitEditor-container h2.canEdit:hover {
+  color: var(--alt-primary);
+  cursor: pointer;
 }
 
 .CircuitEditor-container h5 {

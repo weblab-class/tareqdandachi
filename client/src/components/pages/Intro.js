@@ -19,7 +19,7 @@ class Intro extends Component {
         <div className="banner"><h1>Craft your own Quantum Algorithm</h1></div>
 
         <h2>What is QuPong?</h2>
-        <p>QuPong is a web-based tool that helps you learn how quantum programming works by building, simulating and competiting with other quantum circuits to win a game of Pong. It requires no previous knowledge of quantum mechanics or quantum computation whatsoever but through practice, you will be able to build quantum algorithms that can be executed in the real world in all kinds of situations.</p>
+        <p>QuPong is a web-based tool that helps you learn how quantum programming works by building, simulating and competing with other quantum circuits to win a game of Pong. It requires no previous knowledge of quantum mechanics or quantum computation whatsoever but through practice, you will be able to build quantum algorithms that can be executed in the real world in all kinds of situations.</p>
 
         <h2>Getting Started</h2>
         <p>What is quantum and why is it so special? - Learn <a className="u-link" href="/learn/funk">Quantum Funk</a></p>

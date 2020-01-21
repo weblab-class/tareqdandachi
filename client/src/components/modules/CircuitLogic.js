@@ -77,12 +77,13 @@ class CircuitLogic extends Component {
       return val
     }
 
-    const applyH = (val) => { return val + 0.5 }
-    const applyX = (val) => { return 1 - val }
-    const apply0 = (val) => { return 0 }
-    const apply1 = (val) => { return 1 }
+    const applyH = (val, c) => { return val + 0.5 }
+    const applyX = (val, c) => { return 1 - val }
+    const apply0 = (val, c) => { return 0 }
+    const apply1 = (val, c) => { return 1 }
+    const applyC = (val, c) => { return c==1 ? applyX(val) : val }
 
-    const gateMap = {'h': applyH, 'x': applyX, 'z': apply0, 'o': apply1}
+    const gateMap = {'h': applyH, 'x': applyX, 'z': apply0, 'o': apply1, 'c': applyC}
 
     for (var i=0; i < circuit.length; i++) {
 
@@ -91,7 +92,7 @@ class CircuitLogic extends Component {
 
       const gateFunction = gateMap[gate];
 
-      states[bit] = linearizeBloch(gateFunction(states[bit]))
+      states[bit] = linearizeBloch(gateFunction(states[bit], states[bit-1]))
 
     }
 

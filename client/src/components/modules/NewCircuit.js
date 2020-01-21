@@ -3,8 +3,11 @@ import React, { Component } from "react";
 import "./NewCircuit.css";
 import { post } from "../../utilities";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class NewCircuit extends Component {
   constructor(props) {
@@ -32,10 +35,10 @@ class NewCircuit extends Component {
   };
 
   addCircuit = (value) => {
-    const body = { circuit: {title: "BABU BABU", qasm: "OPENQASM 2.0", description: "This is not a babu boi... don't mess with it"}, user: this.props.user };
-    console.log(value)
+    const body = { circuit: {title: "New Circuit", qasm: "OPENQASM 2.0;\ninclude \"qelib1.inc\";\n\nqreg q[3];\ncreg c[3];\n\n", description: "This is a new circuit created by " + this.props.user.name}, user: this.props.user };
+    const toastId = toast("Creating New Circuit", {autoClose: false});
     post("/api/create_circuit", body).then((circuit) => {
-      // display this comment on the screen
+      toast.update(toastId, { type: toast.TYPE.SUCCESS, autoClose: 1000, render: "Created New Circuit", hideProgressBar: true});
       this.props.createNewCircuit(circuit);
       location.href="/circuit-editor/"+circuit._id
     });
