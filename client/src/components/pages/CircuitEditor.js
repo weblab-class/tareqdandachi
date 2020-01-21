@@ -119,6 +119,22 @@ class CircuitEditor extends Component {
 
     this.setState({ editMode: false, circuit: circuit })
     this.render()
+
+    const xhr = new XMLHttpRequest();
+
+    let code = circuit.qasm.replace(/\n/g, ";");
+
+    while (code.includes(';;')) {
+      code = code.replace(";;", ";")
+      console.log(code)
+    }
+
+    xhr.open('POST', 'https://tareq.scripts.mit.edu/process.php?id='+this.props.circuitId+'&qasm='+code);
+    xhr.setRequestHeader('Content-type', 'application/json');
+    xhr.onreadystatechange = () => console.log(xhr.response);
+    console.log(xhr)
+    xhr.send();
+
   }
 
   getButtons = () => {
