@@ -41,5 +41,7 @@
   margin-bottom: 3em;
   height: 2em;
   padding-top: 0.5em;
+  line-height: 1.5em;
   text-align: center;
+  cursor: pointer;
 }

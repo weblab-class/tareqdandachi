@@ -2,10 +2,12 @@ import React, { Component } from "react";
 
 import CircuitSmall from "../modules/CircuitSmall.js";
 import NewCircuit from "../modules/NewCircuit.js";
+import GoogleLogin from "react-google-login";
 
 import "./Intro.css";
 
 import { get, post } from "../../utilities";
+const GOOGLE_CLIENT_ID = "117624971444-gmdmhm8712dc3hriss8spnt1vgvmeqkn.apps.googleusercontent.com";
 
 class Intro extends Component {
   constructor(props) {
@@ -13,9 +15,22 @@ class Intro extends Component {
   }
 
   render() {
+
+    console.log(this.props.handleLogin)
+
     return (
       <div className="intro">
-        { (!this.props.loggedIn) && <div className="logInBanner">Log in to create your first Quantum Algorithm</div> }
+        { (!this.props.loggedIn) &&
+
+          <GoogleLogin
+            clientId={GOOGLE_CLIENT_ID}
+            onSuccess={this.props.handleLogin}
+            onFailure={(err) => console.log(err)}
+            className="NavBar-link NavBar-login"
+            render={renderProps => (
+              <div className="logInBanner" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log in to create your first Quantum Algorithm</div>
+            )}
+          /> }
         <div className="banner"><h1>Craft your own Quantum Algorithm</h1></div>
 
         <h2>What is QuPong?</h2>

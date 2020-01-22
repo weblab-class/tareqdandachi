@@ -63,7 +63,10 @@ class Dashboard extends Component {
 
     if (!this.props.userId) {
       return (
-        <Intro loggedIn={ false } />
+        <Intro
+          loggedIn={ false }
+          handleLogin={this.props.handleLogin}
+        />
       );
     }
 
