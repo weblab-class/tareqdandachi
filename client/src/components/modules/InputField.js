@@ -12,8 +12,8 @@ class InputField extends Component {
   render() {
     return (
       <div className="InputField">
-        <input type="text" required name="text" id="field-text" defaultValue={this.props.defaultValue} className={this.props.className ? this.props.className : ""} onChange={this.props.onChange}/>
         <label className="InputField-field-label" htmlFor="field-text">{this.props.title}</label>
+        <input type="text" required name="text" id={this.props.id} defaultValue={this.props.defaultValue} className={this.props.className ? this.props.className : ""} onChange={this.props.onChange} placeholder={this.props.placeholder}/>
       </div>
     );
   }

@@ -83,7 +83,21 @@ class Profile extends Component {
 
   render() {
     if (this.state.notLoggedIn) {
-      return <div>Log In</div>;
+      return (
+        <center style={{ margin: "5em", marginTop: "30vh"}}>
+          <h1>You are not logged in</h1>
+          <h3>Log in to access your profile and circuits</h3>
+          <br />
+          <h3 style={{ maxWidth: "500px"}}>
+            <GoogleLogin
+              clientId={GOOGLE_CLIENT_ID}
+              buttonText="Login"
+              onSuccess={this.props.handleLogin}
+              onFailure={(err) => console.log(err)}
+            />
+          </h3>
+        </center>
+      );
     }
     if (!this.state.user) {
       return <Loading msg="This person is in a superposition of existing and not existing..."/>;

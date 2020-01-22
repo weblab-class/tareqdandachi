@@ -3,8 +3,8 @@ import GoogleLogin, { GoogleLogout } from "react-google-login";
 import Circuit from "../modules/Circuit.js";
 import SpecialButton from "../modules/SpecialButton.js";
 import Loading from "../modules/Loading.js";
-import ChallengePicker from "../modules/ChallengePicker.js"
-import InputField from "../modules/InputField.js"
+import ChallengePicker from "../modules/ChallengePicker.js";
+import InputField from "../modules/InputField.js";
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

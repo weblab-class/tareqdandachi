@@ -19,12 +19,7 @@ function verify(token) {
 
 function createUsername(name, gSubject) {
 
-  initName = user.name.replace(/\s+/g, " ").trim()
-
-  User.findOne({ username: initName }).then((existingUser) => {
-    if (!existingUser) return initName;
-    return initName+gSubject.substr(id.length - 5);
-  })
+  initName = name.replace(/\s+/g, " ").trim()
 
 }
 
@@ -39,8 +34,11 @@ function getOrCreateUser(user) {
     const newUser = new User({
       name: user.name,
       googleid: user.sub,
-      username: username,
-      skill: "beginner"
+      username: user.email.split("@")[0],
+      username: user.email.split("@")[0],
+      skill: "beginner",
+      profile_pic: user.picture,
+      decsription: "I am new to QuPong, see me build some cool circuits!",
     });
 
     return newUser.save();

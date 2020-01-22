@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import GoogleLogin, { GoogleLogout } from "react-google-login";
 
+import SpecialButton from "../modules/SpecialButton.js";
+import InputField from "../modules/InputField.js";
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSave, faTimes, faUpload, faLink } from '@fortawesome/free-solid-svg-icons'
+
 import "../../utilities.css";
 import "./EditProfile.css";
 
@@ -44,7 +50,7 @@ class EditProfile extends Component {
   handleSubmit = () => {
     const body = { name: this.state.name, desc: this.state.desc, profile_pic: this.state.profile_pic };
     post("/api/save_user_changes", body).then((circuit) => {
-      alert("SAVED CHANGES")
+      location.href="/profile"
     });
   }
 
@@ -54,6 +60,10 @@ class EditProfile extends Component {
 
   handleDescChange = (event) => {
     this.setState({desc: event.target.value})
+  }
+
+  handleURLChange = (event) => {
+    this.setState({profile_pic_url: event.target.value})
   }
 
   convertImageToDataURL = () => {
@@ -72,6 +82,15 @@ class EditProfile extends Component {
 
       this.resizeImage()
     }
+  }
+
+  modifyImageURL = () => {
+
+    const img = document.getElementById("img");
+    img.src = this.state.profile_pic_url;
+
+    this.setState({profile_pic: this.state.profile_pic_url})
+
   }
 
   resizeImage = () => {
@@ -131,36 +150,66 @@ class EditProfile extends Component {
   render() {
     if (!this.props.userId) {
       return (
-        <>
-        You are not logged in
-        </>
+        <center style={{ margin: "5em", marginTop: "30vh"}}>
+          <h1>You are not logged in</h1>
+          <h3>Log in to access your profile and circuits</h3>
+          <br />
+          <h3 style={{ maxWidth: "500px"}}>
+            <GoogleLogin
+              clientId={GOOGLE_CLIENT_ID}
+              buttonText="Login"
+              onSuccess={this.props.handleLogin}
+              onFailure={(err) => console.log(err)}
+            />
+          </h3>
+        </center>
       )
     }
     return (
       <>
-        <img id="img" height="200" width="200" src={ this.state.profile_pic } />
-        <input
-          type="text"
-          placeholder="Display Name"
-          value={this.state.name}
-          onChange={this.handleNameChange}
-          className="NewPostInput-input"
-        />
-        <input
-          type="text"
-          placeholder="Your Bio"
-          value={this.state.desc}
-          onChange={this.handleDescChange}
-          className="NewPostInput-input"
-        />
-        <input onChange={ this.convertImageToDataURL } type='file' id="imageInput" />
-        <p id="b64" hidden></p>
-        <button
-          type="submit"
-          className="NewPostInput-button u-pointer"
-          value="Submit"
-          onClick={this.handleSubmit}
-        >Save Changes</button>
+        <div className="ProfilePane-container">
+          <img src={ this.state.profile_pic } id="img"/>
+          <div className="ProfilePane-text">
+          <InputField
+            type="text"
+            placeholder="Display Name"
+            value={this.state.name}
+            onChange={this.handleNameChange}
+            title="Display Name"
+            defaultValue={this.state.name}
+          />
+          <InputField
+            type="text"
+            placeholder="Your Bio"
+            value={this.state.desc}
+            onChange={this.handleDescChange}
+            title="Bio"
+            defaultValue={this.state.desc}
+          />
+          <div className="spaceButtonsOut">
+            <SpecialButton action={this.handleSubmit} title="Save Changes" icon={ faSave } className="EditProfile-button" />
+            <SpecialButton action={() => location.href="/profile"} title="Discard Changes" icon={ faTimes } destructive={true}  className="EditProfile-button"/>
+          </div>
+          </div>
+          <p id="b64" hidden></p>
+          <br /><br />
+          <input onChange={ this.convertImageToDataURL } type='file' id="imageInput" />
+          <label htmlFor="imageInput"><FontAwesomeIcon icon={faUpload} className="icon"/> Upload Image From Desktop</label>
+          <br />
+          <br />
+          <div style={{width: "83%"}}>
+            <InputField
+              type="text"
+              placeholder="Photo URL"
+              value={this.state.profile_pic}
+              onChange={this.handleURLChange}
+              title="Photo URL"
+              id="imageURL"
+              defaultValue={(this.state.profile_pic[0] !== "d") ? this.state.profile_pic : ""}
+            />
+          </div>
+          <SpecialButton action={this.modifyImageURL} title="Upload Image From URL" icon={ faLink } className="EditProfile-button" />
+        </div>
       </>
     );
   }

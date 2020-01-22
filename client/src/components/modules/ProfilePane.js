@@ -37,6 +37,7 @@ class NavBar extends Component {
         <div className="ProfilePane-text">
           <h1>{ this.props.user.name }</h1>
           <h3>{ this.props.user.description }</h3>
+          <span className={"label "+this.props.user.skill}>{ this.props.user.skill }</span><br />
           { editButton }
         </div>
       </div>

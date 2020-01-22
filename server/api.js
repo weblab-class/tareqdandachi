@@ -56,6 +56,7 @@ router.post("/save_user_changes", auth.ensureLoggedIn, (req, res) => {
     user.description = req.body.desc;
     user.profile_pic = req.body.profile_pic;
             user.save() ;
+    res.send(user);
       });
 });
 

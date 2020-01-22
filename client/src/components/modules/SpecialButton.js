@@ -19,6 +19,9 @@ class SpecialButton extends Component {
     if (this.props.destructive){
       classes += " destroy";
     }
+    if (this.props.className){
+      classes += " " + this.props.className;
+    }
     return (
       <div className={classes} onClick={this.props.action} style={this.props.style}>
         <a>
