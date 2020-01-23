@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ArticleButtons from "./ArticleButtons.js"
 
 import "../Learn.css";
 
@@ -26,6 +27,9 @@ class Funk extends Component {
         <p>The no cloning theorem states that a qubit's state can't be cloned. Since measuring its state will decohere it, this makes sense. However, it is possible to create complex behaviour by entanglement. Entanglement is when two qubit states affect each other. So if state A and B are entangled, measuring the state A will define what the state of B should be.</p>
 
         <br/>
+
+        <ArticleButtons left="Main Learning Page" right="Quantum Gates" left_link="/learn" right_link="gates"/>
+
       </div>
     );
   }

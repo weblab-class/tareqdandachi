@@ -1,7 +1,14 @@
+.buttonContainer {
+
+  display: inline-block;
+  vertical-align: middle;
+
+}
+
 .gateButton {
 
-  background-color: white;
-  color: black;
+  background-color: black;
+  color: white;
   font: monospace;
   font-size: 2em;
   text-align: center;
@@ -27,3 +34,16 @@
 .gateButton.tdg { background-color: #e67e22; color: white; }
 .gateButton.s { background-color: #1dd1a1; color: white; }
 .gateButton.sdg { background-color: #16a085; color: white; }
+
+.gateButton.selected { color: black; background-color: white; }
+.gateButton.h.selected  { color: #F5A623; background-color: white; }
+.gateButton.x.selected  { color: #4A90E2; background-color: white; }
+.gateButton.y.selected { color: #D0021B; background-color: white; }
+.gateButton.z.selected { color: #2ecc71; background-color: white; }
+.gateButton.rx.selected  { color: #48dbfb; background-color: white; }
+.gateButton.ry.selected { color: #ff6b6b; background-color: white; }
+.gateButton.rz.selected { color: #44bd32; background-color: white; }
+.gateButton.t.selected { color: #f1c40f; background-color: white; }
+.gateButton.tdg.selected { color: #e67e22; background-color: white; }
+.gateButton.s.selected { color: #1dd1a1; background-color: white; }
+.gateButton.sdg.selected { color: #16a085; background-color: white; }

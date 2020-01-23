@@ -19,7 +19,7 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { monokaiSublime, atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar, faChessRook, faUserCircle, faTrophy, faEdit, faSave, faTrash, faMedal, faSync } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faChessRook, faUserCircle, faTrophy, faEdit, faSave, faTrash, faMedal, faSync, faServer } from '@fortawesome/free-solid-svg-icons'
 
 import { get, post } from "../../utilities";
 
@@ -322,8 +322,11 @@ class CircuitEditor extends Component {
 
     const unrenderedCircuit = (<center>
       <br /><br />
-      <h3>Circuit Being Simulated...</h3>
-      <h4>The servers take a while to simulate the quantum circuit.</h4>
+      <FontAwesomeIcon icon={faServer} className="icon" style={{display: "inline-block", fontSize: "5em", verticalAlign: "middle", marginRight: "0.5em"}}/>
+      <div style={{display: "inline-block", verticalAlign: "middle"}}>
+        <h3 style={{textAlign: "left"}}>Circuit Being Simulated...</h3>
+        <h4 style={{textAlign: "left"}}>The servers take a while to simulate the quantum circuit.</h4>
+      </div>
       <br />
       <br />
     </center>)

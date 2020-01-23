@@ -52,3 +52,70 @@
 .learnpage h2 {
   margin-left: -0.5em;
 }
+
+.articleButtons {
+  text-align: center;
+  vertical-align: baseline;
+  margin: 0 .25em 0 0;
+}
+
+.articleButtons button {
+  cursor: pointer;
+  display: inline-block;
+  min-height: 1em;
+  outline: 0;
+  border: none;
+  vertical-align: baseline;
+  background-color: var(--darkgrey);
+  color: rgba(255,255,255,.6);
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  margin: 0 .25em 0 0;
+  padding: .78571429em 1.5em .78571429em;
+  text-transform: none;
+  text-shadow: none;
+  font-weight: 700;
+  line-height: 1em;
+  font-style: normal;
+  text-align: center;
+  text-decoration: none;
+  flex: 1 0 auto;
+  border-radius: 0;
+  font-size: 0.95em;
+  width: 10vw;
+  min-width: 20em;
+  margin: 0;
+  margin-bottom: 2em;
+}
+
+.articleButtons button:hover {
+  color: var(--primary);
+  background-color: #111;
+}
+
+.articleButtons button:first-child {
+  border-left: none;
+  margin-left: 0;
+  border-top-left-radius: .28571429rem;
+  border-bottom-left-radius: .28571429rem;
+  vertical-align: middle;
+}
+
+.articleButtons button:first-child .icon {
+  margin-right: 2em;
+  vertical-align: middle;
+  transform: translateY(-0.1em);
+}
+
+.articleButtons button:last-child {
+    border-left: none;
+    margin-left: 0;
+    border-top-right-radius: .28571429rem;
+    border-bottom-right-radius: .28571429rem;
+    vertical-align: middle;
+}
+
+.articleButtons button:last-child .icon {
+  margin-left: 2em;
+  vertical-align: middle;
+  transform: translateY(-0.1em);
+}

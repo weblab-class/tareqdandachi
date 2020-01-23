@@ -23,6 +23,12 @@ class BlochSphere extends Component {
     this.updateAnimation()
   }
 
+  calculate_multiplier = (x, y) => {
+
+    return Math.floor(Math.abs((y-x)/(x+1))*200)/100
+
+  }
+
   display() {
     var mousePos={x:0, y:0};
 
@@ -92,20 +98,29 @@ class BlochSphere extends Component {
     scene.add(cube);
     scene.add(this.current_state);
     scene.add(this.state_final);
-
+    
     camera.position.y = 2;
     camera.position.z = 5;
 
     this.reverse_theta = false;
     this.reverse_phi = false;
 
-    // Hadamard
+    // Identity
+
     this.final_theta = 0;
-    this.final_phi = 3.14/2;
-    this.current_theta = -3.14/2;
+    this.final_phi = 0;
+    this.current_theta = 0;
     this.current_phi = 0;
 
     switch(this.props.gate) {
+
+      case "H":
+        //Hadamard
+        this.final_theta = 0;
+        this.final_phi = 3.14/2;
+        this.current_theta = -3.14/2;
+        this.current_phi = 0;
+        break;
       case "X":
         //X Gate
         this.final_theta = -3.14/2;
@@ -182,20 +197,21 @@ class BlochSphere extends Component {
 
     this.setInit = () => {
       this.current_state.position.setFromSpherical(THREE.Spherical(2,this.current_phi,this.current_theta));
+      this.state_final.position.setFromSpherical(THREE.Spherical(2,this.current_phi+0.001,this.current_theta+1.57));
     }
 
     this.animate = () => {
-      controls.update();
+      // controls.update();
 
-      if (this.current_phi !== this.final_phi || this.current_theta !== this.final_theta) {
+      if (Math.round(this.current_phi*100) !== Math.round(this.final_phi*100) || Math.round(this.current_theta*100) !== Math.round(this.final_theta*100)) {
 
         if (((this.current_phi <= this.final_phi) ^ this.reverse_phi) || ((this.current_theta <= this.final_theta) ^ this.reverse_theta)) {
 
-          if (this.reverse_phi) { this.current_phi = (this.current_phi > this.final_phi) ? this.current_phi - 0.01 : this.current_phi }
-          else { this.current_phi = (this.current_phi < this.final_phi) ? this.current_phi + 0.01 : this.current_phi }
+          if (this.reverse_phi) { this.current_phi = (this.current_phi > this.final_phi) ? this.current_phi - 0.01*this.calculate_multiplier(this.final_phi, this.current_phi) : this.current_phi }
+          else { this.current_phi = (this.current_phi < this.final_phi) ? this.current_phi + 0.01*this.calculate_multiplier(this.final_phi, this.current_phi) : this.current_phi }
 
-          if (this.reverse_theta) { this.current_theta = (this.current_theta > this.final_theta) ? this.current_theta - 0.01 : this.current_theta }
-          else { this.current_theta = (this.current_theta < this.final_theta) ? this.current_theta + 0.01 : this.current_theta }
+          if (this.reverse_theta) { this.current_theta = (this.current_theta > this.final_theta) ? this.current_theta - 0.01*this.calculate_multiplier(this.final_theta, this.current_theta) : this.current_theta }
+          else { this.current_theta = (this.current_theta < this.final_theta) ? this.current_theta + 0.01*this.calculate_multiplier(this.final_theta, this.current_theta) : this.current_theta }
 
           this.state_final.position.setFromSpherical(THREE.Spherical(2,this.current_phi,this.current_theta));
 
@@ -220,14 +236,22 @@ class BlochSphere extends Component {
     this.reverse_theta = false;
     this.reverse_phi = false;
 
-    // Hadamard
+    // Identity
+
     this.final_theta = 0;
-    this.final_phi = 3.14/2;
-    this.current_theta = -3.14/2;
+    this.final_phi = 0.01;
+    this.current_theta = 0;
     this.current_phi = 0;
 
     switch(this.props.gate) {
 
+      case "H":
+        //Hadamard
+        this.final_theta = 0;
+        this.final_phi = 3.14/2;
+        this.current_theta = -3.14/2;
+        this.current_phi = 0;
+        break;
       case "X":
         //X Gate
         this.final_theta = -3.14/2;
@@ -310,7 +334,7 @@ class BlochSphere extends Component {
 
   render() {
     return (
-      <div ref={ref => (this.mount = ref)}/>
+      <div ref={ref => (this.mount = ref)} style={{width: "200px", display: "inline-block", verticalAlign: "middle"}}/>
     );
   }
 }

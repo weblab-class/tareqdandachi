@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ArticleButtons from "./ArticleButtons.js"
 
 import "../Learn.css";
 
@@ -53,6 +54,8 @@ class Gates extends Component {
         <br/>
         <h2>How to flip two qubits?</h2>
         <p>LIPSUM</p>
+
+        <ArticleButtons left="Quantum Funk" right="Bloch Spheres" left_link="funk" right_link="bloch"/>
 
       </div>
     );

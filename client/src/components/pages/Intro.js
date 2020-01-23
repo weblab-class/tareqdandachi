@@ -4,6 +4,8 @@ import CircuitSmall from "../modules/CircuitSmall.js";
 import NewCircuit from "../modules/NewCircuit.js";
 import GoogleLogin from "react-google-login";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import "./Intro.css";
 
 import { get, post } from "../../utilities";
@@ -28,7 +30,7 @@ class Intro extends Component {
             onFailure={(err) => console.log(err)}
             className="NavBar-link NavBar-login"
             render={renderProps => (
-              <div className="logInBanner" onClick={renderProps.onClick} disabled={renderProps.disabled}>Log in to create your first Quantum Algorithm</div>
+              <div className="logInBanner" onClick={renderProps.onClick} disabled={renderProps.disabled}><FontAwesomeIcon icon={faGoogle} className="icon" style={{marginRight: "1em"}}/> Log in to create your first Quantum Algorithm</div>
             )}
           /> }
         <div className="banner"><h1>Craft your own Quantum Algorithm</h1></div>
