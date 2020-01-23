@@ -20,11 +20,10 @@ class BlochSphere extends Component {
   }
 
   componentDidUpdate() {
-    this.display()
+    this.updateAnimation()
   }
 
   display() {
-    console.log("AH", this.props.gate)
     var mousePos={x:0, y:0};
 
     function handleMouseMove(event) {
@@ -75,9 +74,9 @@ class BlochSphere extends Component {
     var state_material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
     var state_final_material = new THREE.MeshBasicMaterial( {color: 0xaa00ff} );
 
-    var state = new THREE.Mesh( state_geometry, state_material );
+    this.current_state = new THREE.Mesh( state_geometry, state_material );
 
-    var state_final = new THREE.Mesh( state_geometry, state_final_material );
+    this.state_final = new THREE.Mesh( state_geometry, state_final_material );
 
     var controls = new OrbitControls(camera, renderer.domElement);
     // controls.addEventListener('change', render);
@@ -91,126 +90,222 @@ class BlochSphere extends Component {
     scene.add( axesHelper );
 
     scene.add(cube);
-    scene.add(state);
-    scene.add(state_final);
+    scene.add(this.current_state);
+    scene.add(this.state_final);
 
-    state.position.y = 2;
     camera.position.y = 2;
     camera.position.z = 5;
 
-    var reverse_theta = false;
-    var reverse_phi = false;
+    this.reverse_theta = false;
+    this.reverse_phi = false;
 
     // Hadamard
-    var final_theta = 0;
-    var final_phi = 3.14/2;
-    var current_theta = -3.14/2;
-    var current_phi = 0;
+    this.final_theta = 0;
+    this.final_phi = 3.14/2;
+    this.current_theta = -3.14/2;
+    this.current_phi = 0;
 
     switch(this.props.gate) {
       case "X":
         //X Gate
-        var final_theta = -3.14/2;
-        var final_phi = 3.14;
-        var current_theta = -3.14/2;
-        var current_phi = 0;
+        this.final_theta = -3.14/2;
+        this.final_phi = 3.14;
+        this.current_theta = -3.14/2;
+        this.current_phi = 0;
         break;
       case "Y":
         //Y Gate
-        var final_theta = 0;
-        var final_phi = 3.14;
-        var current_theta = 0;
-        var current_phi = 0;
+        this.final_theta = 0;
+        this.final_phi = 3.14;
+        this.current_theta = 0;
+        this.current_phi = 0;
         break;
       case "Z":
         //Z Gate
-        var final_theta = 3.14;
-        var final_phi = 3.14/2;
-        var current_theta = 0;
-        var current_phi = 3.14/2;
+        this.final_theta = 3.14;
+        this.final_phi = 3.14/2;
+        this.current_theta = 0;
+        this.current_phi = 3.14/2;
         break;
       case "RX":
         //Rx Gate
-        var final_theta = -3.14/2;
-        var final_phi = 3.14/2;
-        var current_theta = -3.14/2;
-        var current_phi = 0;
+        this.final_theta = -3.14/2;
+        this.final_phi = 3.14/2;
+        this.current_theta = -3.14/2;
+        this.current_phi = 0;
         break;
       case "RY":
         //RY Gate
-        var final_theta = 0;
-        var final_phi = 3.14/2;
-        var current_theta = 0;
-        var current_phi = 0;
+        this.final_theta = 0;
+        this.final_phi = 3.14/2;
+        this.current_theta = 0;
+        this.current_phi = 0;
         break;
       case "RZ":
         //RZ Gate
-        var final_theta = 3.14;
-        var final_phi = 3.14/2;
-        var current_theta = 0;
-        var current_phi = 3.14/2;
+        this.final_theta = 3.14;
+        this.final_phi = 3.14/2;
+        this.current_theta = 0;
+        this.current_phi = 3.14/2;
         break;
       case "S":
         //S Gate
-        var final_theta = 3.14/2;
-        var final_phi = 3.14/2;
-        var current_theta = 0;
-        var current_phi = 3.14/2;
+        this.final_theta = 3.14/2;
+        this.final_phi = 3.14/2;
+        this.current_theta = 0;
+        this.current_phi = 3.14/2;
         break;
       case "Sdg":
         //Sdg Gate
-        var final_theta = -3.14/2;
-        var final_phi = 3.14/2;
-        var current_theta = 0;
-        var current_phi = 3.14/2;
-        var reverse_theta = true;
+        this.final_theta = -3.14/2;
+        this.final_phi = 3.14/2;
+        this.current_theta = 0;
+        this.current_phi = 3.14/2;
+        this.reverse_theta = true;
         break;
       case "T":
         //T Gate
-        var final_theta = 3.14/4;
-        var final_phi = 3.14/2;
-        var current_theta = 0;
-        var current_phi = 3.14/2;
+        this.final_theta = 3.14/4;
+        this.final_phi = 3.14/2;
+        this.current_theta = 0;
+        this.current_phi = 3.14/2;
         break;
       case "Tdg":
         //Tdg Gate
-        var final_theta = -3.14/4;
-        var final_phi = 3.14/2;
-        var current_theta = 0;
-        var current_phi = 3.14/2;
-        var reverse_theta = true;
+        this.final_theta = -3.14/4;
+        this.final_phi = 3.14/2;
+        this.current_theta = 0;
+        this.current_phi = 3.14/2;
+        this.reverse_theta = true;
         break;
     }
 
-    state.position.setFromSpherical(THREE.Spherical(2,current_phi,current_theta));
+    this.setInit = () => {
+      this.current_state.position.setFromSpherical(THREE.Spherical(2,this.current_phi,this.current_theta));
+    }
 
-    var animate = function () {
+    this.animate = () => {
       controls.update();
 
-      if (current_phi !== final_phi || current_theta !== final_theta) {
+      if (this.current_phi !== this.final_phi || this.current_theta !== this.final_theta) {
 
-        if (((current_phi <= final_phi) ^ reverse_phi) || ((current_theta <= final_theta) ^ reverse_theta)) {
+        if (((this.current_phi <= this.final_phi) ^ this.reverse_phi) || ((this.current_theta <= this.final_theta) ^ this.reverse_theta)) {
 
-          if (reverse_phi) { current_phi = (current_phi > final_phi) ? current_phi - 0.01 : current_phi }
-          else { current_phi = (current_phi < final_phi) ? current_phi + 0.01 : current_phi }
+          if (this.reverse_phi) { this.current_phi = (this.current_phi > this.final_phi) ? this.current_phi - 0.01 : this.current_phi }
+          else { this.current_phi = (this.current_phi < this.final_phi) ? this.current_phi + 0.01 : this.current_phi }
 
-          if (reverse_theta) { current_theta = (current_theta > final_theta) ? current_theta - 0.01 : current_theta }
-          else { current_theta = (current_theta < final_theta) ? current_theta + 0.01 : current_theta }
+          if (this.reverse_theta) { this.current_theta = (this.current_theta > this.final_theta) ? this.current_theta - 0.01 : this.current_theta }
+          else { this.current_theta = (this.current_theta < this.final_theta) ? this.current_theta + 0.01 : this.current_theta }
 
-          state_final.position.setFromSpherical(THREE.Spherical(2,current_phi,current_theta));
+          this.state_final.position.setFromSpherical(THREE.Spherical(2,this.current_phi,this.current_theta));
 
         }
 
       }
 
       render()
-      requestAnimationFrame( animate );
+      requestAnimationFrame( this.animate );
     };
     function render() {
     	renderer.render(scene, camera);
     }
-    animate();
+
+    this.setInit();
+    this.animate();
     render();
+  }
+
+  updateAnimation = () => {
+
+    this.reverse_theta = false;
+    this.reverse_phi = false;
+
+    // Hadamard
+    this.final_theta = 0;
+    this.final_phi = 3.14/2;
+    this.current_theta = -3.14/2;
+    this.current_phi = 0;
+
+    switch(this.props.gate) {
+
+      case "X":
+        //X Gate
+        this.final_theta = -3.14/2;
+        this.final_phi = 3.14;
+        this.current_theta = -3.14/2;
+        this.current_phi = 0;
+        break;
+      case "Y":
+        //Y Gate
+        this.final_theta = 0;
+        this.final_phi = 3.14;
+        this.current_theta = 0;
+        this.current_phi = 0;
+        break;
+      case "Z":
+        //Z Gate
+        this.final_theta = 3.14;
+        this.final_phi = 3.14/2;
+        this.current_theta = 0;
+        this.current_phi = 3.14/2;
+        break;
+      case "RX":
+        //Rx Gate
+        this.final_theta = -3.14/2;
+        this.final_phi = 3.14/2;
+        this.current_theta = -3.14/2;
+        this.current_phi = 0;
+        break;
+      case "RY":
+        //RY Gate
+        this.final_theta = 0;
+        this.final_phi = 3.14/2;
+        this.current_theta = 0;
+        this.current_phi = 0;
+        break;
+      case "RZ":
+        //RZ Gate
+        this.final_theta = 3.14/2;
+        this.final_phi = 3.14/2;
+        this.current_theta = 0;
+        this.current_phi = 3.14/2;
+        break;
+      case "S":
+        //S Gate
+        this.final_theta = 3.14/2;
+        this.final_phi = 3.14/2;
+        this.current_theta = 0;
+        this.current_phi = 3.14/2;
+        break;
+      case "Sdg":
+        //Sdg Gate
+        this.final_theta = -3.14/2;
+        this.final_phi = 3.14/2;
+        this.current_theta = 0;
+        this.current_phi = 3.14/2;
+        this.reverse_theta = true;
+        break;
+      case "T":
+        //T Gate
+        this.final_theta = 3.14/4;
+        this.final_phi = 3.14/2;
+        this.current_theta = 0;
+        this.current_phi = 3.14/2;
+        break;
+      case "Tdg":
+        //Tdg Gate
+        this.final_theta = -3.14/4;
+        this.final_phi = 3.14/2;
+        this.current_theta = 0;
+        this.current_phi = 3.14/2;
+        this.reverse_theta = true;
+        break;
+    }
+
+    if (this.setInit) { this.setInit(); }
+
+    if (this.animate) { this.animate(); }
+
   }
 
   render() {

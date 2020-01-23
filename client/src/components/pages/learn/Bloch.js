@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import "../Learn.css";
+import "./BlochControls.css";
 import BlochSphere from "./BlochSphere.js"
 
 class Bloch extends Component {
@@ -15,10 +16,17 @@ class Bloch extends Component {
   render() {
 
     const gateButtons = <>
-      <a onClick={() => this.setState({gate: "H"})}>H</a>
-      <a onClick={() => this.setState({gate: "X"})}>X</a>
-      <a onClick={() => this.setState({gate: "Y"})}>Y</a>
-      <a onClick={() => this.setState({gate: "Z"})}>Z</a>
+      <a onClick={() => this.setState({gate: "H"})} className="gateButton h">H</a>
+      <a onClick={() => this.setState({gate: "X"})} className="gateButton x">X</a>
+      <a onClick={() => this.setState({gate: "Y"})} className="gateButton y">Y</a>
+      <a onClick={() => this.setState({gate: "Z"})} className="gateButton z">Z</a>
+      <a onClick={() => this.setState({gate: "RX"})} className="gateButton rx">Rx</a>
+      <a onClick={() => this.setState({gate: "RY"})} className="gateButton ry">Ry</a>
+      <a onClick={() => this.setState({gate: "RZ"})} className="gateButton rz">Rz</a>
+      <a onClick={() => this.setState({gate: "S"})} className="gateButton s">S</a>
+      <a onClick={() => this.setState({gate: "Sdg"})} className="gateButton sdg">Sdg</a>
+      <a onClick={() => this.setState({gate: "T"})} className="gateButton t">T</a>
+      <a onClick={() => this.setState({gate: "Tdg"})} className="gateButton tdg">Tdg</a>
     </>
 
     return (

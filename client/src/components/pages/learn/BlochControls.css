@@ -1,0 +1,29 @@
+.gateButton {
+
+  background-color: white;
+  color: black;
+  font: monospace;
+  font-size: 2em;
+  text-align: center;
+  padding-top: 0.45em;
+  padding-bottom: 0.55em;
+  height: 1em;
+  width: 2em;
+  font-family: 'Roboto Mono', monospace;
+  display: inline-block;
+  margin: 0.5em;
+  cursor: pointer;
+
+}
+
+.gateButton.h  { background-color: #F5A623; color: white; }
+.gateButton.x  { background-color: #4A90E2; color: white; }
+.gateButton.y { background-color: #D0021B; color: white; }
+.gateButton.z { background-color: #2ecc71; color: white; }
+.gateButton.rx  { background-color: #48dbfb; color: white; }
+.gateButton.ry { background-color: #ff6b6b; color: white; }
+.gateButton.rz { background-color: #44bd32; color: white; }
+.gateButton.t { background-color: #f1c40f; color: white; }
+.gateButton.tdg { background-color: #e67e22; color: white; }
+.gateButton.s { background-color: #1dd1a1; color: white; }
+.gateButton.sdg { background-color: #16a085; color: white; }
