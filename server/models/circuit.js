@@ -11,6 +11,10 @@ const CircuitSchema = new mongoose.Schema({
   creator_name: String,
   public: { type: Boolean, default: true },
   description: String,
+  stars: { type: Number, default: 0 },
+  games: { type: Number, default: 0 },
+  wins: { type: Number, default: 0 },
+  parsed: { type: Boolean, default: false },
 });
 
 // compile model from schema

@@ -99,3 +99,11 @@
 .descField {
   font-size: 18px;
 }
+
+.circuitPreviewImage {
+  width: 100%;
+  background-color: black;
+  max-height: 50vh;
+  object-fit: contain;
+  object-position: left;
+}

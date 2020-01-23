@@ -116,6 +116,8 @@ class Profile extends Component {
           score={circuitObj.score}
           userId={this.props.userId}
           showCreator={ false }
+          wins={circuitObj.wins}
+          stars={circuitObj.stars}
         />
       ));
     } else {

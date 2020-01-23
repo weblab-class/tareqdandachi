@@ -41,6 +41,14 @@
 /* page specific */
 
 .learnpage {
-  margin: 0 3em;
+  margin: 0 6em;
   line-height: 2em;
+}
+
+.learnpage h1 {
+  margin-left: -1em;
+}
+
+.learnpage h2 {
+  margin-left: -0.5em;
 }

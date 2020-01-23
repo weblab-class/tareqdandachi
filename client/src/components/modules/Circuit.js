@@ -66,9 +66,9 @@ class Circuit extends Component {
         <h1 onClick={ this.edit_circuit }>{ (this.props.index || "") + " " + this.props.title }</h1>
         <h2>{ this.props.desc }</h2>
         { creatorLink }
-        <h5><FontAwesomeIcon icon={faChessRook} className="icon"/> 138 Games</h5>
+        <h5><FontAwesomeIcon icon={faChessRook} className="icon"/> {this.props.wins}</h5>
         <h5><FontAwesomeIcon icon={faTrophy} className="icon"/> { this.getScoreString(this.props.score) }</h5>
-        <h5><FontAwesomeIcon icon={faStar} className="icon"/> 3 Stars</h5>
+        <h5><FontAwesomeIcon icon={faStar} className="icon"/> {this.props.stars}</h5>
         <h5>Updated 20 days ago</h5>
       </div>
     );

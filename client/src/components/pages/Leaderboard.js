@@ -57,6 +57,8 @@ class Leaderboard extends Component {
           score={circuitObj.score}
           userId={this.props.userId}
           showCreator={ true }
+          wins={circuitObj.wins}
+          stars={circuitObj.stars}
         />
       ));
     } else {

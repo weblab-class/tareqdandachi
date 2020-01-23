@@ -68,9 +68,9 @@ class CircuitSmall extends Component {
         <h1>{ (this.props.index || "") + " " + this.props.title }</h1>
         <h2>{ this.props.desc }</h2>
         { creatorLink }
-        <h5><FontAwesomeIcon icon={faChessRook} className="icon" style={{color: "#2ecc71"}}/> 138</h5>
+        <h5><FontAwesomeIcon icon={faChessRook} className="icon" style={{color: "#2ecc71"}}/> {this.props.wins}</h5>
         <h5><FontAwesomeIcon icon={faTrophy} className="icon" style={{color: "#DFAF00"}}/> { this.getScoreString(this.props.score) }</h5>
-        <h5><FontAwesomeIcon icon={faStar} className="icon" style={{color: "#f1c40f"}}/> 3</h5>
+        <h5><FontAwesomeIcon icon={faStar} className="icon" style={{color: "#f1c40f"}}/> {this.props.stars}</h5>
       </div>
     );
   }

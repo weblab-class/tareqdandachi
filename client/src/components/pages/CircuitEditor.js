@@ -6,6 +6,8 @@ import Loading from "../modules/Loading.js";
 import ChallengePicker from "../modules/ChallengePicker.js";
 import InputField from "../modules/InputField.js";
 
+import DateDisplayFormatter from "../modules/DateDisplayFormatter.js"
+
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -17,7 +19,7 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { monokaiSublime, atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar, faChessRook, faUserCircle, faTrophy, faEdit, faSave, faTrash, faMedal } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faChessRook, faUserCircle, faTrophy, faEdit, faSave, faTrash, faMedal, faSync } from '@fortawesome/free-solid-svg-icons'
 
 import { get, post } from "../../utilities";
 
@@ -38,6 +40,7 @@ class CircuitEditor extends Component {
       editingTitle: false,
       newTitle: undefined,
       newDescription: undefined,
+      bell_simulation: undefined,
     };
   }
 
@@ -52,6 +55,7 @@ class CircuitEditor extends Component {
           this.setState({ creator: user })
 
         });
+
         get(`/api/user`, { userId: circuit.creator_id }).then((user) => this.setState({ recipient: user }));
 
         if (this.props.userId) {
@@ -64,7 +68,15 @@ class CircuitEditor extends Component {
         }
 
       })
+
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', `https://tareq.scripts.mit.edu/woop_read.php?id_string=`+this.props.circuitId);
+      xhr.setRequestHeader('Content-type', 'application/json');
+      xhr.onreadystatechange = () => this.setState({bell_simulation: JSON.parse(xhr.response.replace(/'/g, "\"").replace("},}", "}}"))});
+      xhr.send();
+
     }
+
   };
 
   componentDidMount() {
@@ -126,10 +138,9 @@ class CircuitEditor extends Component {
 
     while (code.includes(';;')) {
       code = code.replace(";;", ";")
-      console.log(code)
     }
 
-    xhr.open('POST', 'https://tareq.scripts.mit.edu/process.php?id='+this.props.circuitId+'&qasm='+code);
+    xhr.open('POST', 'https://tareq.scripts.mit.edu/process.php?circuit_id='+this.props.circuitId+'&qasm='+code);
     xhr.setRequestHeader('Content-type', 'application/json');
     xhr.onreadystatechange = () => console.log(xhr.response);
     console.log(xhr)
@@ -173,6 +184,7 @@ class CircuitEditor extends Component {
 
     this.state.circuit.title = title;
     this.state.circuit.description = description;
+    this.state.circuit.timestamp = Date.now();
 
     const body = {
       circuit_id: this.state.circuit._id,
@@ -304,14 +316,26 @@ class CircuitEditor extends Component {
       }
     }
 
+    const renderedCircuit = (<>
+      <img src={"http://tareq.scripts.mit.edu/woop/id:"+this.state.circuit._id+".png?"+Date.now()} className="circuitPreviewImage" id="circuitPreviewImage" />
+    </>)
+
+    const unrenderedCircuit = (<center>
+      <br /><br />
+      <h3>Circuit Being Simulated...</h3>
+      <h4>The servers take a while to simulate the quantum circuit.</h4>
+      <br />
+      <br />
+    </center>)
+
     return (
       <div className="CircuitEditor-container">
         {titleBlocks}
         <h5><FontAwesomeIcon icon={faUserCircle} className="icon"/> { this.state.circuit.creator_name }</h5>
-        <h5><FontAwesomeIcon icon={faChessRook} className="icon"/> 138 Games</h5>
+        <h5><FontAwesomeIcon icon={faChessRook} className="icon"/> {this.state.circuit.wins} Games</h5>
         <h5><FontAwesomeIcon icon={faTrophy} className="icon"/> { this.getScoreString(this.state.circuit.score) }</h5>
-        <h5><FontAwesomeIcon icon={faStar} className="icon"/> 3 Stars</h5>
-        <h5>Updated 20 days ago</h5>
+        <h5><FontAwesomeIcon icon={faStar} className="icon"/>{this.state.circuit.stars} Stars</h5>
+        <h5>Updated <DateDisplayFormatter date={this.state.circuit.timestamp} /></h5>
         <div>
           <h2>Actions</h2>
           <div className="actions">
@@ -324,6 +348,12 @@ class CircuitEditor extends Component {
           { button }
         </div>
         { codeViewer }
+
+        <div className="qcFlex">
+          <h2>Rendered Circuit</h2>
+          <SpecialButton action={() => {this.setState({bell_simulation: undefined}); this.getCircuitData(); document.getElementById("circuitPreviewImage").src = "http://tareq.scripts.mit.edu/woop/id:"+this.state.circuit._id+".png?"+Date.now()}} title="Reload" icon={ faSync }/>
+        </div>
+        { (this.state.bell_simulation !== undefined) ? renderedCircuit : unrenderedCircuit }
 
         <ChallengePicker set_challenge_inputs={this.set_challenge_inputs} circuits={this.state.viewer_circuits} show={this.state.show_picker} onClose={() => {this.setState({show_picker: false})}} onConfirm={this.submit_challenge}/>
       </div>

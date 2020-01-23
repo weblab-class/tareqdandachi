@@ -35,7 +35,7 @@ class NewCircuit extends Component {
   };
 
   addCircuit = (value) => {
-    const body = { circuit: {title: "New Circuit", qasm: "OPENQASM 2.0;\ninclude \"qelib1.inc\";\n\nqreg q[3];\ncreg c[3];\n\n", description: "This is a new circuit created by " + this.props.user.name}, user: this.props.user };
+    const body = { circuit: {title: "New Circuit", qasm: "OPENQASM 2.0;\ninclude \"qelib1.inc\";\n\nqreg q[3];\ncreg c[3];\nload();\n\n", description: "This is a new circuit created by " + this.props.user.name}, user: this.props.user };
     const toastId = toast("Creating New Circuit", {autoClose: false});
     post("/api/create_circuit", body).then((circuit) => {
       toast.update(toastId, { type: toast.TYPE.SUCCESS, autoClose: 1000, render: "Created New Circuit", hideProgressBar: true});

@@ -94,11 +94,10 @@ router.post("/create_circuit", auth.ensureLoggedIn, (req, res) => {
 });
 
 router.post("/edit_circuit_title", (req, res) => {
-  console.log(req.body)
   Circuit.findById(req.body.circuit_id).then((circuit) => {
     circuit.title = req.body.title
     circuit.description = req.body.description
-    console.log(circuit)
+    circuit.timestamp = Date.now();
     circuit.save().then((circuit) => res.send(circuit));
   });
 });
@@ -107,6 +106,7 @@ router.post("/save_circuit_qasm", auth.ensureLoggedIn, (req, res) => {
   Circuit.findById(req.body.circuit_id).then((circuit) => {
     if (req.body.circuit.creator_id==req.user._id) {
       circuit.qasm = req.body.circuit.qasm;
+      circuit.timestamp = Date.now();
       circuit.save() .then((circuit) => res.send(circuit));
     }
       });
