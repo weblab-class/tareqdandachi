@@ -138,3 +138,8 @@
   margin-left: 2em;
   vertical-align: middle;
 }
+
+.qasmCode {
+  background-color: var(--darkgrey) !important;
+  line-height: 1.5em;
+}

@@ -79,21 +79,21 @@ class Gates extends Component {
         </div>
 
         <br/>
-        <a className="gateButton next_desc cx">CZ</a>
+        <a className="gateButton next_desc cz">CZ</a>
         <div className="gate_desc">
           <h2>Other Controlled Gates</h2>
           <p>More control gates can be constructed using the same methodolody, apply the operation if the control qubit is |1⟩ or else just apply the identity.</p>
         </div>
 
         <br/>
-        <a className="gateButton next_desc cx">CRk</a>
+        <a className="gateButton next_desc crk">CRk</a>
         <div className="gate_desc">
           <h2>Controlled Phase Shift</h2>
           <p>This gate applies a phase shift with an angle θ if the control bit is |1⟩. A CR gate is similar but is applied to one axis only, this gate is a generalisation of CR.</p>
         </div>
 
         <br/>
-        <a className="gateButton next_desc cx">CCX</a>
+        <a className="gateButton next_desc ccx">CCX</a>
         <div className="gate_desc">
           <h2>Toffoli gate</h2>
           <p>The Toffoli Gate, also known as a Controlled-Controlled Not, is a three qubit operation that works in a similar fashion to the Controlled Not Gate (CX), except it has 2 control qubits. If both controls are |1⟩, the target qubit has a Pauli-X applied to it, else no operation is applied on it.</p>

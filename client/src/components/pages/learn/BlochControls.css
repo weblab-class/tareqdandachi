@@ -36,7 +36,10 @@
 .gateButton.sdg { background-color: #16a085; color: white; }
 .gateButton.cx { background-color: #D0021B; color: white; }
 .gateButton.u { background-color: #6c5ce7; color: white; }
-.gateButton.swap { background-color: #6c5ce7; color: white; }
+.gateButton.swap { background-color: #00cec9; color: white; }
+.gateButton.cz { background-color: #706fd3; color: white; }
+.gateButton.crk { background-color: #ff5252; color: white; }
+.gateButton.ccx { background-color: #fd79a8; color: white; }
 
 .gateButton.selected { color: black; background-color: white; }
 .gateButton.h.selected  { color: #F5A623; background-color: white; }
