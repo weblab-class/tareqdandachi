@@ -4,6 +4,9 @@ import React, { Component } from "react";
 import { post } from "../../utilities";
 import "./CircuitLogic.css";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBackspace, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
+
 class CircuitLogic extends Component {
   constructor(props) {
     super(props);
@@ -77,11 +80,12 @@ class CircuitLogic extends Component {
 
     const applyH = (val, c) => { return val + 0.5 }
     const applyX = (val, c) => { return 1 - val }
+    const applyI = (val, c) => { return val }
     const apply0 = (val, c) => { return 0 }
     const apply1 = (val, c) => { return 1 }
     const applyC = (val, c) => { return c==1 ? applyX(val) : val }
 
-    const gateMap = {'h': applyH, 'x': applyX, 'z': apply0, 'o': apply1, 'c': applyC}
+    const gateMap = {'h': applyH, 'x': applyX, 'z': apply0, 'o': apply1, 'c': applyC, "i": applyI}
 
     for (var i=0; i < circuit.length; i++) {
 
@@ -129,8 +133,6 @@ class CircuitLogic extends Component {
 
   drag = (ev) => {
 
-    console.log("UUU")
-
     ev.dataTransfer.setData("text", ev.target.id);
 
     // this.save = ev.target.parentNode.id == "gateContainer"
@@ -175,6 +177,7 @@ class CircuitLogic extends Component {
         <div id="XGate" gate="x" className="gate x" draggable="true" onDragStart={this.drag}>X</div>
         <div id="HGate" gate="h" className="gate h" draggable="true" onDragStart={this.drag}>H</div>
         <div id="CXGate" gate="cx" className="gate cx" draggable="true" onDragStart={this.drag}>CX</div>
+        <div id="IGate" gate="i" className="gate i" draggable="true" onDragStart={this.drag}>I</div>
         <div id="0Gate" gate="zero" className="gate zero" draggable="true" onDragStart={this.drag}>0</div>
         <div id="1Gate" gate="one" className="gate one" draggable="true" onDragStart={this.drag}>1</div>
       </div>
@@ -182,13 +185,28 @@ class CircuitLogic extends Component {
 
     return (
       <div className="logicContainer">
+        <h3>Circuit Logic</h3>
         <div className="wires">
           <div id="wire1" className="wire" onDragLeave={this.discard} onDrop={this.drop} onDragOver={this.allowDrop}></div>
           <div id="wire2" className="wire" onDragLeave={this.discard} onDrop={this.drop} onDragOver={this.allowDrop}></div>
           <div id="wire3" className="wire" onDragLeave={this.discard} onDrop={this.drop} onDragOver={this.allowDrop}></div>
         </div>
 
+        <h3>Available Gates</h3>
         { gateSelector }
+
+        <h3>Keyboard Controls</h3>
+        <div className="keyboardControls">
+          <p><FontAwesomeIcon className="icon" icon={faArrowUp} /> Select wire above</p>
+          <p><FontAwesomeIcon className="icon" icon={faArrowDown} /> Select wire below</p>
+          <p><FontAwesomeIcon className="icon" icon={faBackspace} /> Delete gate on row</p>
+          <p><b className="icon">X</b> Insert X Gate</p>
+          <p><b className="icon">H</b> Insert H Gate</p>
+          <p><b className="icon">C</b> Insert CX Gate</p>
+          <p><b className="icon">I</b> Insert Id Gate</p>
+          <p><b className="icon">0</b> Insert 0 Gate</p>
+          <p><b className="icon">1</b> Insert 1 Gate</p>
+        </div>
       </div>
     );
   }

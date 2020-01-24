@@ -20,3 +20,7 @@ canvas.horizontal {
   max-height: 90vh;
 
 }
+
+.gameContainer {
+  display: flex;
+}

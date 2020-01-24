@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import ReactDOM from 'react-dom'
+
 import GoogleLogin, { GoogleLogout } from "react-google-login";
 import Circuit from "../modules/Circuit.js";
 import NewCircuit from "../modules/NewCircuit.js";
@@ -58,14 +60,14 @@ class Game extends Component {
     const regular_font = "400 " + 10*display_multiplier+"px monospace";
     const bold_font = "900 " + 10*display_multiplier+"px monospace";
 
+    var selectedLane = -1;
+
     context.font =regular_font;
     context.textAlign = 'center';
 
     this.setState({paddles: players});
     var chosen_paddle = Math.floor(Math.random() * 7);
     this.setState({paddle: chosen_paddle});
-
-    var keysDown = {};
 
     var render = function () {
         context.fillStyle = "#262626";
@@ -325,11 +327,120 @@ class Game extends Component {
     animate(step);
 
     window.addEventListener("keydown", function (event) {
-        keysDown[event.keyCode] = true;
     });
 
+    const moveCursor = () => {
+
+        const cursor = document.getElementById("cursor");
+        if (cursor) { cursor.parentNode.removeChild(cursor) }
+
+        if (selectedLane == -1) { return }
+
+        const cursorElement = document.createElement("div");
+        cursorElement.id = "cursor"
+        cursorElement.classList.add("cursor");
+        cursorElement.classList.add("gate");
+        cursorElement.innerHTML = "cursor"
+
+        const wire = document.getElementById("wire"+(selectedLane+1));
+        wire.appendChild(cursorElement);
+    }
+
+    const addGate = (gateType, display) => {
+
+      // <div id="HGate" gate="h" className="gate h" draggable="true" onDragStart={this.drag}>H</div>
+
+      const gateTypeLower = gateType.toLowerCase();
+      const wire = document.getElementById("wire"+(selectedLane+1));
+
+      const gateElement = document.createElement("div");
+
+      gateElement.id = gateTypeLower + (wire.id) + (wire.children.length-1)
+      gateElement.classList.add("gate");
+      gateElement.classList.add(gateTypeLower);
+
+      gateElement.draggable = "true";
+      gateElement.addEventListener('dblclick', function (e) {
+        e.target.parentNode.removeChild(e.target);
+      });
+
+      gateElement.setAttribute("gate", gateTypeLower);
+      gateElement.innerHTML = (display) ? display : gateType;
+
+      wire.appendChild(gateElement);
+
+      // selectedLane = -1;
+      moveCursor()
+    }
+
+    const removeGate = () => {
+      const wire = document.getElementById("wire"+(selectedLane+1));
+      const wire_children = wire.children;
+      
+      if (wire.children.length > 1) {
+        wire.removeChild(wire_children[wire.children.length-2])
+      }
+
+    }
+
+    window.addEventListener('click', () => {
+
+      selectedLane = -1;
+      moveCursor()
+
+    }, true);
+
+    window.addEventListener('dragstart', () => {
+
+      selectedLane = -1;
+      moveCursor()
+
+    }, true);
+
     window.addEventListener("keyup", function (event) {
-        delete keysDown[event.keyCode];
+        if (event.keyCode == 40) {
+
+          selectedLane = ((selectedLane + 1) % 3);
+
+          moveCursor();
+
+        } else if (event.keyCode == 38) {
+
+          selectedLane = selectedLane - 1;
+          if (selectedLane < 0) { selectedLane = 2; }
+
+          moveCursor();
+
+        } else if (event.keyCode == 72) {
+
+          addGate("H");
+
+        } else if (event.keyCode == 88) {
+
+          addGate("X");
+
+        } else if (event.keyCode == 67) {
+
+          addGate("CX");
+
+        } else if (event.keyCode == 49) {
+
+          addGate("one", "1");
+
+        } else if (event.keyCode == 48) {
+
+          addGate("zero", "0");
+
+        } else if (event.keyCode == 73) {
+
+          addGate("I");
+
+        } else if (event.keyCode == 8) {
+
+          removeGate();
+
+        }
+
     });
 
   }
@@ -338,12 +449,6 @@ class Game extends Component {
   }
 
   setPaddlePosition = (x) => {
-
-    // [0.5115430222709983, 0.4884569777290016, 0.4884569777290016]
-
-    // const largest_state = parseInt( (x.map(a => (a>0.5) ? 1 : 0).join('') ) , 2)
-
-    // this.state.paddles[0].paddle.set_position(largest_state*this.state.PADDLE_WIDTH)
 
     var state_dictionary = {}
 
@@ -361,33 +466,6 @@ class Game extends Component {
 
     for (var i = 0; i < this.state.paddles.length; i++) {
 
-      // const j = Math.random();
-      // const k = Math.random();
-      // const l = Math.random();
-      // const paddle = this.state.paddles[0]
-      //
-      // var ans = ""
-      //
-      // if (j < x[0]) {
-      //   ans += "1"
-      // } else {
-      //   ans += "0"
-      // }
-      //
-      // if (k < x[1]) {
-      //   ans += "1"
-      // } else {
-      //   ans += "0"
-      // }
-      //
-      // if (l < x[2]) {
-      //   ans += "1"
-      // } else {
-      //   ans += "0"
-      // }
-
-      // int_sol = parseInt(ans, 2);
-
       this.state.paddles[i].paddle.set_position(i*this.state.PADDLE_WIDTH)
 
       this.state.paddles[i].paddle.probability = state_dictionary[i]
@@ -399,7 +477,7 @@ class Game extends Component {
   }
 
   render() {
-    return <div>
+    return <div className="gameContainer">
       <div className="first-half">
         <canvas id="game"></canvas>
       </div>

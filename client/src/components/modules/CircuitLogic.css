@@ -1,7 +1,10 @@
 .logicContainer {
 
   display: inline-block;
-  margin-left: 2em;
+  margin: 0 2em;
+  vertical-align: top;
+  flex-grow: 1;
+  margin-top: -50px;
 
 }
 
@@ -16,7 +19,7 @@
   background-color: white;
   color: black;
   font: monospace;
-  font-size: 2em;
+  font-size: 2.5em;
   text-align: center;
   padding-top: 0.3em;
   padding-bottom: 0.7em;
@@ -24,18 +27,26 @@
   width: 2em;
   font-family: 'Roboto Mono', monospace;
   display: inline-block;
-  margin: 0.5em;
+  margin: 0.25em 0.5em;
 
 }
 
 .gate.x  { background-color: #4A90E2; color: white; }
 .gate.h  { background-color: #F5A623; color: white; }
 .gate.cx { background-color: #D0021B; color: white; }
+.gate.i { background-color: black; color: white; }
+.gate.cursor { background-color: #b2bec3; color: rgba(0,0,0,0)}
 
 .gateContainer {
 
-  width: 20em;
+  width: 28em;
+  padding: 0 1em;
+  text-align: center;
 
+}
+
+.wires {
+  /* overflow-x: scroll; */
 }
 
 .wire {
@@ -44,6 +55,7 @@
   height: 5em;
   padding-bottom: 1em;
   position: relative;
+  white-space: nowrap;
 
 }
 
@@ -57,4 +69,29 @@
   width: 100%;
   z-index: -1;
 
+}
+
+.logicContainer h3 {
+  color: var(--grey);
+}
+
+.keyboardControls p {
+  display: inline-block;
+  width: 33%;
+  font-size: 0.8em;
+}
+
+.keyboardControls p .icon {
+  margin-right: 0.5em;
+}
+
+.keyboardControls p b.icon {
+  width: 1.3em;
+  height: 1.3em;
+  display: inline-block;
+  background-color: white;
+  color: var(--darkgrey);
+  text-align: center;
+  border-radius: 0.3em;
+  padding: 0px;
 }
