@@ -3,6 +3,8 @@ import ArticleButtons from "./ArticleButtons.js"
 
 import "../Learn.css";
 
+import measure from "../../images/measure.svg"
+
 class Funk extends Component {
   constructor(props) {
     super(props);
@@ -17,6 +19,8 @@ class Funk extends Component {
         <br/>
         <h2>Measuring a State</h2>
         <p>Whenever you measure a state, you cause it to decohere, which means that you lose the superposition of these two states. When that happens the output is binary and the bits superposition is completely moved to that state. In quantum computation this measurement is saved into a classical register that uses that value to communicate with the classical devices connected to it.</p>
+
+        <img src={ measure } height="40px" className="inline_image" />
 
         <br/>
         <h2>Shots</h2>

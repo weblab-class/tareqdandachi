@@ -25,15 +25,18 @@
 
 .gateButton.h  { background-color: #F5A623; color: white; }
 .gateButton.x  { background-color: #4A90E2; color: white; }
-.gateButton.y { background-color: #D0021B; color: white; }
-.gateButton.z { background-color: #2ecc71; color: white; }
+.gateButton.y { background-color: #ff4757; color: white; }
+.gateButton.z { background-color: #44bd32; color: white; }
 .gateButton.rx  { background-color: #48dbfb; color: white; }
 .gateButton.ry { background-color: #ff6b6b; color: white; }
-.gateButton.rz { background-color: #44bd32; color: white; }
+.gateButton.rz { background-color: #2ecc71; color: white; }
 .gateButton.t { background-color: #f1c40f; color: white; }
 .gateButton.tdg { background-color: #e67e22; color: white; }
 .gateButton.s { background-color: #1dd1a1; color: white; }
 .gateButton.sdg { background-color: #16a085; color: white; }
+.gateButton.cx { background-color: #D0021B; color: white; }
+.gateButton.u { background-color: #6c5ce7; color: white; }
+.gateButton.swap { background-color: #6c5ce7; color: white; }
 
 .gateButton.selected { color: black; background-color: white; }
 .gateButton.h.selected  { color: #F5A623; background-color: white; }

@@ -119,3 +119,22 @@
   vertical-align: middle;
   transform: translateY(-0.1em);
 }
+
+.inline_image {
+  text-align: center;
+  width: 100%;
+  object-fit: contain;
+  margin: 25px 0;
+}
+
+.next_desc {
+  vertical-align: middle;
+}
+
+.gate_desc {
+  display: inline-block;
+  max-width: 80%;
+  margin: 2em 0;
+  margin-left: 2em;
+  vertical-align: middle;
+}
