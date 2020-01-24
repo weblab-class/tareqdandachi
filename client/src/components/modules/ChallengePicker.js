@@ -25,8 +25,6 @@ class ChallengePicker extends Component {
       return null;
     }
 
-    console.log("PROPS >", this.props)
-
     let circuitList = null;
     let hasCircuits = this.props.circuits !== undefined;
     if (hasCircuits) { hasCircuits = this.props.circuits.length !== 0}

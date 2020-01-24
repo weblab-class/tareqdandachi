@@ -50,17 +50,6 @@ class Dashboard extends Component {
 
   render() {
 
-    // if (this.state.circuits[0]) {
-    //
-    //   const xhr = new XMLHttpRequest();
-    //   xhr.open('GET', 'https://tareq.scripts.mit.edu/process.php?qasm='+this.state.circuits[1].qasm.replace(/\n/g, "\\n"));
-    //   xhr.setRequestHeader('Content-type', 'application/json');
-    //   xhr.onreadystatechange = () => console.log(xhr.response);
-    //   console.log(xhr)
-    //   xhr.send();
-    //
-    // }
-
     if (!this.props.userId) {
       return (
         <Intro

@@ -52,8 +52,6 @@ class CircuitLogic extends Component {
     qlx = get_state(qlx);
     qly = get_state(qly);
 
-    console.log(qlx, this.props.ball_states[0])
-
     var qlo = qlx.map(function (num, idx) {
       return num + qly[idx];
     });
@@ -96,8 +94,6 @@ class CircuitLogic extends Component {
 
     }
 
-    console.log(states)
-
     this.props.setPaddlePosition(states)
 
   }
@@ -133,9 +129,11 @@ class CircuitLogic extends Component {
 
   drag = (ev) => {
 
+    console.log("UUU")
+
     ev.dataTransfer.setData("text", ev.target.id);
 
-    this.save = ev.target.parentNode.id == "gateContainer"
+    // this.save = ev.target.parentNode.id == "gateContainer"
 
   }
 
@@ -145,8 +143,16 @@ class CircuitLogic extends Component {
 
       ev.preventDefault();
       var data = ev.dataTransfer.getData("text");
-      const item = this.save ? document.getElementById(data).cloneNode(true) : document.getElementById(data)
+
+      const item = ev.dataTransfer.getData("delete") ? document.getElementById(data) : document.getElementById(data).cloneNode(true)
       item.id = item.getAttribute("gate") + (ev.target.id) + (ev.target.children.length)
+      item.addEventListener('dblclick', function (e) {
+        e.target.parentNode.removeChild(e.target);
+      });
+      item.addEventListener('dragstart', function (e) {
+        e.dataTransfer.setData("text", e.target.id);
+        e.dataTransfer.setData("delete", true);
+      });
       ev.target.appendChild(item);
 
     }
@@ -158,14 +164,14 @@ class CircuitLogic extends Component {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
 
-    if (data) { document.getElementById(data).remove(); }
+    if (data && data.includes("wire")) { document.getElementById(data).remove(); }
 
   }
 
   render() {
 
     const gateSelector = (
-      <div id="gateContainer" className="gateContainer" onDrop={this.discard} onDragOver={this.allowDrop}>
+      <div id="gateContainer" className="gateContainer">
         <div id="XGate" gate="x" className="gate x" draggable="true" onDragStart={this.drag}>X</div>
         <div id="HGate" gate="h" className="gate h" draggable="true" onDragStart={this.drag}>H</div>
         <div id="CXGate" gate="cx" className="gate cx" draggable="true" onDragStart={this.drag}>CX</div>

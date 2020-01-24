@@ -25,7 +25,6 @@ class NavBar extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.userId)
     get(`/api/user`, { userId: this.props.userId }).then((user) => this.setState({ name: user.name }))
   }
 

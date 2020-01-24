@@ -69,7 +69,6 @@ class Profile extends Component {
   }
 
   componentDidUpdate(oldProps, prevState) {
-    console.log("h", oldProps.userId !== this.props.userId, oldProps.userId, this.props.userId)
     if ((oldProps.userId !== this.props.userId) && this.props.userId) {
       this.setState({scope_user: this.props.userId})
       this.setState({ editable: true })

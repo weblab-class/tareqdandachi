@@ -9,8 +9,6 @@ class DateDisplayFormatter extends Component {
 
     date = new Date(date)
 
-    console.log(date)
-
     var seconds = Math.floor((new Date() - date) / 1000);
 
     var interval = Math.floor(seconds / 31536000);
@@ -43,8 +41,6 @@ class DateDisplayFormatter extends Component {
   }
 
   render() {
-
-    console.log(this.dateSince)
 
     return (
       <>{ this.dateSince(this.props.date) }</>

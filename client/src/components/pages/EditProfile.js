@@ -28,8 +28,6 @@ class EditProfile extends Component {
 
   get_values = () => {
 
-    console.log("WOOOO")
-
     if (this.props.userId) {
       document.title = "Profile Editor";
       get(`/api/user`, { userId: this.props.userId }).then((user) => this.setState({ name: user.name, desc: user.description, profile_pic: user.profile_pic }))

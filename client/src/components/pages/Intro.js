@@ -18,8 +18,6 @@ class Intro extends Component {
 
   render() {
 
-    console.log(this.props.handleLogin)
-
     return (
       <div className="intro">
         { (!this.props.loggedIn) &&

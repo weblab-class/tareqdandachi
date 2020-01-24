@@ -142,8 +142,7 @@ class CircuitEditor extends Component {
 
     xhr.open('POST', 'https://tareq.scripts.mit.edu/process.php?circuit_id='+this.props.circuitId+'&qasm='+code);
     xhr.setRequestHeader('Content-type', 'application/json');
-    xhr.onreadystatechange = () => console.log(xhr.response);
-    console.log(xhr)
+    xhr.onreadystatechange = () => console.log(xhr.response); //FIX ME
     xhr.send();
 
   }
