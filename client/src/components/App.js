@@ -38,6 +38,9 @@ class App extends Component {
     super(props);
     this.state = {
       userId: undefined,
+      // challenge stuff
+      circuit_recipient: undefined,
+      circuit_creator: undefined,
     };
   }
 
@@ -117,6 +120,12 @@ class App extends Component {
             />
             <Game
               path="/game"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+              userId={this.state.userId}
+            />
+            <Game
+              path="/game/:challengeId"
               handleLogin={this.handleLogin}
               handleLogout={this.handleLogout}
               userId={this.state.userId}

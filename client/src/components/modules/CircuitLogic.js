@@ -98,7 +98,7 @@ class CircuitLogic extends Component {
 
     }
 
-    this.props.setPaddlePosition(states)
+    this.props.setPaddlePosition(states, 1)
 
   }
 

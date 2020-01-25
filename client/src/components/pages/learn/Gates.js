@@ -102,8 +102,8 @@ class Gates extends Component {
         <br/>
         <a className="gateButton next_desc u">U</a>
         <div className="gate_desc">
-          <h2>U Gate</h2>
-          <p>LIPSUM</p>
+          <h2>U Gates</h2>
+          <p>The Quantum Experience standard header compiles circuits and implements them in terms of the abstract gates U and CX. The U is a single qubit gate that takes in three parameters and can cause any rotation on the bloch sphere based on the hard-coded parameters. In OpenQASM u3 applies the U gate, constructs like <b style={{fontFamily: "Roboto Mono"}}>[u1(z) == u3(0,0,z)]</b> and <b style={{fontFamily: "Roboto Mono"}}>[u2(y,z) == u3(0,y,z)]</b> exist.</p>
         </div>
 
         <br/>

@@ -48,6 +48,18 @@ class Dashboard extends Component {
     }
   }
 
+  reject = (id) => {
+
+    // TODO
+
+  }
+
+  accept = (id, recipient, creator) => {
+
+    location.href = "/game/"+id;
+
+  }
+
   render() {
 
     if (!this.props.userId) {
@@ -101,6 +113,8 @@ class Dashboard extends Component {
           recipient_circuit_name={challenge.recipient_circuit.title}
           userId={this.props.userId}
           status={challenge.state}
+          accept={this.accept}
+          reject={this.reject}
         />
       ));
     } else {

@@ -385,6 +385,9 @@ class CircuitEditor extends Component {
           { button }
         </div>
         { codeViewer }
+        <div style={{textAlign: "right"}}><a className="u-link" href="/learn/gates" target="_blank">What gates can I use?</a></div>
+
+        <br />
 
         <div className="qcFlex">
           <h2>Rendered Circuit</h2>

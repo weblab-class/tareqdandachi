@@ -24,12 +24,57 @@ class Game extends Component {
       paddle: 0,
       PADDLE_WIDTH: 0,
       ball_states: 0,
-      paddles: 0
+      paddles: 0,
+      opponent_paddles: undefined,
+      circuit_loaded: undefined,
+      opponent_circuit_loaded: undefined,
     };;
 
   }
 
-  componentDidMount() {
+  lazyLoadedCircuit = () => {
+
+    const processBellResponse = (response) => {
+
+      response = JSON.parse(response.replace(/'/g, "\"").replace("},}", "}}"));
+
+      var processed = {};
+
+      var hard_bit_map = {"000": 0, "001":1, "010":2, "011":3, "100":4, "101":5, "110":6, "111":7};
+
+      Object.keys(response).forEach(function(key) {
+        processed[key] = {}
+        const data = response[key]
+        Object.keys(hard_bit_map).forEach(function(deeper_key) {
+          processed[key][hard_bit_map[deeper_key]] = data[deeper_key] || 0
+        });
+      });
+
+      return processed
+
+    }
+
+    get("/api/begin_challenge", {challengeId: this.props.challengeId}).then((challenge) => {
+
+      console.log("BEGIN", challenge)
+
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', `https://tareq.scripts.mit.edu/woop_read.php?id_string=`+challenge.recipient_circuit._id);
+      xhr.setRequestHeader('Content-type', 'application/json');
+      xhr.onreadystatechange = () => this.setState({circuit_loaded: processBellResponse(xhr.response)});
+      xhr.send();
+
+      const xhr2 = new XMLHttpRequest();
+      xhr2.open('POST', `https://tareq.scripts.mit.edu/woop_read.php?id_string=`+challenge.creator_circuit._id);
+      xhr2.setRequestHeader('Content-type', 'application/json');
+      xhr2.onreadystatechange = () => this.setState({opponent_circuit_loaded: processBellResponse(xhr2.response)});
+      xhr2.send();
+
+    });
+
+  }
+
+  loadGame = () => {
 
     const bell_states = ['000', '001', '010', '011', '100', '101', '110', '111'];
     const display_multiplier = 2;
@@ -56,6 +101,12 @@ class Game extends Component {
     // var player = new Player();
 
     var computer = new Computer();
+    var real_opponent = this.props.challengeId !== undefined;
+    if (real_opponent) {
+      computer = [new Player(true), new Player(true), new Player(true), new Player(true), new Player(true), new Player(true), new Player(true), new Player(true)];
+      this.setState({opponent_paddles: computer});
+    }
+
     var ball = new Ball(200*display_multiplier, 300*display_multiplier);
 
     const regular_font = "400 " + 10*display_multiplier+"px monospace";
@@ -78,8 +129,16 @@ class Game extends Component {
         for (var i = 0; i < players.length; i++) {
           players[i].render()
         }
-        // player.render();
-        computer.render();
+
+        if (real_opponent) {
+          // computer = [new Player(), new Player(), new Player(), new Player(), new Player(), new Player(), new Player(), new Player()];
+          for (var i = 0; i < computer.length; i++) {
+            computer[i].render()
+          }
+        } else {
+            computer.render();
+        }
+
         ball.render();
 
         for (var i = 0; i < 8; i++) {
@@ -102,8 +161,16 @@ class Game extends Component {
         for (var i = 0; i < players.length; i++) {
           players[i].update()
         }
-        // player.update();
-        computer.update(ball);
+
+        if (real_opponent) {
+          // computer = [new Player(), new Player(), new Player(), new Player(), new Player(), new Player(), new Player(), new Player()];
+          for (var i = 0; i < computer.length; i++) {
+            computer[i].update()
+          }
+        } else {
+          computer.update(ball);
+        }
+
         ball.update(players, computer.paddle);
     };
 
@@ -178,8 +245,9 @@ class Game extends Component {
         }
     };
 
-    function Player() {
-        this.paddle = new Paddle(0, 560*display_multiplier, PADDLE_WIDTH, 10*display_multiplier);
+    function Player(top) {
+        if (top) { this.paddle = new Paddle(0, 25*display_multiplier, PADDLE_WIDTH, 10*display_multiplier); }
+        else {this.paddle = new Paddle(0, 560*display_multiplier, PADDLE_WIDTH, 10*display_multiplier);}
     }
 
     Player.prototype.render = function () {
@@ -281,6 +349,9 @@ class Game extends Component {
         }
 
         const paddle1 = paddles[chosen_paddle].paddle
+        if (real_opponent) {
+          paddle2 = paddles[chosen_paddle].paddle
+        }
 
         if (top_y > 300*display_multiplier) {
 
@@ -446,34 +517,85 @@ class Game extends Component {
 
   }
 
+  componentDidMount() {
+
+    if (this.props.challengeId!==undefined) {
+      this.lazyLoadedCircuit();
+    } else {
+
+      this.loadGame()
+
+    }
+
+  }
+
   componentDidUpdate(oldProps, prevState) {
+    console.log(prevState, this.state)
+    console.log(prevState !== this.state, this.state.circuit_loaded!==undefined, this.state.opponent_circuit_loaded!==undefined)
+    if (prevState !== this.state && this.state.circuit_loaded!==undefined && this.state.opponent_circuit_loaded!==undefined && (prevState.circuit_loaded==undefined || prevState.opponent_circuit_loaded==undefined)) { this.render(); this.loadGame() }
   }
 
   setPaddlePosition = (x, scale=1) => {
 
-    // var state_dictionary = {}
+    if (this.props.circuit_loaded==undefined && this.props.challengeId==undefined) {
 
-    // console.log(x)
-    //
-    // for (var i = 0; i < 2; i++) {
-    //   for (var j = 0; j < 2; j++) {
-    //     for (var k = 0; k < 2; k++) {
-    //
-    //       const getVal = (index, isOne) => ((isOne) ? x[index] : 1-x[index])
-    //
-    //       state_dictionary[k+j*2+i*4] = getVal(2, k)*getVal(1, j)*getVal(0, i)
-    //
-    //     }
-    //   }
-    // }
+      var state_dictionary = {}
 
-    // console.log(state_dictionary)
+      for (var i = 0; i < 2; i++) {
+        for (var j = 0; j < 2; j++) {
+          for (var k = 0; k < 2; k++) {
+
+            const getVal = (index, isOne) => ((isOne) ? x[index] : 1-x[index])
+
+            state_dictionary[k+j*2+i*4] = getVal(2, k)*getVal(1, j)*getVal(0, i)
+
+          }
+        }
+      }
+
+      x = state_dictionary;
+
+    }
 
     for (var i = 0; i < this.state.paddles.length; i++) {
 
       this.state.paddles[i].paddle.set_position(i*this.state.PADDLE_WIDTH);
 
-      this.state.paddles[i].paddle.probability = x[i]/1024;
+      this.state.paddles[i].paddle.probability = x[i]/scale;
+
+    }
+
+    return true
+
+  }
+
+  setOpponentPaddlePosition = (x, scale=1) => {
+
+    if (this.props.circuit_loaded==undefined && this.props.challengeId==undefined) {
+
+      var state_dictionary = {}
+
+      for (var i = 0; i < 2; i++) {
+        for (var j = 0; j < 2; j++) {
+          for (var k = 0; k < 2; k++) {
+
+            const getVal = (index, isOne) => ((isOne) ? x[index] : 1-x[index])
+
+            state_dictionary[k+j*2+i*4] = getVal(2, k)*getVal(1, j)*getVal(0, i)
+
+          }
+        }
+      }
+
+      x = state_dictionary;
+
+    }
+
+    for (var i = 0; i < this.state.paddles.length; i++) {
+
+      this.state.opponent_paddles[i].paddle.set_position(i*this.state.PADDLE_WIDTH);
+
+      this.state.opponent_paddles[i].paddle.probability = x[i]/scale;
 
     }
 
@@ -482,11 +604,30 @@ class Game extends Component {
   }
 
   render() {
+
+    if (this.props.challengeId !== undefined) {
+      if (!(this.state.circuit_loaded && this.state.opponent_circuit_loaded)) { return <div className="gameContainer"><div className="first-half"><canvas id="game"></canvas></div> LOADING... </div> }
+      return <div className="gameContainer">
+        <div className="first-half">
+          <canvas id="game"></canvas>
+        </div>
+        <CircuitSim
+          paddle={this.state.paddle}
+          setPaddlePosition={this.setPaddlePosition}
+          setOpponentPaddlePosition={this.setOpponentPaddlePosition}
+          PADDLE_WIDTH={this.state.PADDLE_WIDTH}
+          ball_states={this.state.ball_states}
+          simulation_values={this.state.circuit_loaded}
+          opponent_simulation_values={this.state.opponent_circuit_loaded}
+        />
+      </div>
+    }
+
     return <div className="gameContainer">
       <div className="first-half">
         <canvas id="game"></canvas>
       </div>
-      {this.props.circuit_loaded==undefined ? (
+      {(this.props.circuit_loaded==undefined && this.props.challengeId==undefined) ? (
         <CircuitLogic
           paddle={this.state.paddle}
           setPaddlePosition={this.setPaddlePosition}

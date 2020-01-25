@@ -35,7 +35,7 @@ class Challenge extends Component {
     // userId={this.props.userId}
     // status={challenge.state}
 
-    const name_to_use = (this.userId == this.creator_id) ? "You" : this.creator_name
+    const name_to_use = (this.props.userId == this.props.creator_id) ? "You" : this.props.creator_name
 
     let state_viz = {
       "pending": <FontAwesomeIcon icon={faExclamationCircle} style={{color: "#F5A623"}} className="icon"/>,
@@ -49,9 +49,13 @@ class Challenge extends Component {
       "lose": "lost to",
     }
 
-    let can_accept = (this.props.status == "pending") ? <div className="action_buttons"><SpecialButton action={() => this.props.accept(this.props._id)} title="Reject Challenge" icon={ faTimesCircle } destructive={true} style={{marginRight: "10px"}} /><SpecialButton action={() => this.props.accept(this.props._id)} title="Accept Challenge" icon={ faCheckCircle } destructive={false} style={{marginRight: "10px"}} /></div> : <></>;
+    let can_accept = (this.props.status == "pending") ?
+    <div className="action_buttons">
+      <SpecialButton action={() => this.props.reject(this.props._id)} title="Reject Challenge" icon={ faTimesCircle } destructive={true} style={{marginRight: "10px"}} />
+      <SpecialButton action={() => this.props.accept(this.props._id, this.props.circuit_recipient, this.props.circuit_creator)} title="Accept Challenge" icon={ faCheckCircle } destructive={false} style={{marginRight: "10px"}} />
+    </div> : <></>;
 
-    if (this.userId !== this.creator_id) {
+    if (this.props.userId !== this.props.creator_id) {
       state_viz = {
         "lose": <FontAwesomeIcon icon={faCheckCircle} style={{color: "#7ED321"}} className="icon"/>,
         "win": <FontAwesomeIcon icon={faTimesCircle} style={{color: "#D31D1D"}} className="icon"/>,
@@ -64,8 +68,7 @@ class Challenge extends Component {
         "pending": "challenged",
       }
 
-      can_accept = <></>;
-    }
+    } else { can_accept = <></>; }
 
     return (
       <div className="Challenge-container">
