@@ -5,6 +5,7 @@ import GoogleLogin, { GoogleLogout } from "react-google-login";
 import Circuit from "../modules/Circuit.js";
 import NewCircuit from "../modules/NewCircuit.js";
 import CircuitLogic from "../modules/CircuitLogic.js"
+import CircuitSim from "../modules/CircuitSim.js"
 
 import "../../utilities.css";
 import "./Game.css";
@@ -23,7 +24,7 @@ class Game extends Component {
       paddle: 0,
       PADDLE_WIDTH: 0,
       ball_states: 0,
-      paddles: 0,
+      paddles: 0
     };;
 
   }
@@ -376,7 +377,7 @@ class Game extends Component {
     const removeGate = () => {
       const wire = document.getElementById("wire"+(selectedLane+1));
       const wire_children = wire.children;
-      
+
       if (wire.children.length > 1) {
         wire.removeChild(wire_children[wire.children.length-2])
       }
@@ -397,7 +398,7 @@ class Game extends Component {
 
     }, true);
 
-    window.addEventListener("keyup", function (event) {
+    window.onkeyup = (e) => {
         if (event.keyCode == 40) {
 
           selectedLane = ((selectedLane + 1) % 3);
@@ -441,34 +442,38 @@ class Game extends Component {
 
         }
 
-    });
+    };
 
   }
 
   componentDidUpdate(oldProps, prevState) {
   }
 
-  setPaddlePosition = (x) => {
+  setPaddlePosition = (x, scale=1) => {
 
-    var state_dictionary = {}
+    // var state_dictionary = {}
 
-    for (var i = 0; i < 2; i++) {
-      for (var j = 0; j < 2; j++) {
-        for (var k = 0; k < 2; k++) {
+    // console.log(x)
+    //
+    // for (var i = 0; i < 2; i++) {
+    //   for (var j = 0; j < 2; j++) {
+    //     for (var k = 0; k < 2; k++) {
+    //
+    //       const getVal = (index, isOne) => ((isOne) ? x[index] : 1-x[index])
+    //
+    //       state_dictionary[k+j*2+i*4] = getVal(2, k)*getVal(1, j)*getVal(0, i)
+    //
+    //     }
+    //   }
+    // }
 
-          const getVal = (index, isOne) => ((isOne) ? x[index] : 1-x[index])
-
-          state_dictionary[k+j*2+i*4] = getVal(2, k)*getVal(1, j)*getVal(0, i)
-
-        }
-      }
-    }
+    // console.log(state_dictionary)
 
     for (var i = 0; i < this.state.paddles.length; i++) {
 
-      this.state.paddles[i].paddle.set_position(i*this.state.PADDLE_WIDTH)
+      this.state.paddles[i].paddle.set_position(i*this.state.PADDLE_WIDTH);
 
-      this.state.paddles[i].paddle.probability = state_dictionary[i]
+      this.state.paddles[i].paddle.probability = x[i]/1024;
 
     }
 
@@ -481,12 +486,20 @@ class Game extends Component {
       <div className="first-half">
         <canvas id="game"></canvas>
       </div>
-      <CircuitLogic
-        paddle={this.state.paddle}
-        setPaddlePosition={this.setPaddlePosition}
-        PADDLE_WIDTH={this.state.PADDLE_WIDTH}
-        ball_states={this.state.ball_states}
-        />
+      {this.props.circuit_loaded==undefined ? (
+        <CircuitLogic
+          paddle={this.state.paddle}
+          setPaddlePosition={this.setPaddlePosition}
+          PADDLE_WIDTH={this.state.PADDLE_WIDTH}
+          ball_states={this.state.ball_states}
+        />) : (
+          <CircuitSim
+            paddle={this.state.paddle}
+            setPaddlePosition={this.setPaddlePosition}
+            PADDLE_WIDTH={this.state.PADDLE_WIDTH}
+            ball_states={this.state.ball_states}
+            simulation_values={this.props.circuit_loaded}
+        />)}
     </div>
   }
 }

@@ -3,6 +3,7 @@
 canvas {
 
   height: 90vh;
+  margin-top: 5vh;
 
 }
 
@@ -23,4 +24,7 @@ canvas.horizontal {
 
 .gameContainer {
   display: flex;
+  overflow-y: hidden;
+  margin-top: -3em;
+  max-height: 100vh;
 }

@@ -67,7 +67,7 @@ router.get("/circuit", (req, res) => {
 });
 
 router.get("/circuits", (req, res) => {
-  Circuit.find({creator_id: req.query.creator_id}).sort( { timestamp: 1 } ).then((circ) => {
+  Circuit.find({creator_id: req.query.creator_id}).sort( { timestamp: -1 } ).then((circ) => {
     res.send(circ);
   });
 });

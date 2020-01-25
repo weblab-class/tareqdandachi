@@ -5,6 +5,7 @@ import SpecialButton from "../modules/SpecialButton.js";
 import Loading from "../modules/Loading.js";
 import ChallengePicker from "../modules/ChallengePicker.js";
 import InputField from "../modules/InputField.js";
+import Game from "./Game.js"
 
 import DateDisplayFormatter from "../modules/DateDisplayFormatter.js"
 
@@ -19,7 +20,7 @@ import SyntaxHighlighter from 'react-syntax-highlighter';
 import { monokaiSublime, atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar, faChessRook, faUserCircle, faTrophy, faEdit, faSave, faTrash, faMedal, faSync, faServer } from '@fortawesome/free-solid-svg-icons'
+import { faStar, faChessRook, faUserCircle, faTrophy, faEdit, faSave, faTrash, faMedal, faSync, faServer, faCubes } from '@fortawesome/free-solid-svg-icons'
 
 import { get, post } from "../../utilities";
 
@@ -41,7 +42,9 @@ class CircuitEditor extends Component {
       newTitle: undefined,
       newDescription: undefined,
       bell_simulation: undefined,
+      simulate: undefined,
     };
+
   }
 
   getCircuitData = () => {
@@ -69,10 +72,31 @@ class CircuitEditor extends Component {
 
       })
 
+      const processBellResponse = (response) => {
+
+        response = JSON.parse(response.replace(/'/g, "\"").replace("},}", "}}"));
+
+        var processed = {};
+
+        var hard_bit_map = {"000": 0, "001":1, "010":2, "011":3, "100":4, "101":5, "110":6, "111":7};
+
+        Object.keys(response).forEach(function(key) {
+          processed[key] = {}
+          const data = response[key]
+          Object.keys(hard_bit_map).forEach(function(deeper_key) {
+            console.log(hard_bit_map[deeper_key], data[deeper_key])
+            processed[key][hard_bit_map[deeper_key]] = data[deeper_key] || 0
+          });
+        });
+
+        return processed
+
+      }
+
       const xhr = new XMLHttpRequest();
       xhr.open('POST', `https://tareq.scripts.mit.edu/woop_read.php?id_string=`+this.props.circuitId);
       xhr.setRequestHeader('Content-type', 'application/json');
-      xhr.onreadystatechange = () => this.setState({bell_simulation: JSON.parse(xhr.response.replace(/'/g, "\"").replace("},}", "}}"))});
+      xhr.onreadystatechange = () => this.setState({bell_simulation: processBellResponse(xhr.response)});
       xhr.send();
 
     }
@@ -159,6 +183,7 @@ class CircuitEditor extends Component {
     }
 
     return <>
+      {this.state.bell_simulation && <SpecialButton action={this.simulate} title="Simulate a Game" icon={ faCubes } />}
       <SpecialButton action={this.editTitle} title="Edit Circuit Details" icon={ faEdit } />
       <SpecialButton action={this.delete} title="Delete Algo" icon={ faTrash } destructive={ true } />
     </>
@@ -168,6 +193,12 @@ class CircuitEditor extends Component {
   editTitle = () => {
 
     this.setState({editingTitle: !(this.state.editingTitle)});
+
+  }
+
+  simulate = () => {
+
+    this.setState({simulate: true})
 
   }
 
@@ -254,6 +285,10 @@ class CircuitEditor extends Component {
     if (!this.state.circuit) {
         const message = ["Your circuits are being built from ion trap gates", "Supercooled Qubits need time to cool", "We are grabbing your circuits off the shelf", "Too bad StackOverflow can't help you debug these circuits"];
         return <Loading msg={ message[Math.floor(Math.random()*message.length)] } />;
+    }
+
+    if (this.state.simulate) {
+      return <Game circuit_loaded={this.state.bell_simulation} />
     }
 
     var code = this.state.circuit.qasm.replace(/\\n/g, "\n");

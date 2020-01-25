@@ -193,6 +193,7 @@ class CircuitLogic extends Component {
         </div>
 
         <h3>Available Gates</h3>
+        <h5 style={{marginTop: "-0.75em"}}>Drag and drop gates onto wires, double click to delete gate</h5>
         { gateSelector }
 
         <h3>Keyboard Controls</h3>
