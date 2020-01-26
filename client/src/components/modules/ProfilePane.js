@@ -12,9 +12,15 @@ const GOOGLE_CLIENT_ID = "117624971444-gmdmhm8712dc3hriss8spnt1vgvmeqkn.apps.goo
 /**
  * The navigation bar at the top of all pages. Takes no props.
  */
-class NavBar extends Component {
+class ProfilePane extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {skill: "beginner"}
+  }
+
+  componentDidMount = () => {
+    this.setState({skill: (this.props.user.skill=="expert" || (this.props.circuit_count > 6)) ? "expert" : "beginner"});
   }
 
   editProfile = () => { location.href='/profile/edit' }
@@ -37,7 +43,7 @@ class NavBar extends Component {
         <div className="ProfilePane-text">
           <h1>{ this.props.user.name }</h1>
           <h3>{ this.props.user.description }</h3>
-          <span className={"label "+this.props.user.skill}>{ this.props.user.skill }</span><br />
+          <span className={"label "+this.state.skill}>{ this.state.skill }</span><br />
           { editButton }
         </div>
       </div>
@@ -45,4 +51,4 @@ class NavBar extends Component {
   }
 }
 
-export default NavBar;
+export default ProfilePane;

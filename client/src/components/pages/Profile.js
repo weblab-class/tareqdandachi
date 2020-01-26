@@ -134,6 +134,7 @@ class Profile extends Component {
           user={this.state.user}
           editable={this.state.editable}
           handleLogout={this.props.handleLogout}
+          circuit_count={this.state.circuits.length}
         />
         <div className="qcFlexP">
           <h1 className="qcTitleP">Quantum Circuits</h1>

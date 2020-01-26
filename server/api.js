@@ -156,6 +156,12 @@ router.get("/begin_challenge", auth.ensureLoggedIn, (req, res) => {
   });
 });
 
+router.get("/reject_challenge", auth.ensureLoggedIn, (req, res) => {
+  Challenge.deleteOne({ state: "pending", recipient_id: req.user._id, id: req.body.challengeId }).then((challenge) => {
+    res.send(challenge);
+  });
+});
+
 router.get("/all_user_challenges", auth.ensureLoggedIn, (req, res) => {
   Challenge.find({ $or: [ {creator_id: req.user._id}, {recipient_id: req.user._id} ] }).sort( { timestamp: 1 } ).then((challenges) => {
     res.send(challenges);

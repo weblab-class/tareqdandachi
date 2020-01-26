@@ -9,6 +9,9 @@ import Challenge from "../modules/Challenge.js";
 
 import "./Dashboard.css";
 
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import { get, post } from "../../utilities";
 
 class Dashboard extends Component {
@@ -50,7 +53,10 @@ class Dashboard extends Component {
 
   reject = (id) => {
 
-    // TODO
+    get(`/api/reject_challenge`, { challengeId: id }).then((challenge) => {
+      get(`/api/all_user_challenges`).then((challenges) => this.setState({ challenges: challenges }));
+      toast("Rejected Challenge", {autoClose: 1000, hideProgressBar: true});
+    })
 
   }
 

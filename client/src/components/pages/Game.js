@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom';
 
 import GoogleLogin, { GoogleLogout } from "react-google-login";
 import Circuit from "../modules/Circuit.js";
 import NewCircuit from "../modules/NewCircuit.js";
 import CircuitLogic from "../modules/CircuitLogic.js"
-import CircuitSim from "../modules/CircuitSim.js"
+import CircuitSim from "../modules/CircuitSim.js";
+
+import Loading from "../modules/Loading.js";
 
 import "../../utilities.css";
 import "./Game.css";
@@ -605,8 +607,10 @@ class Game extends Component {
 
   render() {
 
+    const message = ["Entangling your opponents qubits.", "Applying some hadamards on the ball.", "Transpiling your circuit gates into CX and U gates."];
+
     if (this.props.challengeId !== undefined) {
-      if (!(this.state.circuit_loaded && this.state.opponent_circuit_loaded)) { return <div className="gameContainer"><div className="first-half"><canvas id="game"></canvas></div> LOADING... </div> }
+      if (!(this.state.circuit_loaded && this.state.opponent_circuit_loaded)) { return <Loading msg={ message[Math.floor(Math.random()*message.length)] } /> }
       return <div className="gameContainer">
         <div className="first-half">
           <canvas id="game"></canvas>

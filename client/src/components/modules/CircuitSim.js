@@ -62,10 +62,12 @@ class CircuitSim extends Component {
     var states = this.get_inputs()
     const out_bell_states = this.props.simulation_values[states.join('')];
 
-    const out_opponent_bell_states = this.props.opponent_simulation_values[states.join('')];
-
     this.props.setPaddlePosition(out_bell_states, 1024);
-    this.props.setOpponentPaddlePosition(out_opponent_bell_states, 1024);
+
+    if (this.props.opponent_simulation_values) {
+      const out_opponent_bell_states = this.props.opponent_simulation_values[states.join('')];
+      this.props.setOpponentPaddlePosition(out_opponent_bell_states, 1024);
+    }
 
   }
 
