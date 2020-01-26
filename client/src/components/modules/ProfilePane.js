@@ -37,13 +37,19 @@ class ProfilePane extends Component {
       )
     }
 
+    let allowClickClass = ""
+
+    if (this.props.onClick) {
+      allowClickClass = " interactive"
+    }
+
     return (
-      <div className="ProfilePane-container">
+      <div className={"ProfilePane-container" + allowClickClass} onClick={this.props.onClick}>
         <img src={ this.props.user.profile_pic }/>
         <div className="ProfilePane-text">
           <h1>{ this.props.user.name }</h1>
           <h3>{ this.props.user.description }</h3>
-          <span className={"label "+this.state.skill}>{ this.state.skill }</span><br />
+          {(this.props.circuit_count !== false) && (<><span className={"label "+this.state.skill}>{ this.state.skill }</span><br /></>)}
           { editButton }
         </div>
       </div>

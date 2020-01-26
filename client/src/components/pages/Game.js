@@ -99,6 +99,7 @@ class Game extends Component {
 
     var score_home = 0
     var score_away = 0
+    const speed_multiplier = 3
 
     const PADDLE_WIDTH = 400/8*display_multiplier
     this.setState({PADDLE_WIDTH: PADDLE_WIDTH})
@@ -292,17 +293,17 @@ class Game extends Component {
 
         this.random_ball_position = function () {
 
-          const yInput = 3*display_multiplier;
-          const plusminus = (Math.random()>0.5)? 1 : -1
+          const yInput = speed_multiplier*display_multiplier;
+          const plusminus = (Math.random()>0.3)? 1 : -1
 
-          return [(Math.random()-0.5)*2, plusminus*yInput]
+          return [(Math.random()-0.5)*10, plusminus*yInput]
 
         }
 
         this.x = x;
         this.y = y;
         this.x_speed = this.random_ball_position()[0];
-        this.y_speed = -3*display_multiplier;
+        this.y_speed = this.random_ball_position()[1];
     }
 
     function increaseScore(home) {
@@ -318,7 +319,7 @@ class Game extends Component {
 
     Ball.prototype.render = function () {
         context.beginPath();
-        context.arc(this.x, this.y, 5*display_multiplier, 2 * Math.PI, false);
+        context.arc(this.x, this.y,speed_multiplier*display_multiplier, 2 * Math.PI, false);
         context.fillStyle = "#fed330";
         context.fill();
     };
@@ -394,14 +395,14 @@ class Game extends Component {
 
         if (top_y > 300*display_multiplier) {
             if (top_y < (paddle1.y + paddle1.height) && bottom_y > paddle1.y && top_x < (paddle1.x + paddle1.width) && bottom_x > paddle1.x) {
-                this.y_speed = -3*display_multiplier;
+                this.y_speed = -speed_multiplier*display_multiplier;
                 this.x_speed += (paddle1.x_speed / 2);
                 this.y += this.y_speed;
                 // chosen_paddle = Math.floor(Math.random() * 7)
             }
         } else {
             if (top_y < (paddle2.y + paddle2.height) && bottom_y > paddle2.y && top_x < (paddle2.x + paddle2.width) && bottom_x > paddle2.x) {
-                this.y_speed = 3*display_multiplier;
+                this.y_speed = speed_multiplier*display_multiplier;
                 this.x_speed += (paddle2.x_speed / 2);
                 this.y += this.y_speed;
                 // chosen_paddle = Math.floor(Math.random() * 7)

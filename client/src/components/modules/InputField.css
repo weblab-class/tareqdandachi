@@ -8,17 +8,17 @@
 	 font-family: inherit;
 	 border-radius: 6px;
 	 -webkit-appearance: none;
-	 color: #99a3ba;
-	 border: 1px solid #cdd9ed;
-	 background: white;
+	 color: #ccc;
+	 border: 1px solid #000;
+	 background: var(--darkgrey);
 	 transition: border 0.3s ease;
 }
 .InputField input::placeholder {
-	 color: #cbd1dc;
+	 color: #666;
 }
 .InputField input:focus {
 	 outline: none;
-	 border-color: #99a3ba;
+	 border-color: #28a745;
 }
 .InputField {
 	 position: relative;
@@ -56,12 +56,12 @@
 	 font-size: 14px;
 	 line-height: 25px;
 	 color: #99a3ba;
-	 background: #eef4ff;
-	 border: 1px solid #cdd9ed;
+	 background: #111;
+	 border: 1px solid #000;
 	 transition: background 0.3s ease, border 0.3s ease, color 0.3s ease;
 }
 .InputField:focus-within > label {
 	 color: white;
-	 background: #99a3ba;
-	 border-color: white;
+	 background: var(--darkgrey);
+	 border-color: #28a745;
 }

@@ -8,6 +8,7 @@ import Leaderboard from "./pages/Leaderboard.js";
 import Dashboard from "./pages/Dashboard.js";
 import Intro from "./pages/Intro.js";
 import Game from "./pages/Game.js";
+import Search from "./pages/Search.js";
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -156,6 +157,12 @@ class App extends Component {
               path="/learn/funk"
               handleLogin={this.handleLogin}
               handleLogout={this.handleLogout}
+            />
+            <Search
+              path="/search"
+              handleLogin={this.handleLogin}
+              handleLogout={this.handleLogout}
+              userId={this.state.userId}
             />
             <NotFound default />
           </Router>

@@ -173,6 +173,17 @@ router.get("/all_user_challenges", auth.ensureLoggedIn, (req, res) => {
   });
 });
 
+router.post("/search", (req, res) => {
+
+  query_regex = { '$regex' : ".*" + req.body.query + ".*", '$options' : 'i' };
+
+  Circuit.find({ $or: [ {title: query_regex}, {description: query_regex} ] }).sort( { timestamp: 1 } ).then((circuits) => {
+    User.find({ $or: [ {username: query_regex}, {name: query_regex}, {description: query_regex} ] }).then((users) => {
+      res.send({users: users, circuits: circuits});
+    });
+  });
+});
+
 router.post("/initsocket", (req, res) => {
   // do nothing if user not logged in
   if (req.user) socket.addUser(req.user, socket.getSocketFromSocketID(req.body.socketid));
