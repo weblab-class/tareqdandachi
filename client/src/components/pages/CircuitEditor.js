@@ -288,7 +288,7 @@ class CircuitEditor extends Component {
     }
 
     if (this.state.simulate) {
-      return <Game circuit_loaded={this.state.bell_simulation} />
+      return <Game circuit_loaded={this.state.bell_simulation} name={this.state.circuit.title}/>
     }
 
     var code = this.state.circuit.qasm.replace(/\\n/g, "\n");

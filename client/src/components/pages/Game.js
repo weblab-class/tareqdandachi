@@ -30,6 +30,7 @@ class Game extends Component {
       opponent_paddles: undefined,
       circuit_loaded: undefined,
       opponent_circuit_loaded: undefined,
+      challenge: undefined,
     };;
 
   }
@@ -56,9 +57,9 @@ class Game extends Component {
 
     }
 
-    get("/api/begin_challenge", {challengeId: this.props.challengeId}).then((challenge) => {
+    post("/api/begin_challenge", {challengeId: this.props.challengeId}).then((challenge) => {
 
-      console.log("BEGIN", challenge)
+      this.setState({challenge: challenge})
 
       const xhr = new XMLHttpRequest();
       xhr.open('POST', `https://tareq.scripts.mit.edu/woop_read.php?id_string=`+challenge.recipient_circuit._id);
@@ -96,6 +97,9 @@ class Game extends Component {
     canvas.width = width;
     canvas.height = height;
 
+    var score_home = 0
+    var score_away = 0
+
     const PADDLE_WIDTH = 400/8*display_multiplier
     this.setState({PADDLE_WIDTH: PADDLE_WIDTH})
     var context = canvas.getContext('2d');
@@ -126,8 +130,9 @@ class Game extends Component {
     var render = function () {
         context.fillStyle = "#262626";
         context.fillRect(0, 0, width, height);
-        context.fillStyle = "#FFDDFF";
+        context.fillStyle = "#161616";
         context.fillRect(0, 40, width, height-90);
+
         for (var i = 0; i < players.length; i++) {
           players[i].render()
         }
@@ -147,7 +152,7 @@ class Game extends Component {
 
           const state = "￨" + bell_states[i] + " ⟩"
 
-          if (i == qPos1 || i == qPos2) { context.fillStyle = '#7ED321'; context.font = bold_font; }
+          if (i == qPos1 || i == qPos2) { context.fillStyle = '#fed330'; context.font = bold_font; }
           else { context.fillStyle = 'white'; context.font = regular_font; }
           context.fillText(state, (i+0.5)*PADDLE_WIDTH, 15*display_multiplier, PADDLE_WIDTH);
 
@@ -157,6 +162,12 @@ class Game extends Component {
           context.fillText(state, (i+0.5)*PADDLE_WIDTH, 590*display_multiplier, PADDLE_WIDTH);
 
         }
+
+        context.fillStyle = 'rgba(255,255,255,0.3)';
+        context.font = "900 " + 150*display_multiplier+"px Roboto";
+        context.textAlign = "center";
+        context.textBaseline = 'middle';
+        context.fillText(score_home+" : "+score_away, canvas.width/2, canvas.height/2);
     };
 
     var update = function () {
@@ -173,7 +184,8 @@ class Game extends Component {
           computer.update(ball);
         }
 
-        ball.update(players, computer.paddle);
+        if (real_opponent) { ball.update(players, computer) }
+        else { ball.update(players, computer.paddle) }
     };
 
     var step = function () {
@@ -193,7 +205,7 @@ class Game extends Component {
     }
 
     Paddle.prototype.render = function () {
-        context.fillStyle = "rgba(0,0,255,"+ this.probability**0.7 +")";
+        context.fillStyle = "rgba(252, 92, 101,"+ this.probability**0.7 +")";
         context.fillRect(this.x, this.y, this.width, this.height);
     };
 
@@ -293,10 +305,21 @@ class Game extends Component {
         this.y_speed = -3*display_multiplier;
     }
 
+    function increaseScore(home) {
+
+      if (home) {
+        score_home++
+      } else {
+        score_away++
+      }
+
+
+    }
+
     Ball.prototype.render = function () {
         context.beginPath();
         context.arc(this.x, this.y, 5*display_multiplier, 2 * Math.PI, false);
-        context.fillStyle = "#000000";
+        context.fillStyle = "#fed330";
         context.fill();
     };
 
@@ -322,6 +345,8 @@ class Game extends Component {
 
         if (this.y < 0 || this.y > 600*display_multiplier) {
             const reset_vals = this.random_ball_position();
+            if (this.y<0) { increaseScore(true) }
+            else { score_away++ }
             this.x_speed = reset_vals[0];
             this.y_speed = reset_vals[1];
             this.x = 200*display_multiplier;
@@ -351,8 +376,9 @@ class Game extends Component {
         }
 
         const paddle1 = paddles[chosen_paddle].paddle
+
         if (real_opponent) {
-          paddle2 = paddles[chosen_paddle].paddle
+          paddle2 = paddle2[chosen_paddle].paddle
         }
 
         if (top_y > 300*display_multiplier) {
@@ -524,16 +550,12 @@ class Game extends Component {
     if (this.props.challengeId!==undefined) {
       this.lazyLoadedCircuit();
     } else {
-
       this.loadGame()
-
     }
 
   }
 
   componentDidUpdate(oldProps, prevState) {
-    console.log(prevState, this.state)
-    console.log(prevState !== this.state, this.state.circuit_loaded!==undefined, this.state.opponent_circuit_loaded!==undefined)
     if (prevState !== this.state && this.state.circuit_loaded!==undefined && this.state.opponent_circuit_loaded!==undefined && (prevState.circuit_loaded==undefined || prevState.opponent_circuit_loaded==undefined)) { this.render(); this.loadGame() }
   }
 
@@ -623,6 +645,8 @@ class Game extends Component {
           ball_states={this.state.ball_states}
           simulation_values={this.state.circuit_loaded}
           opponent_simulation_values={this.state.opponent_circuit_loaded}
+          home_name={this.state.challenge.recipient_circuit.title}
+          away_name={this.state.challenge.creator_circuit.title}
         />
       </div>
     }
@@ -644,6 +668,7 @@ class Game extends Component {
             PADDLE_WIDTH={this.state.PADDLE_WIDTH}
             ball_states={this.state.ball_states}
             simulation_values={this.props.circuit_loaded}
+            home_name={this.props.challenge}
         />)}
     </div>
   }

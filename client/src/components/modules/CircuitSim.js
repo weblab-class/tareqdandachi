@@ -72,7 +72,10 @@ class CircuitSim extends Component {
   }
 
   render() {
-    return null
+    if (this.props.opponent_simulation_values) {
+      return <>{this.props.home_name} vs {this.props.away_name}</>
+    }
+    return <>Simulating {this.props.name}</>
   }
 
 }

@@ -150,8 +150,13 @@ router.get("/completed_challenges", (req, res) => {
   });
 });
 
-router.get("/begin_challenge", auth.ensureLoggedIn, (req, res) => {
-  Challenge.findOne({ state: "pending", recipient_id: req.user._id, id: req.body.challengeId }).then((challenge) => {
+router.post("/begin_challenge", auth.ensureLoggedIn, (req, res) => {
+  // Challenge.findOne({ state: "pending", recipient_id: req.user._id, id: req.body.challengeId }).then((challenge) => {
+  //   res.send(challenge);
+  // });
+  console.log(req.body)
+  Challenge.findById(req.body.challengeId).then((challenge) => {
+    console.log(challenge)
     res.send(challenge);
   });
 });
