@@ -84,7 +84,6 @@ class CircuitEditor extends Component {
           processed[key] = {}
           const data = response[key]
           Object.keys(hard_bit_map).forEach(function(deeper_key) {
-            console.log(hard_bit_map[deeper_key], data[deeper_key])
             processed[key][hard_bit_map[deeper_key]] = data[deeper_key] || 0
           });
         });
@@ -117,7 +116,7 @@ class CircuitEditor extends Component {
   getScoreString = (score) => {
 
     if (score == -1) {
-      return "Score Not Calculated Yet"
+      return "Simulate Circuit To Get Score"
     }
 
     return (
@@ -288,7 +287,7 @@ class CircuitEditor extends Component {
     }
 
     if (this.state.simulate) {
-      return <Game circuit_loaded={this.state.bell_simulation} name={this.state.circuit.title}/>
+      return <Game circuit_loaded={this.state.bell_simulation} name={this.state.circuit.title} circuit_id={this.state.circuit._id}/>
     }
 
     var code = this.state.circuit.qasm.replace(/\\n/g, "\n");

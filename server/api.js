@@ -118,6 +118,13 @@ router.post("/delete_circuit", auth.ensureLoggedIn, (req, res) => {
       });
 });
 
+router.post("/update_score", auth.ensureLoggedIn, (req, res) => {
+  Circuit.findById(req.body.circuit_id).then((circuit) => {
+    circuit.score = req.body.score;
+    circuit.save() .then((circuit) => res.send(circuit));
+  });
+});
+
 router.get("/high_performers", (req, res) => {
   Circuit.find({ score: { $ne: -1 } }).sort({ score: -1 }).limit(10).then((high_performers) => {
     res.send(high_performers);
@@ -158,6 +165,24 @@ router.post("/begin_challenge", auth.ensureLoggedIn, (req, res) => {
   Challenge.findById(req.body.challengeId).then((challenge) => {
     console.log(challenge)
     res.send(challenge);
+  });
+});
+
+router.post("/complete_challenge", auth.ensureLoggedIn, (req, res) => {
+  const winning_id = (req.body.challenger_win) ? req.body.challenge.creator_circuit._id : req.body.challenge.recipient_circuit._id
+  const lose_id = (!req.body.challenger_win) ? req.body.challenge.creator_circuit._id : req.body.challenge.recipient_circuit._id
+  Challenge.findById(req.body.challenge._id).then((challenge) => {
+    challenge.state = req.body.challenger_win ? "win" : "lose";
+    challenge.save();
+    Circuit.findById(winning_id).then((winner) => {
+      winner.wins += 1;
+      winner.games += 1;
+      winner.save();
+      Circuit.findById(lose_id).then((loser) => {
+        loser.games += 1;
+        loser.save().then((circuit) => res.send(challenge));
+      });
+    });
   });
 });
 

@@ -101,6 +101,10 @@ class Game extends Component {
     var score_away = 0
     const speed_multiplier = 3
 
+    const circuit_id = this.props.circuit_id
+    var stop = false;
+    const challenge = this.state.challenge
+    
     const PADDLE_WIDTH = 400/8*display_multiplier
     this.setState({PADDLE_WIDTH: PADDLE_WIDTH})
     var context = canvas.getContext('2d');
@@ -129,6 +133,9 @@ class Game extends Component {
     this.setState({paddle: chosen_paddle});
 
     var render = function () {
+
+        if (stop){ return }
+
         context.fillStyle = "#262626";
         context.fillRect(0, 0, width, height);
         context.fillStyle = "#161616";
@@ -294,7 +301,7 @@ class Game extends Component {
         this.random_ball_position = function () {
 
           const yInput = speed_multiplier*display_multiplier;
-          const plusminus = (Math.random()>0.3)? 1 : -1
+          const plusminus = (Math.random()>0.5)? 1 : -1
 
           return [(Math.random()-0.5)*10, plusminus*yInput]
 
@@ -314,12 +321,30 @@ class Game extends Component {
         score_away++
       }
 
+      if (Math.max(score_home, score_away) >= 20 && circuit_id && !(stop)) {
+
+        const score_function_per_20 = (x) => Math.round((1.25*x)**0.5*100);
+        stop = true;
+
+        post("/api/update_score", {circuit_id: circuit_id, score: score_function_per_20(score_home)}).then((challenge) => {
+          location.reload();
+        });
+
+      } else if (Math.max(score_home, score_away) >= 10 && challenge && !(stop)) {
+
+        stop = true;
+
+        post("/api/complete_challenge", {challenge: challenge, challenger_win: (score_home < score_away)}).then((challenge) => {
+          window.location.href = "/"
+        });
+
+      }
 
     }
 
     Ball.prototype.render = function () {
         context.beginPath();
-        context.arc(this.x, this.y,speed_multiplier*display_multiplier, 2 * Math.PI, false);
+        context.arc(this.x, this.y,5*display_multiplier, 2 * Math.PI, false);
         context.fillStyle = "#fed330";
         context.fill();
     };
@@ -347,7 +372,7 @@ class Game extends Component {
         if (this.y < 0 || this.y > 600*display_multiplier) {
             const reset_vals = this.random_ball_position();
             if (this.y<0) { increaseScore(true) }
-            else { score_away++ }
+            else { increaseScore(false) }
             this.x_speed = reset_vals[0];
             this.y_speed = reset_vals[1];
             this.x = 200*display_multiplier;

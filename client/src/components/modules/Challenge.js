@@ -63,8 +63,8 @@ class Challenge extends Component {
       }
 
       state_names = {
-        "lose": "won against",
-        "win": "lost to",
+        "win": "won against",
+        "lose": "lost to",
         "pending": "challenged",
       }
 

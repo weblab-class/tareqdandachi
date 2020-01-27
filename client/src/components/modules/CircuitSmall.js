@@ -41,7 +41,7 @@ class CircuitSmall extends Component {
   }
 
   edit_circuit = () => {
-    location.href = 'circuit-editor/' + this.props._id
+    location.href = '/circuit-editor/' + this.props._id
   }
 
   send_challenge = () => {
