@@ -90,3 +90,39 @@
 .CircuitSmall-container.selected:hover h1 {
   color: white;
 }
+
+.CircuitSmall-container.small {
+  height: 17em;
+}
+
+.CircuitSmall-container.small h1 {
+  font-size: 1.5em;
+  height: 1.2em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.CircuitSmall-container.small h2 {
+  font-size: 1.2em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  height: 2.5em;
+  margin-bottom: 1em;
+}
+
+.CircuitSmall-container.small h5 {
+  font-size: 1em;
+  display: block;
+  max-lines: 2;
+  margin-bottom: 1em;
+}
+
+.CircuitSmall-container.small h5 div {
+  font-size: 1em;
+}

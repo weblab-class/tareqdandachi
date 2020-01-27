@@ -104,7 +104,7 @@ class Game extends Component {
     const circuit_id = this.props.circuit_id
     var stop = false;
     const challenge = this.state.challenge
-    
+
     const PADDLE_WIDTH = 400/8*display_multiplier
     this.setState({PADDLE_WIDTH: PADDLE_WIDTH})
     var context = canvas.getContext('2d');
@@ -120,8 +120,8 @@ class Game extends Component {
 
     var ball = new Ball(200*display_multiplier, 300*display_multiplier);
 
-    const regular_font = "400 " + 10*display_multiplier+"px monospace";
-    const bold_font = "900 " + 10*display_multiplier+"px monospace";
+    const regular_font = "400 " + 10*display_multiplier+"px 'Roboto Mono', monospace";
+    const bold_font = "900 " + 10*display_multiplier+"px 'Roboto Mono', monospace";
 
     var selectedLane = -1;
 
@@ -172,7 +172,7 @@ class Game extends Component {
         }
 
         context.fillStyle = 'rgba(255,255,255,0.3)';
-        context.font = "900 " + 150*display_multiplier+"px Roboto";
+        context.font = "900 " + 125*display_multiplier+"px Roboto";
         context.textAlign = "center";
         context.textBaseline = 'middle';
         context.fillText(score_home+" : "+score_away, canvas.width/2, canvas.height/2);

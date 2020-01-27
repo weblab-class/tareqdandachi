@@ -39,8 +39,12 @@ class ChallengePicker extends Component {
           desc={circuitObj.description}
           score={circuitObj.score}
           userId={this.props.userId}
+          stars={circuitObj.stars}
+          wins={circuitObj.wins}
+          games={circuitObj.games}
           showCreator={ false }
           selected = {circuitObj._id == this.state.selected_id}
+          className="small"
           onclick_function={ () => {
             this.props.set_challenge_inputs(this.state.message, circuitObj);
             this.setState({selected_id: circuitObj._id});
@@ -64,7 +68,8 @@ class ChallengePicker extends Component {
       left: 0,
       right: 0,
       backgroundColor: 'rgba(0,0,0,0.3)',
-      padding: 50
+      padding: 50,
+      overflow: "scroll",
     };
 
     // The modal "window"
@@ -85,6 +90,8 @@ class ChallengePicker extends Component {
       <div className="backdrop" style={backdropStyle}>
         <div className="modal" style={modalStyle}>
           {circuitList}
+
+          <br /><br />
 
           <div className="footer" style={footerStyle}>
             <SpecialButton action={this.props.onClose} title="Cancel" icon={ faTimes } destructive={true} style={{marginRight: "10px"}}/>

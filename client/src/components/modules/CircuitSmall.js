@@ -64,7 +64,7 @@ class CircuitSmall extends Component {
     }
 
     return (
-      <div className={ classToUse } onClick={ this.props.onclick_function !== undefined ? this.props.onclick_function : this.edit_circuit }>
+      <div className={ classToUse+" "+this.props.className } onClick={ this.props.onclick_function !== undefined ? this.props.onclick_function : this.edit_circuit }>
         <h1>{ (this.props.index || "") + " " + this.props.title }</h1>
         <h2>{ this.props.desc }</h2>
         { creatorLink }
