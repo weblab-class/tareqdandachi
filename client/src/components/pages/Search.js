@@ -80,6 +80,7 @@ class Search extends Component {
             showCreator={ false }
             wins={circuitObj.wins}
             stars={circuitObj.stars}
+            games={circuitObj.games}
           />
         ));
       } else {

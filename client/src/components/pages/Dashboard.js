@@ -92,7 +92,9 @@ class Dashboard extends Component {
           userId={this.props.userId}
           showCreator={ false }
           wins={circuitObj.wins}
+          games={circuitObj.games}
           stars={circuitObj.stars}
+          timestamp={circuitObj.timestamp}
         />
       ));
     } else {

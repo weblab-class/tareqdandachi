@@ -59,6 +59,8 @@ class Leaderboard extends Component {
           showCreator={ true }
           wins={circuitObj.wins}
           stars={circuitObj.stars}
+          games={circuitObj.games}
+          timestamp={circuitObj.timestamp}
         />
       ));
     } else {

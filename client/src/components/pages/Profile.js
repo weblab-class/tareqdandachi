@@ -117,6 +117,8 @@ class Profile extends Component {
           showCreator={ false }
           wins={circuitObj.wins}
           stars={circuitObj.stars}
+          games={circuitObj.games}
+          timestamp={circuitObj.timestamp}
         />
       ));
     } else {

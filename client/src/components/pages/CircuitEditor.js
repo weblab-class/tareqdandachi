@@ -384,13 +384,17 @@ class CircuitEditor extends Component {
       <br />
     </center>)
 
+    let creator_name = this.state.circuit.creator_name;
+
+    if (this.state.recipient) { creator_name = this.state.recipient.name }
+
     return (
       <div className="CircuitEditor-container">
         {titleBlocks}
-        <h5><FontAwesomeIcon icon={faUserCircle} className="icon"/> { this.state.circuit.creator_name }</h5>
-        <h5><FontAwesomeIcon icon={faChessRook} className="icon"/> {this.state.circuit.wins} Games</h5>
+        <h5><FontAwesomeIcon icon={faUserCircle} className="icon"/> { creator_name }</h5>
+        <h5><FontAwesomeIcon icon={faChessRook} className="icon"/> Won {this.state.circuit.wins}/{this.state.circuit.games} Games</h5>
         <h5><FontAwesomeIcon icon={faTrophy} className="icon"/> { this.getScoreString(this.state.circuit.score) }</h5>
-        <h5><FontAwesomeIcon icon={faStar} className="icon"/>{this.state.circuit.stars} Stars</h5>
+        <h5><FontAwesomeIcon icon={faStar} className="icon"/>{this.state.circuit.stars} {this.state.circuit.stars == 1 ? "Star" : "Stars"}</h5>
         <h5>Updated <DateDisplayFormatter date={this.state.circuit.timestamp} /></h5>
         <div>
           <h2>Actions</h2>

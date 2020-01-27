@@ -14,30 +14,30 @@ class DateDisplayFormatter extends Component {
     var interval = Math.floor(seconds / 31536000);
 
     if (interval >= 1) {
-      return interval + " years ago";
+      return interval + " year"+(interval>1?"s":"")+" ago";
     }
     interval = Math.floor(seconds / 2592000);
     if (interval >= 1) {
-      return interval + " months ago";
+      return interval + " month"+(interval>1?"s":"")+" ago";
     }
     interval = Math.floor(seconds / 86400);
     if (interval >= 1) {
-      return interval + " days ago";
+      return interval + " day"+(interval>1?"s":"")+" ago";
     }
     interval = Math.floor(seconds / 3600);
     if (interval >= 1) {
-      return interval + " hours ago";
+      return interval + " hour"+(interval>1?"s":"")+" ago";
     }
     interval = Math.floor(seconds / 60);
     if (interval >= 1) {
-      return interval + " minutes ago";
+      return interval + " minute"+(interval>1?"s":"")+" ago";
     }
 
     if (Math.floor(seconds) == 0) {
       return "now"
     }
 
-    return Math.floor(seconds) + " seconds ago";
+    return Math.floor(seconds) + " second"+(seconds>1?"s":"")+" ago";
   }
 
   render() {

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { get } from "../../utilities";
 
 import "./Circuit.css";
+import DateDisplayFormatter from "./DateDisplayFormatter.js"
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faStar, faChessRook, faUserCircle, faTrophy } from '@fortawesome/free-solid-svg-icons'
@@ -66,10 +67,10 @@ class Circuit extends Component {
         <h1 onClick={ this.edit_circuit }>{ (this.props.index || "") + " " + this.props.title }</h1>
         <h2>{ this.props.desc }</h2>
         { creatorLink }
-        <h5><FontAwesomeIcon icon={faChessRook} className="icon"/> {this.props.wins}</h5>
+        <h5><FontAwesomeIcon icon={faChessRook} className="icon"/> {this.props.wins}/{this.props.games}</h5>
         <h5><FontAwesomeIcon icon={faTrophy} className="icon"/> { this.getScoreString(this.props.score) }</h5>
         <h5><FontAwesomeIcon icon={faStar} className="icon"/> {this.props.stars}</h5>
-        <h5>Updated 20 days ago</h5>
+        <h5>Updated <DateDisplayFormatter date={this.props.timestamp} /></h5>
       </div>
     );
   }
