@@ -43,6 +43,7 @@ class CircuitEditor extends Component {
       newDescription: undefined,
       bell_simulation: undefined,
       simulate: undefined,
+      starred: false,
     };
 
   }
@@ -111,6 +112,22 @@ class CircuitEditor extends Component {
     if (oldProps !== this.props) {
       this.getCircuitData();
     }
+  }
+
+  starCircuit = () => {
+
+    post("/api/star_circuit", {circuit_id: this.props.circuitId}).then((circuit) => {
+
+      console.log(circuit.star_givers)
+
+      const starred = circuit.star_givers.includes(this.props.userId);
+
+      this.setState({circuit: circuit, starred: starred});
+
+      toast(this.state.starred ? "Starred Circuit" : "Unstarred Circuit", { type: toast.TYPE.INFO, autoClose: 500, hideProgressBar: true})
+
+    });
+
   }
 
   getScoreString = (score) => {
@@ -333,7 +350,10 @@ class CircuitEditor extends Component {
     const canEditClass = this.state.editMode ? "canEdit" : "";
 
     if (this.props.userId && (this.props.userId !== this.state.circuit.creator_id)) {
-      actions = <SpecialButton action={this.challenge} title="Challenge Algo" icon={ faMedal } />
+      actions = <div className="spaceButtonsOut">
+      <SpecialButton action={this.starCircuit} title={this.state.starred ? "Unstar Circuit" : "Star Circuit"} icon={ faStar } destructive={this.state.starred} />
+      <SpecialButton action={this.challenge} title="Challenge Algo" icon={ faMedal } />
+      </div>
     } else if (is_owner) {
       actions = <div className="spaceButtonsOut">
 

@@ -112,6 +112,20 @@ router.post("/save_circuit_qasm", auth.ensureLoggedIn, (req, res) => {
       });
 });
 
+router.post("/star_circuit", auth.ensureLoggedIn, (req, res) => {
+  Circuit.findById(req.body.circuit_id).then((circuit) => {
+    if (!circuit.star_givers.includes(req.user._id)) {
+      circuit.stars += 1;
+      circuit.star_givers.push(req.user._id);
+      circuit.save() .then((circuit) => res.send(circuit));
+    } else {
+      circuit.stars -= 1;
+      circuit.star_givers = circuit.star_givers.filter((x) => x !== req.user._id);
+      circuit.save() .then((circuit) => res.send(circuit));
+    }
+      });
+});
+
 router.post("/delete_circuit", auth.ensureLoggedIn, (req, res) => {
   Circuit.deleteOne({id: req.body.circuit_id, creator_id: req.user._id}).then((circuit) => {
     res.send(circuit)

@@ -12,6 +12,7 @@ const CircuitSchema = new mongoose.Schema({
   public: { type: Boolean, default: true },
   description: String,
   stars: { type: Number, default: 0 },
+  star_givers: {type: [String], default: []},
   games: { type: Number, default: 0 },
   wins: { type: Number, default: 0 },
   parsed: { type: Boolean, default: false },
