@@ -7,6 +7,8 @@ import "./CircuitLogic.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBackspace, faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
 
+import Loading from "./Loading"
+
 class CircuitSim extends Component {
   constructor(props) {
     super(props);
@@ -72,10 +74,21 @@ class CircuitSim extends Component {
   }
 
   render() {
+    console.log(this.props)
     if (this.props.opponent_simulation_values) {
-      return <>{this.props.home_name} vs {this.props.away_name}</>
+      return <div>
+        <Loading msg="First to reach 10 is the winner. The algorithm score is set by how well it does against the Classical AI." title={this.props.home_name + " vs. " + this.props.away_name}/>
+        <br />
+        <h4 style={{marginBottom: "0.25em", marginLeft: "0.2em"}}>Your Circuit</h4>
+        <img src={"http://tareq.scripts.mit.edu/woop/id:"+this.props.circuit_id+".png"} className="circuitPreview"/>
+      </div>
     }
-    return <>Simulating {this.props.name}</>
+
+    return <div>
+      <Loading msg="First to reach 20 is the winner. The algorithm score is set by how well it does against the Classical AI." title={"Simulating \“"+this.props.name+"\”"}/>
+      <br />
+      <img src={"http://tareq.scripts.mit.edu/woop/id:"+this.props.circuit_id+".png"} className="circuitPreview"/>
+    </div>
   }
 
 }

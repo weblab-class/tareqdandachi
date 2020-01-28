@@ -160,13 +160,13 @@ router.post("/create_challenge", auth.ensureLoggedIn, (req, res) => {
 });
 
 router.get("/active_challenges", (req, res) => {
-  Challenge.find({ state: "pending" }).sort( { timestamp: 1 } ).then((challenges) => {
+  Challenge.find({ state: "pending" }).sort( { timestamp: -1 } ).then((challenges) => {
     res.send(challenges);
   });
 });
 
 router.get("/completed_challenges", (req, res) => {
-  Challenge.find({ state: { $ne: "pending" } }).sort( { timestamp: 1 } ).then((challenges) => {
+  Challenge.find({ state: { $ne: "pending" } }).sort( { timestamp: -1 } ).then((challenges) => {
     res.send(challenges);
   });
 });
@@ -207,7 +207,7 @@ router.get("/reject_challenge", auth.ensureLoggedIn, (req, res) => {
 });
 
 router.get("/all_user_challenges", auth.ensureLoggedIn, (req, res) => {
-  Challenge.find({ $or: [ {creator_id: req.user._id}, {recipient_id: req.user._id} ] }).sort( { timestamp: 1 } ).then((challenges) => {
+  Challenge.find({ $or: [ {creator_id: req.user._id}, {recipient_id: req.user._id} ] }).sort( { timestamp: -1 } ).then((challenges) => {
     res.send(challenges);
   });
 });
@@ -216,7 +216,7 @@ router.post("/search", (req, res) => {
 
   query_regex = { '$regex' : ".*" + req.body.query + ".*", '$options' : 'i' };
 
-  Circuit.find({ $or: [ {title: query_regex}, {description: query_regex} ] }).sort( { timestamp: 1 } ).then((circuits) => {
+  Circuit.find({ $or: [ {title: query_regex}, {description: query_regex} ] }).sort( { sccore: -1 } ).then((circuits) => {
     User.find({ $or: [ {username: query_regex}, {name: query_regex}, {description: query_regex} ] }).then((users) => {
       res.send({users: users, circuits: circuits});
     });

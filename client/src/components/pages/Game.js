@@ -673,6 +673,7 @@ class Game extends Component {
           opponent_simulation_values={this.state.opponent_circuit_loaded}
           home_name={this.state.challenge.recipient_circuit.title}
           away_name={this.state.challenge.creator_circuit.title}
+          circuit_id={this.state.challenge.recipient_circuit._id}
         />
       </div>
     }
@@ -695,6 +696,8 @@ class Game extends Component {
             ball_states={this.state.ball_states}
             simulation_values={this.props.circuit_loaded}
             home_name={this.props.challenge}
+            name={this.props.name}
+            circuit_id={this.props.circuit_id}
         />)}
     </div>
   }
