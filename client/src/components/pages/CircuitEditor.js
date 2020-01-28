@@ -373,12 +373,12 @@ class CircuitEditor extends Component {
       <img src={"http://tareq.scripts.mit.edu/woop/id:"+this.state.circuit._id+".png?"+Date.now()} className="circuitPreviewImage" id="circuitPreviewImage" />
     </>)
 
-    const unrenderedCircuit = (<center>
+    const unrenderedCircuit = (<center className="simulationBlock">
       <br /><br />
       <FontAwesomeIcon icon={faServer} className="icon" style={{display: "inline-block", fontSize: "5em", verticalAlign: "middle", marginRight: "0.5em"}}/>
-      <div style={{display: "inline-block", verticalAlign: "middle"}}>
-        <h3 style={{textAlign: "left"}}>Circuit Being Simulated...</h3>
-        <h4 style={{textAlign: "left"}}>The servers take a while to simulate the quantum circuit.</h4>
+      <div className="simulationMessage">
+        <h3>Circuit Being Simulated...</h3>
+        <h4>The servers take a while to simulate the quantum circuit.</h4>
       </div>
       <br />
       <br />

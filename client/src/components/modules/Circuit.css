@@ -60,3 +60,27 @@
   text-decoration: none;
   color: var(--primary);
 }
+
+@media only screen and (max-width: 1000px) {
+  .Circuit-container {
+    padding: 0.2em 1em;
+    margin: 0px;
+    margin-top: 1em;
+  }
+
+  .Circuit-container h1 {
+    font-size: 18px;
+  }
+
+  .Circuit-container h2 {
+    font-size: 16px;
+  }
+
+  .Circuit-container h5 {
+    font-size: 11px;
+  }
+
+  .Circuit-container h5 div {
+    font-size: 11px;
+  }
+}

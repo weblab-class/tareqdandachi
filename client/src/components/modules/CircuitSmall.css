@@ -16,13 +16,6 @@
   transition: 0.2s;
 }
 
-@media only screen and (max-width: 1000px) {
-  .CircuitSmall-container {
-    width: 85%;
-    padding: 2% 5%;
-  }
-}
-
 .CircuitSmall-container:first-of-type {
   margin-top: var(--l);
 }
@@ -141,4 +134,12 @@
 
 .CircuitSmall-container.small h5 div {
   font-size: 1em;
+}
+
+@media only screen and (max-width: 1000px) {
+  .CircuitSmall-container {
+    width: 80%;
+    padding: 2% 5%;
+    margin-bottom: 1em;
+  }
 }

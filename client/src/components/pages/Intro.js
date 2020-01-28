@@ -28,7 +28,10 @@ class Intro extends Component {
             onFailure={(err) => console.log(err)}
             className="NavBar-link NavBar-login"
             render={renderProps => (
-              <div className="logInBanner" onClick={renderProps.onClick} disabled={renderProps.disabled}><FontAwesomeIcon icon={faGoogle} className="icon" style={{marginRight: "1em"}}/> Log in to create your first Quantum Algorithm</div>
+              <>
+                <div className="logInBanner" onClick={renderProps.onClick} disabled={renderProps.disabled}><FontAwesomeIcon icon={faGoogle} className="icon" style={{marginRight: "1em"}}/> Log in to create your first Quantum Algorithm</div>
+                <div className="logInBanner mobile" onClick={renderProps.onClick} disabled={renderProps.disabled}><FontAwesomeIcon icon={faGoogle} className="icon" style={{marginRight: "1em"}}/> Sign in with Google</div>
+              </>
             )}
           /> }
         <div className="banner"><h1>Craft your own Quantum Algorithm</h1></div>

@@ -55,3 +55,16 @@
   color: var(--primary);
   cursor: pointer;
 }
+
+@media only screen and (max-width: 1000px) {
+  .ProfilePane-container {
+    width: 100%;
+    box-sizing: border-box;
+    margin-left: 0;
+    text-align: center;
+  }
+  .ProfilePane-container .ProfilePane-text {
+    width: 100%;
+    margin-left: 0;
+  }
+}

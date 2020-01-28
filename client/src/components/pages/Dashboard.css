@@ -9,3 +9,16 @@
   display: flex;
   margin: 5px 5em;
 }
+
+@media only screen and (max-width: 1000px) {
+  .qcFlex {
+    margin: 10px 2em;
+  }
+
+  .qcFlex .NewCircuit-button {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    margin-top: 0.5em;
+  }
+}

@@ -143,3 +143,29 @@
   background-color: var(--darkgrey) !important;
   line-height: 1.5em;
 }
+
+@media only screen and (max-width: 1000px) {
+  .learnBlockContainer {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+  }
+  .learnBlockContainer div {
+    width: 90%;
+    margin: 5%;
+    box-sizing: border-box;
+  }
+
+  .learnBlockContainer div img {
+    height: 100px;
+    background-size: 175px 100px;
+    background-position: center;
+    margin-top: 2em;
+  }
+  .learnpage {
+    margin: 0 2em;
+  }
+  .learnpage h1 {
+    margin-left: -0.5em;
+  }
+}

@@ -103,14 +103,15 @@
 @media only screen and (max-width: 800px) {
   .NavBar-container {
     overflow: hidden;
-    position: relative;
+    position: fixed;
     width: 100vw;
     top: 0px;
     left: 0px;
     padding: 0.75em 0px;
-    height: 100%;
+    height: max-content;
     max-height: 2.3em;
     transition: 0.1s all;
+    z-index: 99;
   }
   .NavBar-container.open {
     padding-bottom: 2em;
@@ -135,7 +136,7 @@
     display: block;
     width: 90%;
     padding: 0.3em 0.5em;
-    margin-left: 5%;
+    margin-left: 1.75em;
     margin-top: 1em;
   }
   .NavBar-container .bOrger {

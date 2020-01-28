@@ -107,3 +107,59 @@
   object-fit: contain;
   object-position: left;
 }
+
+.simulationMessage {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: left;
+}
+
+@media only screen and (max-width: 1000px) {
+
+  .CircuitEditor-container {
+    border-bottom: #333 1px solid;
+    margin: 0px 1em;
+    padding: 0px;
+  }
+
+  .CircuitEditor-container:first-of-type {
+    margin-top: 0px;
+  }
+
+  .CircuitEditor-container .actions {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+  }
+
+  .spaceButtonsOut .NewCircuit-button {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0px;
+    margin-bottom: 0.5em;
+    text-align: center;
+  }
+
+  .simulationMessage {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .simulationBlock svg {
+    margin-right: 0em !important;
+  }
+
+  .CircuitEditor-container .qcFlex {
+    display: inline-block;
+    width: 100%;
+  }
+
+  .CircuitEditor-container .qcFlex .NewCircuit-button {
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+    margin-top: 0.5em;
+  }
+
+}

@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 import "../../utilities.css";
-import "./Profile.css";
+import "./Search.css";
 
 import { get, post } from "../../utilities";
 
@@ -81,6 +81,7 @@ class Search extends Component {
             wins={circuitObj.wins}
             stars={circuitObj.stars}
             games={circuitObj.games}
+            timestamp={circuitObj.timestamp}
           />
         ));
       } else {
@@ -114,9 +115,9 @@ class Search extends Component {
 
     }
 
-    return <>
-      <div style={{display: "flex", margin: "2em"}}>
-        <div style={{flexGrow: 1, marginRight: "1em", verticalAlign: "bottom", marginBottom: "-1em"}}>
+    return <div className="searchContainer">
+      <div className="searchForm">
+        <div className="searchField">
           <InputField
             type="text"
             placeholder="Search"
@@ -125,16 +126,16 @@ class Search extends Component {
             onKeyDown={this.confirm_keydown}
           />
         </div>
-        <SpecialButton action={this.search} title="Search" icon={ faSearch } />
+        <SpecialButton action={this.search} title="Search" icon={ faSearch } className="searchButton" />
       </div>
       <br />
-      { this.state.results && <div style={{marginLeft: "3em"}}><h1>People Search</h1><br /></div>}
-      <div style={{marginLeft: "2em"}}>{ peopleList }</div>
-      { this.state.results && <div style={{marginLeft: "3em"}}><h1>Circuit Search</h1></div>}
-      <div style={{marginLeft: "2em"}}>{ circuitList }</div>
+      { this.state.results && <div className="resultTitle"><h1>People Search</h1><br /></div>}
+      <div className="resultSection">{ peopleList }</div>
+      { this.state.results && <div className="resultTitle"><h1>Circuit Search</h1></div>}
+      <div className="resultSection">{ circuitList }</div>
 
       { !(this.state.results) && <center style={{color: "#ccc", marginTop: "15vh"}}><h1>Search For Something</h1><h3>Enter a search query and hit the search button.</h3><br /></center>}
-    </>
+    </div>
   }
 }
 

@@ -15,3 +15,27 @@
   margin-right: 1em;
   transform: translateY(0.1em);
 }
+
+@media only screen and (max-width: 1000px) {
+  .Challenge-container {
+    margin-left: 2em;
+    margin-right: 2em;
+  }
+
+  .Challenge-container .status {
+    font-size: 1.2em;
+    margin-right: 0.5em;
+  }
+
+  .Challenge-container .action_buttons {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+
+  .Challenge-container .action_buttons div {
+    margin-top: 1em;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: center;
+  }
+}

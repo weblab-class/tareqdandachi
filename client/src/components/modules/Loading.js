@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-// TODO: add css later
+import "./Loading.css"
 import { post } from "../../utilities";
 
 class Loading extends Component {
@@ -16,7 +16,7 @@ class Loading extends Component {
     }
 
     return (
-      <center style={{marginTop: "30vh"}}>
+      <center className="Loading-container">
       <img src="https://media2.giphy.com/media/3oKIPAaA76uBrFhnYQ/source.gif" width="50" style={{marginBottom: "2em"}} />
       { title }
       <h3>{ this.props.msg }</h3>
