@@ -16,6 +16,13 @@
   transition: 0.2s;
 }
 
+@media only screen and (max-width: 1000px) {
+  .CircuitSmall-container {
+    width: 85%;
+    padding: 2% 5%;
+  }
+}
+
 .CircuitSmall-container:first-of-type {
   margin-top: var(--l);
 }
@@ -39,6 +46,11 @@
 .CircuitSmall-container:hover h1 {
   color: var(--primary);
   cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 }
 
 .CircuitSmall-container h2 {
@@ -46,6 +58,11 @@
   font-size: 1.1em;
   color: var(--grey);
   margin-bottom: 2em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
 
 }
 
@@ -55,6 +72,7 @@
   margin-top: 0px;
   display: inline-block;
   margin-right: 2em;
+  margin-bottom: 0.5em;
 
 }
 
@@ -92,7 +110,6 @@
 }
 
 .CircuitSmall-container.small {
-  height: 17em;
 }
 
 .CircuitSmall-container.small h1 {
@@ -119,7 +136,6 @@
 .CircuitSmall-container.small h5 {
   font-size: 1em;
   display: block;
-  max-lines: 2;
   margin-bottom: 1em;
 }
 

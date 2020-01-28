@@ -82,3 +82,14 @@ form {
   left: 332px;
   overflow-x: hidden;
 }
+
+@media only screen and (max-width: 800px) {
+  .App-container {
+    margin-top: 0;
+    padding-top: 3em;
+    position: relative;
+    right: 0px;
+    left: 0px;
+    overflow-x: hidden;
+  }
+}

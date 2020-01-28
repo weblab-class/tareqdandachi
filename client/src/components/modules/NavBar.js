@@ -5,7 +5,7 @@ import GoogleLogin, { GoogleLogout } from "react-google-login";
 import NavigationLink from "./NavigationLink.js";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar, faChessKnight, faTachometerAlt, faUserCircle, faUserGraduate, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faMedal, faChessKnight, faTachometerAlt, faUserCircle, faUserGraduate, faSearch } from '@fortawesome/free-solid-svg-icons'
 
 import "./NavBar.css";
 import Logo from "../logo.svg"
@@ -41,15 +41,23 @@ class NavBar extends Component {
 
   render() {
     return (
-      <nav className="NavBar-container" onClick={() => this.updatePath()}>
+      <nav id="NavBar" className="NavBar-container" onClick={(e) => {
+        this.updatePath();
+        if (e.target.id !== "bOrger") {
+          document.getElementById("NavBar").classList.remove("open");
+        }
+      }}>
         <div onClick={() => location.href='/qupong'} className="NavBar-title u-inlineBlock"><img src={Logo} className="NavBar-Logo"/> QuPong</div>
+        <a href="javascript:void(0);" className="bOrger" id="bOrger" onClick={() => document.getElementById("NavBar").classList.toggle("open")}>
+          <FontAwesomeIcon icon={faBars} className="icon" style={{pointerEvents: "none"}}/>
+        </a>
           {this.props.userId && (
             <NavigationLink to={`/`} className="NavBar-link" pathname={this.state.pathname}>
               <FontAwesomeIcon icon={faTachometerAlt} className="icon"/> Dashboard
             </NavigationLink>
           )}
           <NavigationLink to="/leaderboard" className="NavBar-link" pathname={this.state.pathname}>
-            <FontAwesomeIcon icon={faStar} className="icon"/> Leaderboards
+            <FontAwesomeIcon icon={faMedal} className="icon"/> Leaderboards
           </NavigationLink>
           <NavigationLink to="/game" className="NavBar-link" pathname={this.state.pathname}>
             <FontAwesomeIcon icon={faChessKnight} className="icon"/> Play Game
