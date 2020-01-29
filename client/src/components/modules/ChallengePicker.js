@@ -14,8 +14,26 @@ class ChallengePicker extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { message: "You are being challenged by me!", selected_id: undefined }
+    var circ_id = undefined
 
+    if (this.props.circuits) {
+      circ_id = this.props.circuits[0]._id
+    }
+
+    this.state = { message: "You are being challenged by me!", selected_id: circ_id}
+
+  }
+
+  componentDidMount() {
+    if (this.props.circuits!==undefined && this.state.selected_id==undefined) {
+      this.setState({selected_id: this.props.circuits[0]._id})
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.circuits!==undefined && this.state.selected_id==undefined) {
+      this.setState({selected_id: this.props.circuits[0]._id})
+    }
   }
 
   render() {
