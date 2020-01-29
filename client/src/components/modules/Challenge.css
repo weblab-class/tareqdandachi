@@ -16,6 +16,10 @@
   transform: translateY(0.1em);
 }
 
+.challengeAction {
+  margin-right: 10px;
+}
+
 @media only screen and (max-width: 1000px) {
   .Challenge-container {
     margin-left: 2em;
@@ -37,5 +41,9 @@
     width: 100%;
     box-sizing: border-box;
     text-align: center;
+  }
+
+  .challengeAction {
+    margin-right: 0px;
   }
 }

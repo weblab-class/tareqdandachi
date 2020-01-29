@@ -51,8 +51,8 @@ class Challenge extends Component {
 
     let can_accept = (this.props.status == "pending") ?
     <div className="action_buttons">
-      <SpecialButton action={() => this.props.reject(this.props._id)} title="Reject Challenge" icon={ faTimesCircle } destructive={true} style={{marginRight: "10px"}} />
-      <SpecialButton action={() => this.props.accept(this.props._id, this.props.circuit_recipient, this.props.circuit_creator)} title="Accept Challenge" icon={ faCheckCircle } destructive={false} style={{marginRight: "10px"}} />
+      <SpecialButton action={() => this.props.reject(this.props._id)} title="Reject Challenge" icon={ faTimesCircle } destructive={true} className="challengeAction" />
+      <SpecialButton action={() => this.props.accept(this.props._id, this.props.circuit_recipient, this.props.circuit_creator)} title="Accept Challenge" icon={ faCheckCircle } destructive={false} />
     </div> : <></>;
 
     if (this.props.userId !== this.props.creator_id) {

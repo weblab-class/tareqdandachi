@@ -28,3 +28,26 @@ canvas.horizontal {
   margin-top: -3em;
   max-height: 100vh;
 }
+
+@media only screen and (max-width: 1000px) {
+  .gameContainer {
+    display: block;
+    width: 100%;
+    overflow-y: visible;
+  }
+  canvas {
+    width: 100vw;
+    height: 150vw;
+    margin-top: 0px;
+    margin-bottom: -10vh;
+  }
+  .gameContainer .first-half + div {
+    font-size: 0.5em;
+  }
+  .gameContainer .first-half + div .loadingSpinner {
+    height: 4em;
+    width: 4em;
+    margin-top: -2em;
+    margin-bottom: 0px;
+  }
+}

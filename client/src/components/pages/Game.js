@@ -138,7 +138,7 @@ class Game extends Component {
 
         context.fillStyle = "#262626";
         context.fillRect(0, 0, width, height);
-        context.fillStyle = "#161616";
+        context.fillStyle = "#111";
         context.fillRect(0, 40, width, height-90);
 
         for (var i = 0; i < players.length; i++) {
@@ -659,23 +659,25 @@ class Game extends Component {
 
     if (this.props.challengeId !== undefined) {
       if (!(this.state.circuit_loaded && this.state.opponent_circuit_loaded)) { return <Loading msg={ message[Math.floor(Math.random()*message.length)] } /> }
-      return <div className="gameContainer">
-        <div className="first-half">
-          <canvas id="game"></canvas>
+      return <>
+        <div className="gameContainer">
+          <div className="first-half">
+            <canvas id="game"></canvas>
+          </div>
+          <CircuitSim
+            paddle={this.state.paddle}
+            setPaddlePosition={this.setPaddlePosition}
+            setOpponentPaddlePosition={this.setOpponentPaddlePosition}
+            PADDLE_WIDTH={this.state.PADDLE_WIDTH}
+            ball_states={this.state.ball_states}
+            simulation_values={this.state.circuit_loaded}
+            opponent_simulation_values={this.state.opponent_circuit_loaded}
+            home_name={this.state.challenge.recipient_circuit.title}
+            away_name={this.state.challenge.creator_circuit.title}
+            circuit_id={this.state.challenge.recipient_circuit._id}
+          />
         </div>
-        <CircuitSim
-          paddle={this.state.paddle}
-          setPaddlePosition={this.setPaddlePosition}
-          setOpponentPaddlePosition={this.setOpponentPaddlePosition}
-          PADDLE_WIDTH={this.state.PADDLE_WIDTH}
-          ball_states={this.state.ball_states}
-          simulation_values={this.state.circuit_loaded}
-          opponent_simulation_values={this.state.opponent_circuit_loaded}
-          home_name={this.state.challenge.recipient_circuit.title}
-          away_name={this.state.challenge.creator_circuit.title}
-          circuit_id={this.state.challenge.recipient_circuit._id}
-        />
-      </div>
+      </>
     }
 
     return <div className="gameContainer">

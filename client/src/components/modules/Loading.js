@@ -17,7 +17,7 @@ class Loading extends Component {
 
     return (
       <center className="Loading-container">
-      <img src="https://media2.giphy.com/media/3oKIPAaA76uBrFhnYQ/source.gif" width="50" style={{marginBottom: "2em"}} />
+      <img src="https://media2.giphy.com/media/3oKIPAaA76uBrFhnYQ/source.gif" width="50" style={{marginBottom: "2em"}} className="loadingSpinner"/>
       { title }
       <h3>{ this.props.msg }</h3>
       </center>
