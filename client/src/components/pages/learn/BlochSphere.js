@@ -25,7 +25,7 @@ class BlochSphere extends Component {
 
   calculate_multiplier = (x, y) => {
 
-    return Math.floor(Math.abs((y-x)/(x+1))*200)/100
+    return Math.floor(Math.abs(Math.abs(y-x)**0.5/Math.abs(x-0.5))*200)/100
 
   }
 
@@ -70,6 +70,16 @@ class BlochSphere extends Component {
 
     var canvas = this.mount.appendChild( renderer.domElement );
     canvas.style.outline = 0;
+
+    window.addEventListener( 'resize', onWindowResize, false );
+
+    function onWindowResize(){
+
+        camera.aspect = window.innerWidth/1400;
+        camera.updateProjectionMatrix();
+        renderer.setSize( window.innerWidth/2, 700 );
+
+    }
     // var geometry = new THREE.SphereGeometry( 2, 50, 50, 0, Math.PI * 2, 0, Math.PI*22 );
     // var material = new THREE.MeshNormalMaterial();
     var geometry = new THREE.SphereGeometry( 2, 25, 25);
@@ -98,8 +108,8 @@ class BlochSphere extends Component {
     scene.add(cube);
     scene.add(this.current_state);
     scene.add(this.state_final);
-    
-    camera.position.y = 2;
+
+    camera.position.y = 0;
     camera.position.z = 5;
 
     this.reverse_theta = false;
@@ -219,10 +229,12 @@ class BlochSphere extends Component {
 
       }
 
-      render()
       requestAnimationFrame( this.animate );
+      controls.update();
+      render()
     };
     function render() {
+      controls.update();
     	renderer.render(scene, camera);
     }
 

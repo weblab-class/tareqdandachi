@@ -168,4 +168,12 @@
   .learnpage h1 {
     margin-left: -0.5em;
   }
+  .articleButtons {
+    margin-top: 50px;
+  }
+  .articleButtons button {
+    z-index: 40;
+    width: 100%;
+    border-radius: 1em !important;
+  }
 }
