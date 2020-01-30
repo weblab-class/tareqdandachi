@@ -18,6 +18,7 @@ class ChallengePicker extends Component {
 
     if (this.props.circuits) {
       circ_id = this.props.circuits[0]._id
+      this.props.set_challenge_inputs("You are being challenged by me!", this.props.circuits[0]);
     }
 
     this.state = { message: "You are being challenged by me!", selected_id: circ_id}
@@ -27,12 +28,14 @@ class ChallengePicker extends Component {
   componentDidMount() {
     if (this.props.circuits!==undefined && this.state.selected_id==undefined) {
       this.setState({selected_id: this.props.circuits[0]._id})
+      this.props.set_challenge_inputs("You are being challenged by me!", this.props.circuits[0]);
     }
   }
 
   componentDidUpdate() {
     if (this.props.circuits!==undefined && this.state.selected_id==undefined) {
       this.setState({selected_id: this.props.circuits[0]._id})
+      this.props.set_challenge_inputs("You are being challenged by me!", this.props.circuits[0]);
     }
   }
 

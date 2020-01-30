@@ -52,6 +52,7 @@ class Dashboard extends Component {
   }
 
   reject = (id) => {
+    console.log(id)
 
     get(`/api/reject_challenge`, { challengeId: id }).then((challenge) => {
       get(`/api/all_user_challenges`).then((challenges) => this.setState({ challenges: challenges }));
