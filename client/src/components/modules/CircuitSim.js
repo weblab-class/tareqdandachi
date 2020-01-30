@@ -80,7 +80,7 @@ class CircuitSim extends Component {
         <Loading msg="First to reach 10 is the winner. The algorithm score is set by how well it does against the Classical AI." title={this.props.home_name + " vs. " + this.props.away_name}/>
         <br />
         <h4 style={{marginBottom: "0.25em", marginLeft: "0.2em"}}>Your Circuit</h4>
-        <img src={"http://tareq.scripts.mit.edu/woop/id:"+this.props.circuit_id+".png"} className="circuitPreview"/>
+        <img src={"http://tareq.scripts.mit.edu/woop/id:"+this.props.circuit_id+".png?"+Date.now()} className="circuitPreview"/>
       </div>
     }
 
